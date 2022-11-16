@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/custom.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <title>Lending Hat</title>
+    <style>
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* Firefox */
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+    </style>
+  </head>
+
+  <body class="full-width">
+    <header class="bt">
+      <div class="new-container">
+        <div class="flex-box">
+          <div class="logo-box">
+            <a href=""><img src="img/logo.svg" alt="" /></a>
+          </div>
+          <div class="new-btn-box">
+            <a href="" class="dk"
+              ><img src="img/phone-phn.png" alt="" />Call us at
+              1-800-413-3220</a
+            >
+            <a href="" class="mobile-btn"
+              ><img src="img/callbtn.png" alt=""
+            /></a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="banner-section form-banner">
+      <div class="new-container">
+        <div class="heading-box">
+          <h1>Lending Solutions Simplified</h1>
+          <h5>Simple, Smarter Technology for higher approval</h5>
+        </div>
+        <div class="white-form-section">
+          <form action="/create-account" id="regForm">
+            <fieldset class="tab">
+              <div class="bar"></div>
+              <h3>Enter Your Full Name</h3>
+
+              <input
+                type="text"
+                value="<%= user.fullName?user.fullName:'' %>"
+                name="fullName"
+                placeholder=""
+              />
+              <h5 style="color: red; display: none"></h5>
+              <p>
+                Just answer a few questions to see your options. It’s free &
+                won’t impact your credit score.
+              </p>
+              <span class="errormsg"></span>
+            </fieldset>
+
+            <fieldset class="tab">
+              <div class="bar"></div>
+              <h3>Enter Your Company Name</h3>
+              <input
+                type="text"
+                name="cmpName"
+                placeholder=""
+                value="<%= user.cmpName?user.cmpName:'' %>"
+              />
+              <h5 style="color: red; display: none"></h5>
+              <p>
+                You might have a great brand name in your mind, type it here.
+              </p>
+            </fieldset>
+
+            <fieldset class="tab">
+              <div class="bar"></div>
+              <h3>Select Your Business Industry</h3>
+              <input
+                type="text"
+                name="industry"
+                value="<%= user.industry?user.industry:'' %>"
+                placeholder="Select from the following list"
+              />
+              <h5 style="color: red; display: none"></h5>
+              <p>Your industry helps us better recommend relevant partners.</p>
+            </fieldset>
+
+            <fieldset class="tab">
+              <div class="bar"></div>
+              <h3>Select Your Entry Type</h3>
+              <input
+                type="text"
+                name="cmpType"
+                value="<%= user.cmpType?user.cmpType:'' %>"
+                placeholder="Select from the following list"
+              />
+              <h5 style="color: red; display: none"></h5>
+              <p>Select the type of company you wish to form.</p>
+            </fieldset>
+
+            <fieldset class="tab">
+              <div class="bar"></div>
+              <h3>Enter Your Business Start Date</h3>
+              <!-- <div>
+                <input type="date" name="startDate" /> -->
+
+
+              <%  let startDate = user.startDate?[...user.startDate.split('-')[0].split(''),...user.startDate.split('-')[1].split('') ]:[]  %>
+
+              <div class="flex-box">
+
+                                
+                <input
+                  type="number"
+                  name="startDate"
+                  placeholder="M"
+                  value="<%= startDate.length>0?startDate[0]:'' %>"
+                  class="sm"
+                />
+                <input type="number" placeholder="M" class="sm" value="<%= startDate.length>0?startDate[1]:'' %>"/>
+                <hr />
+                <input type="number" placeholder="Y" class="sm" value="<%= startDate.length>0?startDate[2]:'' %>" />
+                <input type="number" placeholder="Y" class="sm" value="<%= startDate.length>0?startDate[3]:'' %>" />
+                <input type="number" placeholder="Y" class="sm" value="<%= startDate.length>0?startDate[4]:'' %>"/>
+                <input type="number" placeholder="Y" class="sm" value="<%= startDate.length>0?startDate[5]:'' %>"/>
+              </div>
+              <h5 style="color: red; display: none"></h5>
+              <p>
+                Please fill in the loan amount you are looking for to make your
+                business go live.
+              </p>
+            </fieldset>
+
+
+            <fieldset class="tab">
+              <div class="bar"></div>
+              <h3>Enter Your Business Zip Code</h3>
+              <% zipcodes = user.zipCode?user.zipCode.split(''):[]  %>
+               
+              <div class="flex-box space">
+                <input
+                  type="text"
+                  placeholder=""
+                  class="col-3"
+                  name="zipCode"
+                  value="<%= zipcodes.length>0?zipcodes[0]:'' %>"
+                />
+                <input type="text" placeholder="" class="col-3" value="<%= zipcodes.length>=1?zipcodes[1]:'' %>" />
+                <input type="text" placeholder="" class="col-3" value="<%= zipcodes.length>=2?zipcodes[2]:'' %>"/>
+                <input type="text" placeholder="" class="col-3" value="<%= zipcodes.length>=3?zipcodes[3]:'' %>"/>
+              </div>
+              <h5 style="color: red; display: none"></h5>
+              <p>
+                Just answer a few questions to see your options. It’s free &
+                won’t impact your credit score.
+              </p>
+            </fieldset>
+
+            <fieldset class="tab">
+              <div class="bar"></div>
+              <h3>Enter your Request Loan Amount</h3>
+              <input
+                type="number"
+                name="loanAmount"
+                placeholder="$"
+                value="<%= user.loanAmount?user.loanAmount:'' %>"
+              />
+              <h5 style="color: red; display: none"></h5>
+              <p>
+                Please fill in the loan amount you are looking for to make your
+                business go live.
+              </p>
+            </fieldset>
+            <fieldset class="tab">
+              <div class="bar"></div>
+              <h3>Enter your Annual Revenue</h3>
+              <input
+                type="text"
+                name="annualRevenue"
+                placeholder="$"
+                value="<%= user.annualRevenue?user.annualRevenue:'' %>"
+              />
+              <h5 style="color: red; display: none"></h5>
+              <p>Take an average of your last few months</p>
+            </fieldset>
+
+            <fieldset class="tab">
+              <div class="bar"></div>
+              <h3>Select Your Credit Score</h3>
+              <div class="selector">
+                <div class="selecotr-item">
+                  <input
+                    type="radio"
+                    id="radio1"
+                    value="Poor (639 or less)"
+                    name="creditScore"
+                    class="selector-item_radio"
+                      
+                    <% if(user.creditScore == "Poor (639 or less)"){ checked }  %>
+                  />
+                  <label for="radio1" class="selector-item_label"
+                    >Poor (639 or less)</label
+                  >
+                </div>
+                <div class="selecotr-item">
+                  <input
+                    type="radio"
+                    id="radio2"
+                    value="Fair (640-679)"
+                    name="creditScore"
+                    class="selector-item_radio"
+                    <% if(user.creditScore == "Fair (640-679)"){ checked }  %>
+                  />
+                  <label for="radio2" class="selector-item_label"
+                    >Fair (640-679)</label
+                  >
+                </div>
+                <div class="selecotr-item">
+                  <input
+                    type="radio"
+                    id="radio3"
+                    name="creditScore"
+                    value="Good (680-719)"
+                    class="selector-item_radio"
+                    <% if(user.creditScore == "Good (680-719)"){ checked }  %>
+                    
+                  />
+                  <label for="radio3" class="selector-item_label"
+                    >Good (680-719)</label
+                  >
+                </div>
+                <div class="selecotr-item">
+                  <input
+                    type="radio"
+                    id="radio4"
+                    name="creditScore"
+                    value="720+"
+                    class="selector-item_radio"
+                    <% if(user.creditScore == "120+"){ checked }  %>
+                  />
+                  <label for="radio4" class="selector-item_label"
+                    >Excellent (720+)</label
+                  >
+                </div>
+              </div>
+              <h5 style="color: red; display: none"></h5>
+              <p>
+                Rest assured, checking rates won't impact your credit score.
+              </p>
+            </fieldset>
+
+            <fieldset class="tab">
+              <div class="bar"></div>
+              <h3>Enter your Purpose of Loan</h3>
+              <input name="purposeOfLone" value="<%= user.purposeOfLone?user.purposeOfLone:'' %>" />
+              <!-- <select name="purposeOfLone" id="purposeOfLone">
+                <option value="" disabled>-------</option>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="fiat">Fiat</option>
+                <option value="audi">Audi</option>
+              </select> -->
+              <h5 style="color: red; display: none"></h5>
+              <p>
+                This helps us match you to the right funding options for your
+                business.
+              </p>
+            </fieldset>
+
+            <fieldset class="tab">
+              <div class="bar"></div>
+              <h3>Enter your Phone Number</h3>
+              <input
+                type="text"
+                name="phone"
+                placeholder="(+1)"
+                value="<%= user.phone?user.phone:'' %>"
+              />
+              <h5 style="color: red; display: none"></h5>
+              <p>
+                We may call you at this number to discuss your personalized loan
+                options
+              </p>
+            </fieldset>
+
+            <fieldset class="tab">
+              <div class="bar"></div>
+              <h3>Upload Your Driving License</h3>
+              <div class="file-box">
+                <input
+                  type="file"
+                  name="drivinLicense"
+                  placeholder="Choose Your File"
+                  class="file"
+                />
+              </div>
+              <h5 style="color: red; display: none"></h5>
+              <p>
+                We may email you at this address with next steps on your loan
+                options
+              </p>
+            </fieldset>
+
+            <fieldset class="tab">
+              <div class="bar"></div>
+              <h3>Upload Previous 3 Months Bank Statements</h3>
+              <div class="file-box">
+                <input
+                  type="file"
+                  name="bankStatemets"
+                  placeholder="Choose Your File"
+                  class="file"
+                />
+              </div>
+              <h5 style="color: red; display: none"></h5>
+              <p>Following file type is applicable in .jpeg .png or pdf</p>
+            </fieldset>
+
+            <fieldset class="tab">
+              <div class="bar"></div>
+              <h3>Upload Your Voided Check</h3>
+              <div class="file-box">
+                <input
+                  type="file"
+                  name="voided"
+                  placeholder="Choose Your File"
+                  class="file"
+                />
+              </div>
+              <h5 style="color: red; display: none"></h5>
+              <p>The check should be self-attested by the account holder.</p>
+            </fieldset>
+
+            <fieldset class="encryption tab">
+              <div class="bar"></div>
+              <h3>Enter Your SSN (243 bit encryption)</h3>
+              <input
+                type="text"
+                name="ssn"
+                placeholder="Enter Your Number"
+                value="<%= user.ssn?user.ssn:'' %>"
+              />
+              <h5 style="color: red; display: none"></h5>
+              <p>
+                Prevent eavesdropping and ensure the security of data
+                transmitted over the Internet.
+              </p>
+              <img src="img/bit-icon.png" alt="" class="mobile-img" />
+            </fieldset>
+
+            <fieldset class="website tab">
+              <div class="bar"></div>
+              <h3>Enter Your Website</h3>
+              <input
+                type="text"
+                name="website"
+                placeholder="Type your website"
+                value="<%= user.website?user.website:'' %>"
+              />
+              <h5 style="color: red; display: none"></h5>
+            </fieldset>
+
+            <fieldset class="tab">
+              <div class="bar"></div>
+              <h3>Enter Your Tax ID #</h3>
+              <input
+                type="text"
+                name="taxId"
+                placeholder="Type your ID"
+                value="<%= user.taxId?user.taxId:'' %>"
+              />
+            </fieldset>
+
+            <!-- type="submit" -->
+            <button
+              type="button"
+              class="next action-button"
+              id="nextBtn"
+              onclick="nextPrev(1)"
+            >
+              Continue
+            </button>
+          </form>
+          <!-- <button  class="next action-button"  id="nextBtn">Continue</button> -->
+
+          <div class="thanks-box">
+            <img src="img/thanks.png" alt="" />
+            <h4>
+              <strong>Thanks for your submission</strong> and we will get back
+              to you with best offer
+            </h4>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="next action-button mobile-btn">
+        Continue
+      </button>
+    </div>
+
+    <div class="desktop-screen">
+      <div class="application-section com-padding">
+        <div class="new-container">
+          <ul class="application-list flex-box">
+            <li>
+              <img src="img/application-icon-1.png" alt="" />
+              <h5>Quick application</h5>
+              <p>
+                Applying is quick and easy, and you can get a credit decision in
+                as little as 3 minutes.
+              </p>
+            </li>
+            <li>
+              <img src="img/application-icon-2.png" alt="" />
+              <h5>Fast access to funds</h5>
+              <p>
+                Funds can be available as soon as the next business day if
+                approved.
+              </p>
+            </li>
+            <li>
+              <img src="img/application-icon-3.png" alt="" />
+              <h5>Flexible repayment terms</h5>
+              <p>
+                Choose your repayment plan each time you draw funds—with no
+                prepayment penalty.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="with-lending-section com-padding">
+        <div class="new-container">
+          <div class="col-5 new-text-box">
+            <h6>With lending hat, its simple</h6>
+            <h2>Minutes not days, that's all it takes with lending hat</h2>
+            <img src="img/with-lending-img.png" alt="" class="mobile-img" />
+            <p>
+              Say goodbye to confusing fees, double meaning, and confusing
+              financial terms. We keep things simple.
+            </p>
+            <a href="" class="new-btn">Get Started</a>
+          </div>
+        </div>
+      </div>
+      <div class="finances-section com-padding">
+        <div class="new-container">
+          <div class="flex-box">
+            <div class="col-6 img-box">
+              <img src="img/finances-img.png" alt="" />
+            </div>
+            <div class="new-text-box col-35">
+              <h6>FINANCES UNDER CONTROL</h6>
+              <h2>Compare loans and find the best one</h2>
+              <img src="img/finances-img.png" alt="" class="mobile-img" />
+              <p>
+                Fill out one request form, get access to exclusive deals and see
+                your chance of being accepted
+              </p>
+              <a href="" class="new-btn">Get Started</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="community-section com-padding">
+        <div class="new-container">
+          <div class="flex-box">
+            <div class="new-text-box col-35">
+              <h6>Community</h6>
+              <h2>Join The Lending Hat Community.</h2>
+              <img src="img/community-img.png" alt="" class="mobile-img" />
+              <p>
+                Fill out one request form, get access to exclusive deals and see
+                your chance of being accepted
+              </p>
+              <a href="" class="new-btn">Get Started</a>
+            </div>
+            <div class="col-5 img-box">
+              <img src="img/community-img.png" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="members-section">
+        <div class="new-container">
+          <div class="heading-box">
+            <h2>
+              Loved by the community,
+              <span>900,000 members and counting</span>
+            </h2>
+            <p>
+              As a lending hat member, you'll get access to exclusive benefits
+              that help set you up for success with your money, community , and
+              career at no cost
+            </p>
+          </div>
+          <div class="members-boxs">
+            <div class="item">
+              <div class="members-box flex-box">
+                <div class="img-box">
+                  <img src="img/members-img.png" alt="" />
+                </div>
+                <div class="new-text-box">
+                  <h4>
+                    "With lending hat, you get much more than a loan. They've
+                    shown that they think about me in their services and truly
+                    value and reward their members"
+                  </h4>
+                  <div class="name">
+                    <h5>ALEX.J. LENDING HAT</h5>
+                    <span>Ambassador</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="members-section success-section com-padding">
+        <div class="new-container">
+          <div class="heading-box">
+            <h6>Success Rate of lending hat</h6>
+            <h2>
+              Join the 500,000 Businesses that have<br />
+              connected to lending hat
+            </h2>
+          </div>
+          <ul class="application-list flex-box">
+            <li>
+              <img src="img/$3b+.png" alt="" />
+              <h5>
+                Working capital<br />
+                unlocked
+              </h5>
+            </li>
+            <li>
+              <img src="img/Group1693.png" alt="" />
+              <h5>
+                Rated 4.8/5 star<br />
+                from 3k+ reviews
+              </h5>
+            </li>
+            <li>
+              <img src="img/Group1695.png" alt="" />
+              <h5>A+ Raiting, Better <br />Business Bureau</h5>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="blue-bar-section"></div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
