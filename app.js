@@ -16,22 +16,24 @@ const client = new plaid.Client({
 });
 
 
-const allowedOrigins = ["http://localhost:3000"];
+const allowedOrigins = ["https://guarded-chamber-83440.herokuapp.com"];
+
 app.use(express.json());
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true);
+app.use(cors())
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       if (!origin) return callback(null, true);
 
-      if (allowedOrigins.indexOf(origin) === -1) {
-        const msg = `The CORS policy for this site does not allow access from the specified Origin`;
-        return callback(new Error(msg), false);
-      }
+//       if (allowedOrigins.indexOf(origin) === -1) {
+//         const msg = `The CORS policy for this site does not allow access from the specified Origin`;
+//         return callback(new Error(msg), false);
+//       }
 
-      return callback(null, true);
-    },
-  })
-);
+//       return callback(null, true);
+//     },
+//   })
+// );
 app.use(cookieparser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
