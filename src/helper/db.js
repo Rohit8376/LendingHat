@@ -1,12 +1,10 @@
 const mongoose = require("mongoose");
 
-const DB = "mongodb+srv://rohit:Rohit@123@cluster0.ferbmyj.mongodb.net/myfirstDatabase?retryWrites=true&w=majority"
-mongoose.connect(DB,{
-  useNewUrlParser:true,
-  useCreateIndex:true,
-  useUnifiedTopology:true,
-  useFindAndModify:false
+const DB = "mongodb+srv://rohit:4wQYafQwUNxkHiRu@cluster0.ferbmyj.mongodb.net/myfirstDatabase?retryWrites=true&w=majority"
 
+mongoose.connect(DB,{
+  useNewUrlParser: true, 
+  useUnifiedTopology: true 
 })
 
 const db = mongoose.connection;

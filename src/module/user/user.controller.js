@@ -154,17 +154,74 @@ exports.registeration = async (req, res) => {
 };
 module.exports.setField = async function (req, res) {
   try {
+    
+    // console.log(req.files)
+    
     const isRecord = await enquiry.findOne({});
-    console.log(req.body);
+
     if (!isRecord) {
       await enquiry.create(req.body);
     } else {
-      const field = req.body;
-      field.step = isRecord.step + 1;
-      await enquiry.updateOne({ $set: field });
+
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>1")
+       
+      
+
+
+      // res.status(201).send({ message: Messages.REQUEST_SUCCESS, data: req.body });
+      if(req.files && req.files['drivinLicense']){
+        obj = {}
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>2")
+
+        fieldname = req.files['drivinLicense'][0].fieldname
+        console.log("fieldname ="+fieldname)
+        console.log("filename ="+req.files['drivinLicense'][0].filename)
+        obj[fieldname] = "uploads/"+req.files['drivinLicense'][0].filename
+        console.log("inside file",obj)
+        
+        await enquiry.updateOne({ $set: obj });
+        res.status(201).send({ message: Messages.REQUEST_SUCCESS, data: obj });
+      } 
+
+      else if(req.files && req.files['bankStatemets']){
+        obj = {}
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>2")
+
+        fieldname = req.files['bankStatemets'][0].fieldname
+        console.log("fieldname ="+fieldname)
+        console.log("filename ="+req.files['bankStatemets'][0].filename)
+        obj[fieldname] = "uploads/"+req.files['bankStatemets'][0].filename
+        console.log("inside file",obj)
+        
+        await enquiry.updateOne({ $set: obj });
+        res.status(201).send({ message: Messages.REQUEST_SUCCESS, data: obj });
+      }
+
+      else if(req.files && req.files['voided']){
+        obj = {}
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>2")
+
+        fieldname = req.files['voided'][0].fieldname
+        console.log("fieldname ="+fieldname)
+        console.log("filename ="+req.files['voided'][0].filename)
+        obj[fieldname] = "uploads/"+req.files['voided'][0].filename
+        console.log("inside file",obj)
+        
+        await enquiry.updateOne({ $set: obj });
+        res.status(201).send({ message: Messages.REQUEST_SUCCESS, data: obj });
+      }
+      
+      else{
+        const field = req.body;
+        field.step = isRecord.step + 1;
+        console.log(field)
+        await enquiry.updateOne({ $set: field });
+        res.status(201).send({ message: Messages.REQUEST_SUCCESS, data: field });
+      }
+
+
     }
     // console.log(req.body);
-    res.status(201).send({ message: Messages.REQUEST_SUCCESS, data: req.body });
   } catch (error) {
     console.log(error);
     return res.status(401).send({ error: error.message });

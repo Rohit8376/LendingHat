@@ -12,24 +12,25 @@ const router = express.Router();
 
 router.get("/", formPage);
 
-router.get(
-  "/create-account",
-  // upload.fields([
-  //   {
-  //     name: "drivinLicense",
-  //     maxCount: 1,
-  //   },
-  //   {
-  //     name: "bankStatemets",
-  //     maxCount: 3,
-  //   },
-  //   {
-  //     name: "voided",
-  //     maxCount: 1,
-  //   },
-  // ]),
-  registeration
-);
-router.post("/modifyformvalue", upload.any(), setField);
+router.get( "/create-account", registeration );
+
+router.post("/modifyformvalue",
+
+upload.fields([
+    {
+      name: "drivinLicense",
+      maxCount: 1,
+    },
+    {
+      name: "bankStatemets",
+      maxCount: 3,
+    },
+    {
+      name: "voided",
+      maxCount: 1,
+    },
+]),setField);
+
+
 router.get("/get-field", getField);
 module.exports = router;

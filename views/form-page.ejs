@@ -59,6 +59,10 @@
         </div>
         <div class="white-form-section">
           <form action="/create-account" id="regForm">
+
+
+           
+
             <fieldset class="tab">
               <div class="bar"></div>
               <h3>Enter Your Full Name</h3>
@@ -128,21 +132,12 @@
               <%  let startDate = user.startDate?[...user.startDate.split('-')[0].split(''),...user.startDate.split('-')[1].split('') ]:[]  %>
 
               <div class="flex-box">
-
-                                
-                <input
-                  type="number"
-                  name="startDate"
-                  placeholder="M"
-                  value="<%= startDate.length>0?startDate[0]:'' %>"
-                  class="sm"
-                />
-                <input type="number" placeholder="M" class="sm" value="<%= startDate.length>0?startDate[1]:'' %>"/>
-                <hr />
-                <input type="number" placeholder="Y" class="sm" value="<%= startDate.length>0?startDate[2]:'' %>" />
-                <input type="number" placeholder="Y" class="sm" value="<%= startDate.length>0?startDate[3]:'' %>" />
-                <input type="number" placeholder="Y" class="sm" value="<%= startDate.length>0?startDate[4]:'' %>"/>
-                <input type="number" placeholder="Y" class="sm" value="<%= startDate.length>0?startDate[5]:'' %>"/>
+                <input type="number" name="startDate" class="sm businessstartdate" value="<%= startDate.length>0?startDate[0]:'' %>"  maxlength="1" placeholder="M"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+                <input type="number" placeholder="M" class="sm businessstartdate businessstartdate2" value="<%= startDate.length>0?startDate[1]:'' %>" maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+                <input type="number" placeholder="Y" class="sm businessstartdate businessstartdate2" value="<%= startDate.length>0?startDate[2]:'' %>" maxlength="1"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+                <input type="number" placeholder="Y" class="sm businessstartdate businessstartdate2" value="<%= startDate.length>0?startDate[3]:'' %>" maxlength="1"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+                <input type="number" placeholder="Y" class="sm businessstartdate businessstartdate2" value="<%= startDate.length>0?startDate[4]:'' %>" maxlength="1"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+                <input type="number" placeholder="Y" class="sm businessstartdate2" value="<%= startDate.length>0?startDate[5]:'' %>" maxlength="1"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
               </div>
               <h5 style="color: red; display: none"></h5>
               <p>
@@ -158,16 +153,11 @@
               <% zipcodes = user.zipCode?user.zipCode.split(''):[]  %>
                
               <div class="flex-box space">
-                <input
-                  type="text"
-                  placeholder=""
-                  class="col-3"
-                  name="zipCode"
-                  value="<%= zipcodes.length>0?zipcodes[0]:'' %>"
-                />
-                <input type="text" placeholder="" class="col-3" value="<%= zipcodes.length>=1?zipcodes[1]:'' %>" />
-                <input type="text" placeholder="" class="col-3" value="<%= zipcodes.length>=2?zipcodes[2]:'' %>"/>
-                <input type="text" placeholder="" class="col-3" value="<%= zipcodes.length>=3?zipcodes[3]:'' %>"/>
+                <input type="text" placeholder="" class="col-3 zipcodeinputfield" name="zipCode" value="<%= zipcodes.length>0?zipcodes[0]:'' %>"  maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
+                <input type="text" placeholder="" class="col-3 zipcodeinputfield" value="<%= zipcodes.length>=1?zipcodes[1]:'' %>"  maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"  />
+                <input type="text" placeholder="" class="col-3 zipcodeinputfield" value="<%= zipcodes.length>=2?zipcodes[2]:'' %>"  maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+                <input type="text" placeholder="" class="col-3 zipcodeinputfield" value="<%= zipcodes.length>=3?zipcodes[3]:'' %>"  maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+                <input type="text" placeholder="" class="col-3 " value="<%= zipcodes.length>=3?zipcodes[4]:'' %>"  maxlength="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
               </div>
               <h5 style="color: red; display: none"></h5>
               <p>
@@ -175,6 +165,8 @@
                 won’t impact your credit score.
               </p>
             </fieldset>
+
+
 
             <fieldset class="tab">
               <div class="bar"></div>
@@ -216,7 +208,7 @@
                     name="creditScore"
                     class="selector-item_radio"
                       
-                    <% if(user.creditScore == "Poor (639 or less)"){ checked }  %>
+                    <%= (user.creditScore == "Poor (639 or less)")?'checked':''  %>
                   />
                   <label for="radio1" class="selector-item_label"
                     >Poor (639 or less)</label
@@ -228,8 +220,8 @@
                     id="radio2"
                     value="Fair (640-679)"
                     name="creditScore"
-                    class="selector-item_radio"
-                    <% if(user.creditScore == "Fair (640-679)"){ checked }  %>
+                    class="selector-item_radio" 
+                    <%= (user.creditScore == "Fair (640-679)")?'checked':''  %>
                   />
                   <label for="radio2" class="selector-item_label"
                     >Fair (640-679)</label
@@ -241,9 +233,8 @@
                     id="radio3"
                     name="creditScore"
                     value="Good (680-719)"
-                    class="selector-item_radio"
-                    <% if(user.creditScore == "Good (680-719)"){ checked }  %>
-                    
+                    class="selector-item_radio" 
+                    <%= (user.creditScore == "Good (680-719)")?'checked':''  %>
                   />
                   <label for="radio3" class="selector-item_label"
                     >Good (680-719)</label
@@ -255,8 +246,8 @@
                     id="radio4"
                     name="creditScore"
                     value="720+"
-                    class="selector-item_radio"
-                    <% if(user.creditScore == "120+"){ checked }  %>
+                    class="selector-item_radio" 
+                    <%= (user.creditScore == "120+")?'checked':''  %>
                   />
                   <label for="radio4" class="selector-item_label"
                     >Excellent (720+)</label
@@ -271,7 +262,7 @@
 
             <fieldset class="tab">
               <div class="bar"></div>
-              <h3>Enter your Purpose of Loan</h3>
+              <h3>Select your Purpose of Loan</h3>
               <input name="purposeOfLone" value="<%= user.purposeOfLone?user.purposeOfLone:'' %>" />
               <!-- <select name="purposeOfLone" id="purposeOfLone">
                 <option value="" disabled>-------</option>
@@ -310,11 +301,14 @@
                 <input
                   type="file"
                   name="drivinLicense"
+                  id="drivinLicense"
                   placeholder="Choose Your File"
                   class="file"
+                  style="text-indent: -9999px;"
                 />
               </div>
               <h5 style="color: red; display: none"></h5>
+              <a href="/<%= user.drivinLicense?user.drivinLicense:'' %>" target="_blank"><%= user.drivinLicense?user.drivinLicense.split('-')[1]:'' %></a>
               <p>
                 We may email you at this address with next steps on your loan
                 options
@@ -327,12 +321,15 @@
               <div class="file-box">
                 <input
                   type="file"
+                  id="bankStatemets"
                   name="bankStatemets"
                   placeholder="Choose Your File"
                   class="file"
+                  style="text-indent: -9999px;"
                 />
               </div>
               <h5 style="color: red; display: none"></h5>
+              <a href="/<%= user.bankStatemets?user.bankStatemets[0]:'' %>" target="_blank"><%= user.bankStatemets?user.bankStatemets[0].split('-')[1]:'' %></a>
               <p>Following file type is applicable in .jpeg .png or pdf</p>
             </fieldset>
 
@@ -343,11 +340,14 @@
                 <input
                   type="file"
                   name="voided"
+                  id="voided"
                   placeholder="Choose Your File"
                   class="file"
+                  style="text-indent: -9999px;"
                 />
               </div>
               <h5 style="color: red; display: none"></h5>
+              <a href="/<%= user.voided?user.voided:'' %>" target="_blank"><%= user.voided?user.voided.split('-')[1]:'' %></a>
               <p>The check should be self-attested by the account holder.</p>
             </fieldset>
 
@@ -359,6 +359,8 @@
                 name="ssn"
                 placeholder="Enter Your Number"
                 value="<%= user.ssn?user.ssn:'' %>"
+                onkeydown="ssnFormatter()"
+                id="ssninputbox"
               />
               <h5 style="color: red; display: none"></h5>
               <p>
@@ -388,8 +390,26 @@
                 name="taxId"
                 placeholder="Type your ID"
                 value="<%= user.taxId?user.taxId:'' %>"
+                
+                onkeydown="taxidFormatter()"
+                id="taxidinputbox"
               />
+              <h5 style="color: red; display: none"></h5>
             </fieldset>
+
+            <fieldset class="tab">
+              <div class="bar"></div>
+              <h3>Link your bank account</h3>
+              <button type="button" class="next action-button" id="link-button" >
+                Link your bank account
+              </button>
+              <p>
+                Just answer a few questions to see your options. It’s free &
+                won’t impact your credit score.
+              </p>
+              <span class="errormsg"></span>
+            </fieldset>
+
 
             <!-- type="submit" -->
             <button
@@ -570,5 +590,78 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="js/main.js"></script>
+
+
+
+
+     <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+
+     <script type="text/javascript">
+      (async function () {
+
+          const fetchLinkToken = async () => {
+              const response = await fetch('/create_link_token', { method: 'POST' });
+              const responseJSON = await response.json();
+              console.log("fetch token >>>>>>>>>>>>>", responseJSON)
+              // alert(`alert ${responseJSON.link_token}`)
+              return responseJSON.link_token;
+          };
+
+          const configs = {
+              // 1. Pass a new link_token to Link.
+              token: await fetchLinkToken(),
+              onSuccess: async function (public_token, metadata) {
+                  // 2a. Send the public_token to your app server.
+                  // The onSuccess function is called when the user has successfully
+                  // authenticated and selected an account to use.
+                  
+                  const transection = await fetch('/get_access_token', {
+                      method: 'POST',
+                      body: JSON.stringify({ public_token: public_token }),
+                  });
+                  
+
+                  console.log("successssssss",transection)
+
+
+              },
+              onExit: async function (err, metadata) {
+                  // 2b. Gracefully handle the invalid link token error. A link token
+                  // can become invalidated if it expires, has already been used
+                  // for a link session, or is associated with too many invalid logins.
+                  if (err != null && err.error_code === 'INVALID_LINK_TOKEN') {
+                      linkHandler.destroy();
+                      linkHandler = Plaid.create({
+                          ...configs,
+                          token: await fetchLinkToken(),
+                      });
+                  }
+                  if (err != null) {
+                      // Handle any other types of errors.
+                      console.log("null>>>>>>>>>>>>>>>>>>>>>>.")
+                  }
+                  // metadata contains information about the institution that the
+                  // user selected and the most recent API request IDs.
+                  // Storing this information can be helpful for support.
+              },
+          };
+
+          var linkHandler = Plaid.create(configs);
+
+          document.getElementById('link-button').onclick = function () {
+              linkHandler.open();
+          };
+      })();
+  
+  
+  
+  </script>
+
+
+
+
+
+
+
   </body>
 </html>
