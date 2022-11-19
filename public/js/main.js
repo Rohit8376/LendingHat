@@ -311,10 +311,8 @@ function isfieldokay() {
       break;
     case "cmpType":
       if (x[0].value == "") {
-        var y = document
-          .getElementsByClassName("tab")
-        [currentTab].getElementsByTagName("h5");
-        console.log(y[0]);
+        var y = document.getElementsByClassName("tab")
+        [currentTab].getElementsByTagName("h5"); 
         y[0].innerHTML = "Please select your entity type.";
         y[0].style.display = "block";
         flag = false;
@@ -510,8 +508,7 @@ function isfieldokay() {
       break;
     case "bankStatemets":
       if (x[0].value == "") {
-        var y = document
-          .getElementsByClassName("tab")
+        var y = document.getElementsByClassName("tab")
         [currentTab].getElementsByTagName("h5");
 
         y[0].innerHTML = "Kindly upload previous 3 months bank statements ";
