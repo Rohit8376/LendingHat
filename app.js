@@ -8,7 +8,7 @@ const plaid = require('plaid');
 // const db = require("./src/helper/db");
 const { ejs2pdf, pdfConverter } = require("./src/helper/pdfService");
 const app = express();
-
+const upload = require('./src/helper/upload')
 const client = new plaid.Client({
   clientID: process.env.PLAID_CLIENT_ID,
   secret: process.env.PLAID_SECRET,
@@ -44,6 +44,10 @@ app.use(express.static(__dirname + "/public"));
 
 app.get('/',(req,res)=>{
   res.render('form-page')
+})
+
+app.post('/create-account',upload.any(), (req,res)=>{
+  res.send({body:req.body, files:req.files, file:req.file})
 })
 
 // app.post('/create_link_token', (req, res) => {

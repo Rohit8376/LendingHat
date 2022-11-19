@@ -53,7 +53,7 @@
         <h5>Simple, Smarter Technology for higher approval</h5>
       </div>
       <div class="white-form-section">
-        <form action="/create-account" id="regForm">
+        <form action="/create-account" id="regForm" enctype="multipart/form-data" method="POST">
 
 
 
@@ -116,7 +116,6 @@
                 <option value="Other">Other</option>
           </select> 
 
-
             <h5 style="color: red; display: none"></h5>
             <p>Your industry helps us better recommend relevant partners.</p>
           </fieldset>
@@ -151,18 +150,18 @@
                   <input type="number" name="startDate" class="sm businessstartdate" maxlength="1" placeholder="M"
                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
 
-                  <input type="number" placeholder="M" class="sm businessstartdate businessstartdate2"  maxlength="1"
+                  <input type="number"  name="startDate"  placeholder="M" class="sm businessstartdate businessstartdate2"  maxlength="1"
                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
                 
-                  <input type="number" placeholder="Y" class="sm businessstartdate businessstartdate2" maxlength="1"
+                  <input type="number"   name="startDate"  placeholder="Y" class="sm businessstartdate businessstartdate2" maxlength="1"
                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
                 
-                  <input type="number" placeholder="Y" class="sm businessstartdate businessstartdate2"  maxlength="1"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+                  <input type="number"  name="startDate"  placeholder="Y" class="sm businessstartdate businessstartdate2"  maxlength="1"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
                
-                  <input type="number" placeholder="Y" class="sm businessstartdate businessstartdate2" maxlength="1"
+                  <input type="number"  name="startDate"  placeholder="Y" class="sm businessstartdate businessstartdate2" maxlength="1"
                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
                 
-                  <input type="number" placeholder="Y" class="sm businessstartdate" maxlength="1"
+                  <input type="number"  name="startDate"  placeholder="Y" class="sm businessstartdate" maxlength="1"
                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
 
               </div>
@@ -184,16 +183,16 @@
                   <input type="text" placeholder="" class="col-3 zipcodeinputfield" name="zipCode"  maxlength="1"
                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
                 
-                  <input type="text" placeholder="" class="col-3 zipcodeinputfield"  maxlength="1"
+                  <input type="text" placeholder="" class="col-3 zipcodeinputfield"  maxlength="1" name="zipCode" 
                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
 
-                  <input type="text" placeholder="" class="col-3 zipcodeinputfield"  maxlength="1"
+                  <input type="text" placeholder="" class="col-3 zipcodeinputfield"  maxlength="1" name="zipCode" 
                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
                 
-                  <input type="text" placeholder="" class="col-3 zipcodeinputfield"  maxlength="1"
+                  <input type="text" placeholder="" class="col-3 zipcodeinputfield"  maxlength="1" name="zipCode" 
                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
                 
-                  <input type="text" placeholder="" class="col-3 zipcodeinputfield" maxlength="1"
+                  <input type="text" placeholder="" class="col-3 zipcodeinputfield" maxlength="1" name="zipCode" 
                   oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
               </div>
               <h5 style="color: red; display: none"></h5>
@@ -286,7 +285,8 @@
           <fieldset class="tab">
             <div class="bar"></div>
             <h3>Enter your Phone Number</h3>
-            <input type="text" name="phone" placeholder="(+1)" />
+            <input type="number" name="phone" placeholder="(+1)"  maxlength="10"
+            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
             <h5 style="color: red; display: none"></h5>
             <p>
               We may call you at this number to discuss your personalized loan
@@ -382,10 +382,7 @@
             next
           </button>
 
-         
-
-        </form>
-         
+        </form> 
 
         <div class="thanks-box">
           <img src="img/thanks.png" alt="" />
