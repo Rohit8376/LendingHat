@@ -76,6 +76,27 @@ if(localStorage.getItem(`${window.location.href+'creditScore'}`)){
 var elts2 = document.getElementsByClassName('zipcodeinputfield')
 Array.from(elts2).forEach(function (elt) {
     elt.addEventListener("keyup", function (event) {
+        valuecheck = ""
+        for (let index = 0; index < elts2.length; index++) {
+            valuecheck += elts2[index].value
+            
+        }
+        $.ajax({
+            url: "https://ziptasticapi.com/"+valuecheck,
+            type: 'GET',
+            dataType: 'json', 
+            success: function(res) {
+                if(res.error){ 
+                    document.getElementById('shoecityofzip').innerHTML =  res.error
+
+                }{
+                    statecity = res.city?.charAt(0).toUpperCase() + res.city?.slice(1).toLowerCase()+ ", " +res.state?.charAt(0).toUpperCase() + res.state?.slice(1).toLowerCase()  
+                    document.getElementById('shoecityofzip').innerHTML =  statecity
+                }
+
+               
+            }
+        });
         // Number 13 is the "Enter" key on the keyboard
         if ((event.keyCode === 13 || elt.value.length == 1) && elt.value.length >= 1) {
             // Focus on the next sibling
@@ -115,7 +136,38 @@ function formattaxid(value) {
 
     return `${taxid.slice(0, 2)}-${taxid.slice(2, 8)}`;
 }
+console.log(document.getElementsByName('zipCode'))
 
+
+
+
+
+function phoneformater() {
+    var inpField = document.getElementById("myInput");
+    var l = inpField.value.length;
+    var key = event.inputType;
+    var toDelete = (key == 'deleteContentBackward' || key == 'deleteContentForward') ? 'delete' : 'keep';
+    //deleteContentBackward and deleteContentForward are obtained when user hits backspace or delete keys. To get extra info from inputType, check: InputEvent https://www.w3schools.com/jsref/obj_inputevent.asp
+    if (toDelete === 'delete') {    
+      inpField.value = "";
+    }
+    switch (l) {
+      case 1:
+        inpField.value = "+1 (" + inpField.value;
+        break
+      case 7:
+        inpField.value = inpField.value + ") ";
+        break
+      case 12:
+        inpField.value = inpField.value + " - ";
+        break
+      case 20:
+        inpField.value = inpField.value.slice(0, l - 1)
+    }
+  }
+
+
+//  
 
 var currentTab = parseInt(localStorage.getItem(`${window.location.href}-currentTab`)) || 0; 
 showTab(currentTab);
@@ -251,6 +303,8 @@ function isfieldokay() {
                 for (let index = 0; index < x.length; index++) {
                     fieldvalue += x[index].value; 
                 }
+
+                
                 
                 if(!checkzipCoderegex.test(fieldvalue)){
                     var y = document
@@ -318,15 +372,16 @@ function isfieldokay() {
               y[0].innerHTML = "Please enter your phone number ";
               y[0].style.display = "block";
               flag = false;
-            }else{
-                phoneregex =  /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
-                if(!phoneregex.test(x[0].value)){
-                     var y = document.getElementsByClassName("tab")[currentTab].getElementsByTagName("h5");
-                     y[0].innerHTML = "You have entered an invalid phone number!";
-                     y[0].style.display = "block";
-                     flag = false;
-                }
-             } 
+            }
+            // else{
+            //     phoneregex =  /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
+            //     if(!phoneregex.test(x[0].replace(/[^\d]/g, ""))){ 
+            //          var y = document.getElementsByClassName("tab")[currentTab].getElementsByTagName("h5");
+            //          y[0].innerHTML = "You have entered an invalid phone number!";
+            //          y[0].style.display = "block";
+            //          flag = false;
+            //     }
+            //  } 
             break;
           
           case "email":
@@ -449,6 +504,15 @@ function isfieldokay() {
     }
     return flag;
 }
+
+
+Object.defineProperty(String.prototype, 'capitalize', {
+    value: function() {
+      return this.charAt(0).toUpperCase() + this.slice(1);
+    },
+    enumerable: false
+  });
+
 
 (async function () { 
     const fetchLinkToken = async () => {

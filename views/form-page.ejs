@@ -200,6 +200,7 @@
               <input type="text" placeholder="" class="col-3 zipcodeinputfield" maxlength="1" name="zipCode"
                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
             </div>
+            <h4 style="color: green;" id="shoecityofzip" style="margin-top: 50px;"></h4>
             <h5 style="color: red; display: none"></h5>
             <p>
               Just answer a few questions to see your options. It’s free &
@@ -288,8 +289,12 @@
           <fieldset class="tab">
             <div class="bar"></div>
             <h3>Enter your Phone Number</h3>
-            <input type="number" name="phone" placeholder="(+1)" maxlength="10"
-              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+            <!-- <input type="number" name="phone" placeholder="(+1)" maxlength="10"
+              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /> -->
+
+
+              <!-- <input type="tel" name="phone" id="phoneW" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}" maxlength="14" placeholder="(xxx) xxx-xxxx" required /> -->
+              <input type="tel" name="phone" id="myInput" oninput="phoneformater()" placeholder="+1 (###) ### - ####" required pattern="\([0-9]{3}\) [0-9]{3} - [0-9]{4}">
             <h5 style="color: red; display: none"></h5>
             <p>
               We may call you at this number to discuss your personalized loan
