@@ -389,6 +389,17 @@ function isfieldokay() {
               flag = false;
             }
             break;
+
+            case "hidden_public_token":
+                if (x[0].value == "") {
+                    var y = document
+                    .getElementsByClassName("tab")
+                    [currentTab].getElementsByTagName("h5"); 
+                    y[0].innerHTML = "Please please your bank account first";
+                    y[0].style.display = "block";
+                    flag = false;
+                }
+                break;
       
           default:
             flag = true;
@@ -428,6 +439,8 @@ function isfieldokay() {
                     }
                     break;
 
+              
+
                 default:
 
                     flag = true;
@@ -437,6 +450,50 @@ function isfieldokay() {
     return flag;
 }
 
+(async function () { 
+    const fetchLinkToken = async () => {
+      const response = await fetch('/create_link_token', { method: 'POST' });
+      const responseJSON = await response.json();
+      console.log("fetch token >>>>>>>>>>>>>", responseJSON) 
+      return responseJSON.link_token;
+    };
 
+    const configs = { 
+      token: await fetchLinkToken(),
+      onSuccess: async function (public_token, metadata) { 
+        const payload = { public_token: public_token, item_id:"636d650b9402bf3b1cdd153a" }
+        
+        document.getElementById("hidden_public_token").value = public_token; 
 
+        // fetch("http://localhost:3000/get_access_token", { 
+        //   method: "POST", 
+        //   body: JSON.stringify({ public_token: public_token, item_id:"636d650b9402bf3b1cdd153a" }),
+        //   headers: {
+        //       "Content-type": "application/json; charset=UTF-8"
+        //   }
+        // }).then(response => response.json()).then(json => {
+        //     console.log("inside success function")
+        //     console.log(json)
+        // });
 
+      },
+      onExit: async function (err, metadata) { 
+        if (err != null && err.error_code === 'INVALID_LINK_TOKEN') {
+          linkHandler.destroy();
+          linkHandler = Plaid.create({
+            ...configs,
+            token: await fetchLinkToken(),
+          });
+        }
+        if (err != null) { 
+          console.log("null>>>>>>>>>>>>>>>>>>>>>>.")
+        } 
+      },
+    };
+
+    var linkHandler = Plaid.create(configs);
+
+    document.getElementById('link-button').onclick = function () {
+      linkHandler.open();
+    };
+  })();
