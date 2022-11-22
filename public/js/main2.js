@@ -351,47 +351,54 @@ function isfieldokay() {
             break;
       //rohit
           case "loanAmount":
-            if (x[0].value == "") {
-              var y = document
-                .getElementsByClassName("tab")
+            var y = document.getElementsByClassName("tab")
               [currentTab].getElementsByTagName("h5");
+            if (x[0].value == "") {
+              
       
               y[0].innerHTML = "Please enter the requested loan amount";
               y[0].style.display = "block";
               flag = false;
+            }else{ 
+              y[0].innerHTML = "";
             }
             break;
           
           case "annualRevenue":
-            if (x[0].value == "") {
-              var y = document
-                .getElementsByClassName("tab")
-              [currentTab].getElementsByTagName("h5");
-      
+            var y = document
+            .getElementsByClassName("tab")
+            [currentTab].getElementsByTagName("h5");
+            if (x[0].value == "") {      
               y[0].innerHTML = " Please enter your annual revenue";
               y[0].style.display = "block";
               flag = false;
+            }else{
+              y[0].innerHTML = "";
             }
             break;
           
           case "creditScore":
+            var y = document.getElementsByClassName("tab")[currentTab].getElementsByTagName("h5");
             if (x[0].value == "") {
-              var y = document.getElementsByClassName("tab")[currentTab].getElementsByTagName("h5");
               y[0].innerHTML = "Please select your credit score";
               y[0].style.display = "block";
               flag = false;
+            }else{
+              y[0].innerHTML=""
             }
             break;
       
           case "purposeOfLone":
+            var y = document
+              .getElementsByClassName("tab")
+            [currentTab].getElementsByTagName("h5");
             if (x[0].value == "") {
-              var y = document
-                .getElementsByClassName("tab")
-              [currentTab].getElementsByTagName("h5");
       
               y[0].innerHTML = "Please enter the purpose of your loan";
               y[0].style.display = "block";
               flag = false;
+            }else{
+              y[0].innerHTML=""
             }
             break;
           
@@ -408,7 +415,7 @@ function isfieldokay() {
             else { 
 
               String.prototype.isNumber = function(){return /^\d+$/.test(this);} 
-              
+
               if(!x[0].value.replaceAll('(',"").replaceAll(')',"").replaceAll('-',"").replaceAll('+',"").replaceAll(' ',"").isNumber()){
                       y[0].innerHTML = "You have entered an invalid phone number!";
                       y[0].style.display = "block";
@@ -432,6 +439,8 @@ function isfieldokay() {
                     y[0].innerHTML = "You have entered an invalid email address!";
                     y[0].style.display = "block";
                     flag = false;
+               }else{
+                y[0].innerHTML = "";
                }
             }
             break;
@@ -527,9 +536,7 @@ function isfieldokay() {
                         y[0].style.display = "block";
                         flag = false;
                     }
-                    break;
-
-              
+                    break; 
 
                 default:
 
@@ -600,9 +607,6 @@ Object.defineProperty(String.prototype, 'capitalize', {
 
 
 
-function ifZipCode(num){ 
-  // alert(num+"")
-  return ziparray.includes(num+"")
-   
-}
-// ifZipCode(000000000000)
+function ifZipCode(num){  
+  return ziparray.includes(num+"") 
+} 

@@ -21,14 +21,17 @@ const client = new plaid.Client({
   env: plaid.environments.sandbox
 });
 
-
 app.use(express.json());
 app.use(cors())
 app.use(cookieparser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
+
+app.use(express.static(`${__dirname}/public`));
 
 // app.use(require("./src/routes"));
 
@@ -69,9 +72,11 @@ app.post('/create-account',
       items=[]
       const isCreated = await enquiry.create({ fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, website, taxId, drivinLicense, voided,transactions,items });
       
+      // const pdfPath = `uploads/pdf/${isCreated.fullName}.pdf`;
       const pdfPath = `public/uploads/pdf/${isCreated.fullName}.pdf`;
       await pdfConverter({ userDetails: isCreated }, pdfPath); 
     
+      // const trasectionpdf = `transection/pdf/transections-${isCreated.fullName}.pdf`;
       const trasectionpdf = `public/transection/pdf/transections-${isCreated.fullName}.pdf`;
       await pdfConverter2({ userDetails: transactions }, trasectionpdf);
 
@@ -82,11 +87,11 @@ app.post('/create-account',
         {
           path: trasectionpdf
         },
-        {
-          path: "public/"+isCreated.voided
+        { 
+          path: "./public/"+isCreated.voided
         },
-        {
-          path: "public/"+isCreated.drivinLicense
+        { 
+          path: "./public/"+isCreated.drivinLicense
         },
       ];
 
