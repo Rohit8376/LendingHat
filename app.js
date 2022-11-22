@@ -76,12 +76,12 @@ app.post('/create-account',
       const isCreated = await enquiry.create({ fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, website, taxId, drivinLicense, voided,transactions,items });
       
       // const pdfPath = `uploads/pdf/${isCreated.fullName}.pdf`;
-      const pdfPath = `public/uploads/pdf/${isCreated.fullName}.pdf`;
-      await pdfConverter({ userDetails: isCreated }, pdfPath); 
+      // const pdfPath = `public/uploads/pdf/${isCreated.fullName}.pdf`;
+      // await pdfConverter({ userDetails: isCreated }, pdfPath); 
     
-      // const trasectionpdf = `transection/pdf/transections-${isCreated.fullName}.pdf`;
-      const trasectionpdf = `public/transection/pdf/transections-${isCreated.fullName}.pdf`;
-      await pdfConverter2({ userDetails: transactions }, trasectionpdf);
+      // // const trasectionpdf = `transection/pdf/transections-${isCreated.fullName}.pdf`;
+      // const trasectionpdf = `public/transection/pdf/transections-${isCreated.fullName}.pdf`;
+      // await pdfConverter2({ userDetails: transactions }, trasectionpdf);
 
       // const attachments = [
       //   {
@@ -97,8 +97,6 @@ app.post('/create-account',
       //     path: "./public/"+isCreated.drivinLicense
       //   },
       // ];
-
-
 
       // const options = {
       //   to: ['rohit.kp.pandey@gmail.com'], 
