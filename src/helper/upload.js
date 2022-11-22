@@ -4,8 +4,7 @@ const path = require("path");
 // multer confi for file upload
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    console.log(file)
-    cb(null, "public/uploads/");
+    cb(null, "public/uploads");
   },
 
   filename: function (req, file, cb) {

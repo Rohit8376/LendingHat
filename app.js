@@ -8,12 +8,12 @@ const path = require("path");
 const moment = require('moment');
 const plaid = require('plaid');
 const db = require("./src/helper/db");
-const { ejs2pd2, pdfConverte2, pdfConverter2 } = require("./src/helper/transections");
-const { ejs2pdf, pdfConverter } = require("./src/helper/pdfService");
+const { pdfConverter2 } = require("./src/helper/transections");
+const { pdfConverter } = require("./src/helper/pdfService");
 const app = express();
 const upload = require('./src/helper/upload');
 const enquiry = require("./src/model/enquiry");
-// const { pdfConverter } = require("./src/helper/pdfService");
+ 
 const { Promise } = require("mongoose");
 const client = new plaid.Client({
   clientID: process.env.PLAID_CLIENT_ID,
@@ -27,18 +27,9 @@ app.use(cookieparser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// app.use(express.static(`/public`));
-
-// 
-
 app.set("view engine", "ejs");
-app.use(express.static('public'));
-
-
-// app.use(express.static(__dirname + "/public"));
-
-
-// app.use(require("./src/routes"));
+app.set("views", path.join(__dirname, "views"));
+app.use(express.static(`${__dirname}/public`));
 
 app.get('/', (req, res) => {
   res.render('form-page')
@@ -51,10 +42,6 @@ app.post('/create-account',
   //     maxCount: 1,
   //   },
   //   {
-  //     name: "bankStatemets",
-  //     maxCount: 3,
-  //   },
-  //   {
   //     name: "voided",
   //     maxCount: 1,
   //   },
@@ -62,9 +49,10 @@ app.post('/create-account',
   async (req, res) => {
     const bodyData = req.body
     var { fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, website, taxId } = req.body;
-
-    startDate = startDate[0] + startDate[1] + "-" + startDate[2] + startDate[3] + startDate[4] + startDate[5]
-    zipCode = zipCode[0] + zipCode[1] + zipCode[2] + zipCode[3] + zipCode[4]
+    console.log(startDate)
+    console.log(startDate)
+    // startDate = startDate[0] + startDate[1] + "-" + startDate[2] + startDate[3] + startDate[4] + startDate[5]
+    // zipCode = zipCode[0] + zipCode[1] + zipCode[2] + zipCode[3] + zipCode[4]
 
 
 
