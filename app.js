@@ -45,20 +45,20 @@ app.get('/', (req, res) => {
 })
 
 app.post('/create-account',
-  upload.fields([
-    {
-      name: "drivinLicense",
-      maxCount: 1,
-    },
-    {
-      name: "bankStatemets",
-      maxCount: 3,
-    },
-    {
-      name: "voided",
-      maxCount: 1,
-    },
-  ]),
+  // upload.fields([
+  //   {
+  //     name: "drivinLicense",
+  //     maxCount: 1,
+  //   },
+  //   {
+  //     name: "bankStatemets",
+  //     maxCount: 3,
+  //   },
+  //   {
+  //     name: "voided",
+  //     maxCount: 1,
+  //   },
+  // ]),
   async (req, res) => {
     const bodyData = req.body
     var { fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, website, taxId } = req.body;
