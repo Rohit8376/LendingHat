@@ -15,20 +15,21 @@ const { SERVICE_EMAIL } = require("../constants/constants");
 module.exports.sendEmail = async function (options) {
   try {
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
+      // host: "smtp.gmail.com",
+      // port: 465,
+      // secure: true,
+      service: "gmail",
       auth: {
-        user: SERVICE_EMAIL.USER,
-        pass: SERVICE_EMAIL.PASSWORD,
+        user: "resetrelai@gmail.com",
+        pass: "orlbdcrjrjalavji"
       },
     });
 
     const mailOptions = {
-      from: `"LENDING_HAT Admin" <${SERVICE_EMAIL.FROM}>`,
+      from: "resetrelai@gmail.com",
       to: options.to,
       subject: options.subject,
-      html: options.html,
+      html: options?.html,
       attachments: options.attachments,
     };
 

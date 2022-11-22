@@ -49,8 +49,8 @@ exports.formPage = async (req, res) => {
     //   voided,
     //   bankStatemets,
     // };
-     
-    res.render("form-page", { user:isEnquiry?isEnquiry:{} });
+
+    res.render("form-page", { user: isEnquiry ? isEnquiry : {} });
     // res.send({ user:isEnquiry?isEnquiry:{} });
 
 
@@ -72,27 +72,22 @@ exports.formPage = async (req, res) => {
 
 exports.registeration = async (req, res) => {
   try {
-    // const {
-    //   fullName,
-    //   cmpName,
-    //   industry,
-    //   cmpType,
-    //   startDate,
-    //   zipCode,
-    //   loanAmount,
-    //   annualRevenue,
-    //   creditScore,
-    //   purposeOfLone,
-    //   phone,
-    //   email,
-    //   ssn,
-    //   website,
-    //   taxId,
-    // } = req.body;
+    const {fullName,cmpName,industry,cmpType,startDate,zipCode,loanAmount,annualRevenue,creditScore,purposeOfLone,phone,email,ssn,website,taxId} = req.body;
     // const file = req.files;
     // const drivinLicense = file?.drivinLicense[0].path;
     // const voided = file?.voided[0].path;
     // const bankStatemets = file?.bankStatemets[0].path;
+
+    
+    if(req.files && req.files['drivinLicense']){ 
+      drivinLicense = "uploads/"+req.files['drivinLicense'][0].filename 
+    }else if(req.files && req.files['bankStatemets']){ 
+      bankStatemets= "uploads/"+req.files['bankStatemets'][0].filename      
+    }
+    else if(req.files && req.files['voided']){ 
+      voided = "uploads/"+req.files['voided'][0].filename 
+    }
+    
     // const isCreated = await enquiry.create({
     //   fullName,
     //   cmpName,
@@ -114,6 +109,8 @@ exports.registeration = async (req, res) => {
     //   bankStatemets,
     // });
     //console.log(req.query);
+
+
     const isCreated = await enquiry.findOne({});
     if (!isCreated) throw new Error(messages.FAILED_TO_FETCH);
     const pdfPath = `./uploads/pdf/${isCreated.fullName}.pdf`;
@@ -135,28 +132,32 @@ exports.registeration = async (req, res) => {
       // },
     ];
 
-    const options = {
-      to: `shyamnarayan0987@gmail.com`,
-      subject: "Your from successfully submitted",
+    // const options = {
+    //   to: `shyamnarayan0987@gmail.com`,
+    //   subject: "Your from successfully submitted",
 
-      attachments: attachments,
-    };
+    //   attachments: attachments,
+    // };
 
-    const isSend = await sendEmail(options);
+    // const isSend = await sendEmail(options);
 
     return res.status(201).json({
       message: Messages.DATA_CREATED,
-      data: isSend.accepted,
+      // data: isSend.accepted,
     });
   } catch (error) {
     return res.status(401).send({ error: error.message });
   }
 };
+
+
+
+
 module.exports.setField = async function (req, res) {
   try {
-    
+
     // console.log(req.files)
-    
+
     const isRecord = await enquiry.findOne({});
 
     if (!isRecord) {
@@ -164,54 +165,50 @@ module.exports.setField = async function (req, res) {
     } else {
 
       console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>1")
-       
-      
 
 
-      // res.status(201).send({ message: Messages.REQUEST_SUCCESS, data: req.body });
-      if(req.files && req.files['drivinLicense']){
+
+
+      if (req.files && req.files['drivinLicense']) {
         obj = {}
-        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>2")
-
         fieldname = req.files['drivinLicense'][0].fieldname
-        console.log("fieldname ="+fieldname)
-        console.log("filename ="+req.files['drivinLicense'][0].filename)
-        obj[fieldname] = "uploads/"+req.files['drivinLicense'][0].filename
-        console.log("inside file",obj)
-        
+        console.log("fieldname =" + fieldname)
+        console.log("filename =" + req.files['drivinLicense'][0].filename)
+        obj[fieldname] = "uploads/" + req.files['drivinLicense'][0].filename
+        console.log("inside file", obj)
         await enquiry.updateOne({ $set: obj });
         res.status(201).send({ message: Messages.REQUEST_SUCCESS, data: obj });
-      } 
+      }
 
-      else if(req.files && req.files['bankStatemets']){
+      else if (req.files && req.files['bankStatemets']) {
         obj = {}
         console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>2")
 
         fieldname = req.files['bankStatemets'][0].fieldname
-        console.log("fieldname ="+fieldname)
-        console.log("filename ="+req.files['bankStatemets'][0].filename)
-        obj[fieldname] = "uploads/"+req.files['bankStatemets'][0].filename
-        console.log("inside file",obj)
-        
+        console.log("fieldname =" + fieldname)
+        console.log("filename =" + req.files['bankStatemets'][0].filename)
+        obj[fieldname] = "uploads/" + req.files['bankStatemets'][0].filename
+        console.log("inside file", obj)
+
         await enquiry.updateOne({ $set: obj });
         res.status(201).send({ message: Messages.REQUEST_SUCCESS, data: obj });
       }
 
-      else if(req.files && req.files['voided']){
+      else if (req.files && req.files['voided']) {
         obj = {}
         console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>2")
 
         fieldname = req.files['voided'][0].fieldname
-        console.log("fieldname ="+fieldname)
-        console.log("filename ="+req.files['voided'][0].filename)
-        obj[fieldname] = "uploads/"+req.files['voided'][0].filename
-        console.log("inside file",obj)
-        
+        console.log("fieldname =" + fieldname)
+        console.log("filename =" + req.files['voided'][0].filename)
+        obj[fieldname] = "uploads/" + req.files['voided'][0].filename
+        console.log("inside file", obj)
+
         await enquiry.updateOne({ $set: obj });
         res.status(201).send({ message: Messages.REQUEST_SUCCESS, data: obj });
       }
-      
-      else{
+
+      else {
         const field = req.body;
         field.step = isRecord.step + 1;
         console.log(field)
@@ -227,6 +224,8 @@ module.exports.setField = async function (req, res) {
     return res.status(401).send({ error: error.message });
   }
 };
+
+
 module.exports.getField = async function (req, res) {
   try {
     const isValue = await enquiry.findOne({}, req.body);

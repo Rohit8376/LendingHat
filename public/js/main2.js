@@ -212,6 +212,23 @@ function nextPrev(n) {
     showTab(currentTab);
 }
 
+ 
+  $("#regForm").submit(function(e) {
+    alert("please wait")
+    e.preventDefault();
+    var actionurl = e.currentTarget.action; 
+    $.ajax({
+            url: '/create-account',
+            type: 'post',
+            dataType: 'application/json',
+            data: $("#regForm").serialize(),
+            success: function(data) {
+               alert(JSON.stringify(date))
+            }
+    });
+  })
+
+
 $('.businessstartdate').on("keyup", function (e) {
     var $input = $(this);
     if ($input.val().length == 0 && e.which == 8) {
@@ -278,8 +295,12 @@ function isfieldokay() {
                 yy += x[i].value; 
               } 
             }
-             
-            if (parseInt(mon) <= 0 || parseInt(mon) > 12 || parseInt(yy) > parseInt(new Date().getFullYear())) {
+            if(fieldvalue=""){
+              y[0].innerHTML = `please enter business start date`;
+              y[0].style.display = "block";
+              flag = false;
+            }
+            else if (parseInt(mon) <= 0 || parseInt(mon) > 12 || parseInt(yy) > parseInt(new Date().getFullYear())) {
               y[0].innerHTML = `Error! Please enter months between 1 to 12 only/ Please enter the year before ${new Date().getFullYear()}`;
               y[0].style.display = "block";
               flag = false;

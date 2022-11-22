@@ -2,8 +2,8 @@ const puppeteer = require("puppeteer");
 const fs = require("fs");
 const ejs = require("ejs");
 // const logo = fs.readFileSync("./src/template/Hatlogo.PNG").toString("base64");
-
-exports.pdfConverter = async (information, pdfPath, templatePath) => {
+exports.pdfConverter2 = async (information, pdfPath, templatePath) => {
+  console.log("inside")
   // Create browser instance
   const browser = await puppeteer.launch();
 
@@ -11,31 +11,33 @@ exports.pdfConverter = async (information, pdfPath, templatePath) => {
   const page = await browser.newPage();
 
   // Get HTML content
-  const html = ejs2html(information, templatePath); //fs.readFileSync('./sample.html', 'utf-8');
+  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+  const html = ejs2html2(information, templatePath); //fs.readFileSync('./sample.html', 'utf-8');
+  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>2")
 
   // Set HTML as page content
   await page.setContent(html, { waitUntil: "domcontentloaded" });
 
   // Save PDF File
-const datasavepdf =   await page.pdf({
-    path: pdfPath || "./src/template/result_from_html.pdf",
-    format: "LEDGER", 
-    printBackground: true,
-  });
-  // console.log(datasavepdf)
+  const datasavepdf =   await page.pdf({
+      path: pdfPath || "./src/transection/result_from_html.pdf",
+      format: "LEDGER", 
+      printBackground: true,
+    });
+    console.log(datasavepdf)
 
   // Close browser instance
   await browser.close();
 };
 
-function ejs2html(information, templatePath) {
+function ejs2html2(information, templatePath) {
   const data = fs.readFileSync(
-    templatePath || "./src/template/pdfTemplate.ejs",
+    templatePath || "./src/template/transection.ejs",
     "utf8"
   );
   var ejs_string = data,
     template = ejs.compile(ejs_string),
     de = template(information);
-    // console.log(de)
+    console.log(de)
   return de;
 }

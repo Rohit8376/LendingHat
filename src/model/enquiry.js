@@ -35,8 +35,8 @@ const enquirySchema = new mongoose.Schema(
       type: String,
       validate(value) {
         validate1(value, Messages.BUSINESS_START_DATE);
-        if (!validator.isDate(value))
-          throw new Error(Messages.BUSINESS_START_DATE);
+        // if (!validator.isDate(value))
+        //   throw new Error(Messages.BUSINESS_START_DATE);
       },
     },
     zipCode: {
@@ -49,8 +49,8 @@ const enquirySchema = new mongoose.Schema(
       type: String,
       validate(value) {
         validate1(value, Messages.LOAN_AMOUNT_EMPTY);
-        if (!validator.isNumber(value))
-          throw new Error(Messages.LOAN_AMOUNT_NOT_NUMBER);
+        // if (!validator.isNumber(value))
+        //   throw new Error(Messages.LOAN_AMOUNT_NOT_NUMBER);
       },
     },
     annualRevenue: {
@@ -77,18 +77,19 @@ const enquirySchema = new mongoose.Schema(
         validate1(value, Messages.INVALID_PHONE);
       },
     },
-    email: {
-      type: String,
-      unique: true,
-      index: true,
-      lowercase: true,
-      trim: true,
-      validate(value) {
-        if (!validator.isEmail(value)) {
-          throw new Error("Email is invalid!");
-        }
-      },
-    },
+    // email: {
+    //   type: String,
+    //   default:null
+    //   // unique: true,
+    //   // index: true,
+    //   // lowercase: true,
+    //   // trim: true,
+    //   // validate(value) {
+    //   //   if (!validator.isEmail(value)) {
+    //   //     throw new Error("Email is invalid!");
+    //   //   }
+    //   // },
+    // },
     ssn: {
       type: String,
       validate(value) {
@@ -129,6 +130,16 @@ const enquirySchema = new mongoose.Schema(
         },
       },
     ],
+
+    transactions: {
+      type: Array,
+      default:[]
+    },
+    items:{
+      type: Array,
+      default:[]
+    },
+
     step: {
       type: Number,
       default: 0,
