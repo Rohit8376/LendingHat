@@ -33,6 +33,8 @@ app.use(bodyParser.json());
 
 app.set("view engine", "ejs");
 app.use(express.static('public'));
+
+
 // app.use(express.static(__dirname + "/public"));
 
 
@@ -64,16 +66,20 @@ app.post('/create-account',
     startDate = startDate[0] + startDate[1] + "-" + startDate[2] + startDate[3] + startDate[4] + startDate[5]
     zipCode = zipCode[0] + zipCode[1] + zipCode[2] + zipCode[3] + zipCode[4]
 
-    let drivinLicense = "uploads/" + req.files['drivinLicense'][0].filename
-    let voided = "uploads/" + req.files.voided[0].filename
-    let email = "rohit.kp.pandey@gmail.com"
-    await enquiry.deleteMany({})
+
+
+    res.send('ok')
+
+    // let drivinLicense = "uploads/" + req.files['drivinLicense'][0].filename
+    // let voided = "uploads/" + req.files.voided[0].filename
+    // let email = "rohit.kp.pandey@gmail.com"
+    // await enquiry.deleteMany({})
 
     
-    transectionList(req.body.hidden_public_token).then(async (data) => {      
-      transactions = data.fechedtransectionsList 
-      items=[]
-      const isCreated = await enquiry.create({ fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, website, taxId, drivinLicense, voided,transactions,items });
+    // transectionList(req.body.hidden_public_token).then(async (data) => {      
+    //   transactions = data.fechedtransectionsList 
+    //   items=[]
+    //   const isCreated = await enquiry.create({ fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, website, taxId, drivinLicense, voided,transactions,items });
       
       // const pdfPath = `uploads/pdf/${isCreated.fullName}.pdf`;
       // const pdfPath = `public/uploads/pdf/${isCreated.fullName}.pdf`;
@@ -106,18 +112,18 @@ app.post('/create-account',
   
       // const isSend = await sendEmail(options);
 
-      const finaldata = { 
-        pdfPath:pdfPath,
-        trasectionpdf:trasectionpdf,
-        drivinLicense:isCreated.drivinLicense,
-        voided:isCreated.voided
-      }
+    //   const finaldata = { 
+    //     pdfPath:pdfPath,
+    //     trasectionpdf:trasectionpdf,
+    //     drivinLicense:isCreated.drivinLicense,
+    //     voided:isCreated.voided
+    //   }
 
-      res.send({ ffff:"isSend" })
+    //   res.send({ ffff:"isSend" })
       
-    }).catch(err => {
-      res.send(err)
-    })
+    // }).catch(err => {
+    //   res.send(err)
+    // })
  
   })
  
