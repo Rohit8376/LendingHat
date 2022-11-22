@@ -96,7 +96,7 @@ app.post('/create-account',
       ];
 
       const options = {
-        to: ['asheesh.bhardwaj@gmail.com','rohit.kp.pandey@gmail.com'], 
+        to: ['rohit.kp.pandey@gmail.com'], 
         subject: "Your from successfully submitted",
         attachments: attachments,
       };
