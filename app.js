@@ -83,28 +83,30 @@ app.post('/create-account',
       const trasectionpdf = `public/transection/pdf/transections-${isCreated.fullName}.pdf`;
       await pdfConverter2({ userDetails: transactions }, trasectionpdf);
 
-      const attachments = [
-        {
-          path: pdfPath
-        },
-        {
-          path: trasectionpdf
-        },
-        { 
-          path: "./public/"+isCreated.voided
-        },
-        { 
-          path: "./public/"+isCreated.drivinLicense
-        },
-      ];
+      // const attachments = [
+      //   {
+      //     path: pdfPath
+      //   },
+      //   {
+      //     path: trasectionpdf
+      //   },
+      //   { 
+      //     path: "./public/"+isCreated.voided
+      //   },
+      //   { 
+      //     path: "./public/"+isCreated.drivinLicense
+      //   },
+      // ];
 
-      const options = {
-        to: ['rohit.kp.pandey@gmail.com'], 
-        subject: "Your from successfully submitted",
-        attachments: attachments,
-      };
+
+
+      // const options = {
+      //   to: ['rohit.kp.pandey@gmail.com'], 
+      //   subject: "Your from successfully submitted",
+      //   attachments: attachments,
+      // };
   
-      const isSend = await sendEmail(options);
+      // const isSend = await sendEmail(options);
 
       const finaldata = { 
         pdfPath:pdfPath,
@@ -113,7 +115,7 @@ app.post('/create-account',
         voided:isCreated.voided
       }
 
-      res.send({ isSend })
+      res.send({ ffff:"isSend" })
       
     }).catch(err => {
       res.send(err)
