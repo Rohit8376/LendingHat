@@ -55,14 +55,11 @@
       <div class="white-form-section">
         <form action="/create-account" id="regForm" enctype="multipart/form-data" method="POST">
 
-
-
-
           <fieldset class="tab">
             <div class="bar"></div>
             <h3>Enter Your Full Name</h3>
             <input type="text" name="fullName" id="fullnameInput" placeholder="Full name" />
-            <h5 style="color: red; display: none"></h5>
+            <h5 style="color: red; display: none" id="nameinputerror"></h5>
             <p>
               Just answer a few questions to see your options. It’s free &
               won’t impact your credit score.
@@ -558,6 +555,9 @@
     </div>
     <div class="blue-bar-section"></div>
   </div>
+  
+  
+  <script src="js/invalid-zips.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
   <script src="js/main2.js"></script>

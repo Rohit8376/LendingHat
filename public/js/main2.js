@@ -79,24 +79,23 @@ Array.from(elts2).forEach(function (elt) {
         valuecheck = ""
         for (let index = 0; index < elts2.length; index++) {
             valuecheck += elts2[index].value
-            
         }
-        $.ajax({
+        if(valuecheck.length > 3){
+          $.ajax({
             url: "https://ziptasticapi.com/"+valuecheck,
             type: 'GET',
             dataType: 'json', 
             success: function(res) {
                 if(res.error){ 
                     document.getElementById('shoecityofzip').innerHTML =  res.error
-
-                }{
-                    statecity = res.city?.charAt(0).toUpperCase() + res.city?.slice(1).toLowerCase()+ ", " +res.state?.charAt(0).toUpperCase() + res.state?.slice(1).toLowerCase()  
-                    document.getElementById('shoecityofzip').innerHTML =  statecity
-                }
-
-               
+                }{                    
+                    statecity = res.error ? res.error : (res?.city?.charAt(0).toUpperCase() + res?.city?.slice(1).toLowerCase()+ ", " +res?.state?.charAt(0).toUpperCase() + res?.state?.slice(1).toLowerCase())  
+                    document.getElementById('shoecityofzip').innerHTML =  statecity?statecity:""
+                }    
             }
         });
+        }
+        
         // Number 13 is the "Enter" key on the keyboard
         if ((event.keyCode === 13 || elt.value.length == 1) && elt.value.length >= 1) {
             // Focus on the next sibling
@@ -250,6 +249,16 @@ $('.zipcodeinputfield').on("keyup", function (e) {
     }
 });
 
+$("#fullnameInput").on("input", function(e) {  
+  if(!/^[a-zA-Z-'. ]+$/.test($(e.target).val()) && $(e.target).val()!="" ){
+    document.getElementById('fullnameInput').style.backgroundColor="#ffdddd" 
+  }else{
+    document.getElementById('nameinputerror').innerHTML=""
+    document.getElementById('fullnameInput').style.backgroundColor="#fff" 
+  }
+});
+
+
 function isfieldokay() {
     var x = document.getElementsByClassName("tab")[currentTab].getElementsByTagName("input");
     // console.log(x)
@@ -257,26 +266,32 @@ function isfieldokay() {
     if(x[0]!=undefined ){
         switch (x[0].name) {
           case "fullName":
+            var y = document
+            .getElementsByClassName("tab")
+            [currentTab].getElementsByTagName("h5");
             if (x[0].value == "") {
-              var y = document
-                .getElementsByClassName("tab")
-              [currentTab].getElementsByTagName("h5");
-      
               y[0].innerHTML = "Please enter your full name ";
               y[0].style.display = "block";
               flag = false;
+            }else if (!/^[a-zA-Z-'. ]+$/.test(x[0].value)){
+              y[0].innerHTML = "Invalid name";
+              y[0].style.display = "block";
+              flag = false;
+            }else{ 
+              y[0].innerHTML = ""; 
             }
             break;
           
           case "cmpName":
+            var y = document.getElementsByClassName("tab")
+            [currentTab].getElementsByTagName("h5");
             if (x[0].value == "") {
-              var y = document
-                .getElementsByClassName("tab")
-              [currentTab].getElementsByTagName("h5");
               console.log(y[0]);
               y[0].innerHTML = "Please enter your company name";
               y[0].style.display = "block";
               flag = false;
+            }else{ 
+              y[0].innerHTML = ""; 
             }
             break;
       
@@ -295,50 +310,46 @@ function isfieldokay() {
                 yy += x[i].value; 
               } 
             }
-            if(fieldvalue=""){
+            if(fieldvalue.length<6){
               y[0].innerHTML = `please enter business start date`;
               y[0].style.display = "block";
               flag = false;
             }
-            else if (parseInt(mon) <= 0 || parseInt(mon) > 12 || parseInt(yy) > parseInt(new Date().getFullYear())) {
-              y[0].innerHTML = `Error! Please enter months between 1 to 12 only/ Please enter the year before ${new Date().getFullYear()}`;
+            else if (parseInt(mon) <= 0 || parseInt(mon) > 12 || parseInt(yy) > parseInt(new Date().getFullYear()) || parseInt(yy) < 1800  ) {
+              y[0].innerHTML = `Error! Please enter months between 1 to 12 only/The year should be between 1900 and ${new Date().getFullYear()}`;
               y[0].style.display = "block";
               flag = false;
+            }else{ 
+              y[0].innerHTML = ""; 
             }
             
             break;
          
           case "zipCode":
             checkzipCoderegex = /^([0-9]{5})(?:[-\s]*([0-9]{4}))?$/
-            if (x[0].value == "") {
-              var y = document
-                .getElementsByClassName("tab")
-              [currentTab].getElementsByTagName("h5");
-      
+            var y = document.getElementsByClassName("tab")
+            [currentTab].getElementsByTagName("h5");
+ 
+             if (x[0].value == "") {
               y[0].innerHTML = "Please enter your zip code ";
               y[0].style.display = "block";
               flag = false;
             }else{
-                 
                 fieldvalue=""
                 for (let index = 0; index < x.length; index++) {
                     fieldvalue += x[index].value; 
                 }
-
-                
-                
-                if(!checkzipCoderegex.test(fieldvalue)){
-                    var y = document
-                    .getElementsByClassName("tab")
-                    [currentTab].getElementsByTagName("h5");
+              
+                if(ifZipCode(fieldvalue)){ 
                     y[0].innerHTML = "Please enter correct zip code ";
                     y[0].style.display = "block";
                     flag = false;
+                }else{
+                  y[0].innerHTML = "";
                 }
             }
-           
             break;
-      
+      //rohit
           case "loanAmount":
             if (x[0].value == "") {
               var y = document
@@ -385,24 +396,27 @@ function isfieldokay() {
             break;
           
           case "phone":
-            if (x[0].value == "") {
-              var y = document
-                .getElementsByClassName("tab")
-              [currentTab].getElementsByTagName("h5");
-      
+            var y = document
+            .getElementsByClassName("tab")
+            [currentTab].getElementsByTagName("h5");
+
+            if (x[0].value == "") { 
               y[0].innerHTML = "Please enter your phone number ";
               y[0].style.display = "block";
               flag = false;
             }
-            // else{
-            //     phoneregex =  /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
-            //     if(!phoneregex.test(x[0].replace(/[^\d]/g, ""))){ 
-            //          var y = document.getElementsByClassName("tab")[currentTab].getElementsByTagName("h5");
-            //          y[0].innerHTML = "You have entered an invalid phone number!";
-            //          y[0].style.display = "block";
-            //          flag = false;
-            //     }
-            //  } 
+            else { 
+
+              String.prototype.isNumber = function(){return /^\d+$/.test(this);} 
+              
+              if(!x[0].value.replaceAll('(',"").replaceAll(')',"").replaceAll('-',"").replaceAll('+',"").replaceAll(' ',"").isNumber()){
+                      y[0].innerHTML = "You have entered an invalid phone number!";
+                      y[0].style.display = "block";
+                      flag = false;
+                }else{
+                  y[0].innerHTML = "";
+                }
+             } 
             break;
           
           case "email":
@@ -550,6 +564,7 @@ Object.defineProperty(String.prototype, 'capitalize', {
         
         document.getElementById("hidden_public_token").value = public_token; 
 
+        nextPrev(1)
         // fetch("http://localhost:3000/get_access_token", { 
         //   method: "POST", 
         //   body: JSON.stringify({ public_token: public_token, item_id:"636d650b9402bf3b1cdd153a" }),
@@ -582,3 +597,12 @@ Object.defineProperty(String.prototype, 'capitalize', {
       linkHandler.open();
     };
   })();
+
+
+
+function ifZipCode(num){ 
+  // alert(num+"")
+  return ziparray.includes(num+"")
+   
+}
+// ifZipCode(000000000000)
