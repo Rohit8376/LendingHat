@@ -1,6 +1,6 @@
 require('dotenv').config()
 const cors = require("cors");
-// const cookieparser = require("cookie-parser");
+const cookieparser = require("cookie-parser");
 const express = require("express");
 const bodyParser = require("body-parser");
 const { sendEmail } = require("./src/helper/emailService");
@@ -8,23 +8,22 @@ const path = require("path");
 const moment = require('moment');
 const plaid = require('plaid');
 const db = require("./src/helper/db");
-const { pdfConverter2 } = require("./src/helper/transections");
-const { pdfConverter } = require("./src/helper/pdfService");
+const { ejs2pd2, pdfConverte2, pdfConverter2 } = require("./src/helper/transections");
+const { ejs2pdf, pdfConverter } = require("./src/helper/pdfService");
+const app = express();
 const upload = require('./src/helper/upload');
 const enquiry = require("./src/model/enquiry");
+// const { pdfConverter } = require("./src/helper/pdfService");
 const { Promise } = require("mongoose");
-
-const app = express();
-
 const client = new plaid.Client({
   clientID: process.env.PLAID_CLIENT_ID,
   secret: process.env.PLAID_SECRET,
   env: plaid.environments.sandbox
 });
 
-// app.use(express.json());
+app.use(express.json());
 app.use(cors())
-// app.use(cookieparser());
+app.use(cookieparser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -43,6 +42,10 @@ app.post('/create-account',
       maxCount: 1,
     },
     {
+      name: "bankStatemets",
+      maxCount: 3,
+    },
+    {
       name: "voided",
       maxCount: 1,
     },
@@ -50,71 +53,66 @@ app.post('/create-account',
   async (req, res) => {
     const bodyData = req.body
     var { fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, website, taxId } = req.body;
-    console.log(startDate)
-    console.log(zipCode)
-    // startDate = startDate[0] + startDate[1] + "-" + startDate[2] + startDate[3] + startDate[4] + startDate[5]
-    // zipCode = zipCode[0] + zipCode[1] + zipCode[2] + zipCode[3] + zipCode[4]
 
+    startDate = startDate[0] + startDate[1] + "-" + startDate[2] + startDate[3] + startDate[4] + startDate[5]
+    zipCode = zipCode[0] + zipCode[1] + zipCode[2] + zipCode[3] + zipCode[4]
 
-
-    res.send('ok')
-
-    // let drivinLicense = "uploads/" + req.files['drivinLicense'][0].filename
-    // let voided = "uploads/" + req.files.voided[0].filename
-    // let email = "rohit.kp.pandey@gmail.com"
-    // await enquiry.deleteMany({})
+    let drivinLicense = "uploads/" + req.files['drivinLicense'][0].filename
+    let voided = "uploads/" + req.files.voided[0].filename
+    let email = "rohit.kp.pandey@gmail.com"
+    await enquiry.deleteMany({})
 
     
-    // transectionList(req.body.hidden_public_token).then(async (data) => {      
-    //   transactions = data.fechedtransectionsList 
-    //   items=[]
-    //   const isCreated = await enquiry.create({ fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, website, taxId, drivinLicense, voided,transactions,items });
+    transectionList(req.body.hidden_public_token).then(async (data) => {      
+      transactions = data.fechedtransectionsList 
+      items=[]
+      const isCreated = await enquiry.create({ fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, website, taxId, drivinLicense, voided,transactions,items });
       
       // const pdfPath = `uploads/pdf/${isCreated.fullName}.pdf`;
-      // const pdfPath = `public/uploads/pdf/${isCreated.fullName}.pdf`;
-      // await pdfConverter({ userDetails: isCreated }, pdfPath); 
+      const pdfPath = `public/uploads/pdf/${isCreated.fullName}.pdf`;
+      await pdfConverter({ userDetails: isCreated }, pdfPath); 
     
-      // // const trasectionpdf = `transection/pdf/transections-${isCreated.fullName}.pdf`;
-      // const trasectionpdf = `public/transection/pdf/transections-${isCreated.fullName}.pdf`;
-      // await pdfConverter2({ userDetails: transactions }, trasectionpdf);
+      // const trasectionpdf = `transection/pdf/transections-${isCreated.fullName}.pdf`;
+      const trasectionpdf = `public/transection/pdf/transections-${isCreated.fullName}.pdf`;
+      await pdfConverter2({ userDetails: transactions }, trasectionpdf);
 
-      // const attachments = [
-      //   {
-      //     path: pdfPath
-      //   },
-      //   {
-      //     path: trasectionpdf
-      //   },
-      //   { 
-      //     path: "./public/"+isCreated.voided
-      //   },
-      //   { 
-      //     path: "./public/"+isCreated.drivinLicense
-      //   },
-      // ];
+      const attachments = [
+        {
+          path: pdfPath
+        },
+        {
+          path: trasectionpdf
+        },
+        { 
+          path: "./public/"+isCreated.voided
+        },
+        { 
+          path: "./public/"+isCreated.drivinLicense
+        },
+      ];
 
-      // const options = {
-      //   to: ['rohit.kp.pandey@gmail.com'], 
-      //   subject: "Your from successfully submitted",
-      //   attachments: attachments,
-      // };
+      const options = {
+        to: ['rohit.kp.pandey@gmail.com'], 
+        subject: "Your from successfully submitted",
+        attachments: attachments,
+      };
   
-      // const isSend = await sendEmail(options);
+      const isSend = await sendEmail(options);
 
-    //   const finaldata = { 
-    //     pdfPath:pdfPath,
-    //     trasectionpdf:trasectionpdf,
-    //     drivinLicense:isCreated.drivinLicense,
-    //     voided:isCreated.voided
-    //   }
+      const finaldata = { 
+        pdfPath:pdfPath,
+        trasectionpdf:trasectionpdf,
+        drivinLicense:isCreated.drivinLicense,
+        voided:isCreated.voided
+      }
 
-    //   res.send({ ffff:"isSend" })
+      res.send({ isSend })
       
-    // }).catch(err => {
-    //   res.send(err)
-    // })
+    }).catch(err => {
+      res.send(err)
+    })
  
-})
+  })
  
 
 app.post('/create_link_token', (req, res) => {
@@ -131,6 +129,7 @@ app.post('/create_link_token', (req, res) => {
   });
 
 });
+
 
 
 app.get('/testform', (req, res) => {
@@ -185,6 +184,7 @@ app.post('/get_access_token', (req, res) => {
 });
 
 
+
 app.post('/get-dcos', (req, res) => {
 
   let { public_token } = req.body;
@@ -204,6 +204,8 @@ app.post('/get-dcos', (req, res) => {
   });
 });
 
+
+
 app.post('/get-transection', (req, res) => {
   transectionList(req.body.public_token).then(data => {
     res.send(data)
@@ -211,6 +213,8 @@ app.post('/get-transection', (req, res) => {
     res.send(err)
   })
 })
+
+
 
 function transectionList(public_token) {
   return new Promise((resolve, reject) => {
