@@ -212,20 +212,20 @@ function nextPrev(n) {
 }
 
  
-  $("#regForm").submit(function(e) {
-    alert("please wait")
-    e.preventDefault();
-    var actionurl = e.currentTarget.action; 
-    $.ajax({
-            url: '/create-account',
-            type: 'post',
-            dataType: 'application/json',
-            data: $("#regForm").serialize(),
-            success: function(data) {
-               alert(JSON.stringify(date))
-            }
-    });
-  })
+  // $("#regForm").submit(function(e) {
+  //   alert("please wait")
+  //   e.preventDefault();
+  //   var actionurl = e.currentTarget.action; 
+  //   $.ajax({
+  //           url: '/create-account',
+  //           type: 'post',
+  //           dataType: 'application/json',
+  //           data: $("#regForm").serialize(),
+  //           success: function(data) {
+  //              alert(JSON.stringify(date))
+  //           }
+  //   });
+  // })
 
 
 $('.businessstartdate').on("keyup", function (e) {

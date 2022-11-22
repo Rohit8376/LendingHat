@@ -1,6 +1,6 @@
 require('dotenv').config()
 const cors = require("cors");
-const cookieparser = require("cookie-parser");
+// const cookieparser = require("cookie-parser");
 const express = require("express");
 const bodyParser = require("body-parser");
 const { sendEmail } = require("./src/helper/emailService");
@@ -10,20 +10,21 @@ const plaid = require('plaid');
 const db = require("./src/helper/db");
 const { pdfConverter2 } = require("./src/helper/transections");
 const { pdfConverter } = require("./src/helper/pdfService");
-const app = express();
 const upload = require('./src/helper/upload');
 const enquiry = require("./src/model/enquiry");
- 
 const { Promise } = require("mongoose");
+
+const app = express();
+
 const client = new plaid.Client({
   clientID: process.env.PLAID_CLIENT_ID,
   secret: process.env.PLAID_SECRET,
   env: plaid.environments.sandbox
 });
 
-app.use(express.json());
+// app.use(express.json());
 app.use(cors())
-app.use(cookieparser());
+// app.use(cookieparser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -36,21 +37,21 @@ app.get('/', (req, res) => {
 })
 
 app.post('/create-account',
-  // upload.fields([
-  //   {
-  //     name: "drivinLicense",
-  //     maxCount: 1,
-  //   },
-  //   {
-  //     name: "voided",
-  //     maxCount: 1,
-  //   },
-  // ]),
+  upload.fields([
+    {
+      name: "drivinLicense",
+      maxCount: 1,
+    },
+    {
+      name: "voided",
+      maxCount: 1,
+    },
+  ]),
   async (req, res) => {
     const bodyData = req.body
     var { fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, website, taxId } = req.body;
     console.log(startDate)
-    console.log(startDate)
+    console.log(zipCode)
     // startDate = startDate[0] + startDate[1] + "-" + startDate[2] + startDate[3] + startDate[4] + startDate[5]
     // zipCode = zipCode[0] + zipCode[1] + zipCode[2] + zipCode[3] + zipCode[4]
 
@@ -113,7 +114,7 @@ app.post('/create-account',
     //   res.send(err)
     // })
  
-  })
+})
  
 
 app.post('/create_link_token', (req, res) => {
@@ -130,7 +131,6 @@ app.post('/create_link_token', (req, res) => {
   });
 
 });
-
 
 
 app.get('/testform', (req, res) => {
@@ -185,7 +185,6 @@ app.post('/get_access_token', (req, res) => {
 });
 
 
-
 app.post('/get-dcos', (req, res) => {
 
   let { public_token } = req.body;
@@ -205,8 +204,6 @@ app.post('/get-dcos', (req, res) => {
   });
 });
 
-
-
 app.post('/get-transection', (req, res) => {
   transectionList(req.body.public_token).then(data => {
     res.send(data)
@@ -214,8 +211,6 @@ app.post('/get-transection', (req, res) => {
     res.send(err)
   })
 })
-
-
 
 function transectionList(public_token) {
   return new Promise((resolve, reject) => {
