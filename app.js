@@ -13,7 +13,7 @@ const { ejs2pdf, pdfConverter } = require("./src/helper/pdfService");
 const app = express();
 const upload = require('./src/helper/upload');
 const enquiry = require("./src/model/enquiry");
-// const { pdfConverter } = require("./src/helper/pdfService");
+
 const { Promise } = require("mongoose");
 const client = new plaid.Client({
   clientID: process.env.PLAID_CLIENT_ID,
@@ -57,24 +57,27 @@ app.post('/create-account',
     startDate = startDate[0] + startDate[1] + "-" + startDate[2] + startDate[3] + startDate[4] + startDate[5]
     zipCode = zipCode[0] + zipCode[1] + zipCode[2] + zipCode[3] + zipCode[4]
 
-    let drivinLicense = "uploads/" + req.files['drivinLicense'][0].filename
-    let voided = "uploads/" + req.files.voided[0].filename
-    let email = "rohit.kp.pandey@gmail.com"
+    let drivinLicense = "/uploads/" + req.files['drivinLicense'][0].filename
+    let voided = "/uploads/" + req.files.voided[0].filename
+    // let email = "rohit.kp.pandey@gmail.com"
     await enquiry.deleteMany({})
 
     
     transectionList(req.body.hidden_public_token).then(async (data) => {      
-      transactions = data.fechedtransectionsList 
+      transactions = data.fechedtransectionsList
       items=[]
-      const isCreated = await enquiry.create({ fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, website, taxId, drivinLicense, voided,transactions,items });
+      const isCreated = await enquiry.create({ fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, website, taxId, drivinLicense, voided}); //transactions,items 
       
       // const pdfPath = `uploads/pdf/${isCreated.fullName}.pdf`;
-      const pdfPath = `public/uploads/pdf/${isCreated.fullName}.pdf`;
+      const pdfPath = `/uploads/pdf/${isCreated.fullName}.pdf`;
       await pdfConverter({ userDetails: isCreated }, pdfPath); 
     
       // const trasectionpdf = `transection/pdf/transections-${isCreated.fullName}.pdf`;
-      const trasectionpdf = `public/transection/pdf/transections-${isCreated.fullName}.pdf`;
-      await pdfConverter2({ userDetails: transactions }, trasectionpdf);
+      const trasectionpdf = `/transection/pdf/transections-${isCreated.fullName}.pdf`;
+      // await pdfConverter2({ userDetails: transactions }, trasectionpdf);
+
+      console.log(isCreated.voided)
+      console.log(isCreated.drivinLicense)
 
       const attachments = [
         {
@@ -84,20 +87,20 @@ app.post('/create-account',
           path: trasectionpdf
         },
         { 
-          path: "./public/"+isCreated.voided
+          path: isCreated.voided
         },
         { 
-          path: "./public/"+isCreated.drivinLicense
+          path: isCreated.drivinLicense
         },
       ];
 
-      const options = {
-        to: ['rohit.kp.pandey@gmail.com'], 
-        subject: "Your from successfully submitted",
-        attachments: attachments,
-      };
+      // const options = {
+      //   to: ['rohit.kp.pandey@gmail.com'], 
+      //   subject: "Your from successfully submitted",
+      //   attachments: attachments,
+      // };
   
-      const isSend = await sendEmail(options);
+      // const isSend = await sendEmail(options);
 
       const finaldata = { 
         pdfPath:pdfPath,
@@ -106,7 +109,7 @@ app.post('/create-account',
         voided:isCreated.voided
       }
 
-      res.send({ isSend })
+      res.send({ finaldata })
       
     }).catch(err => {
       res.send(err)

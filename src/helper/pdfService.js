@@ -12,17 +12,17 @@ exports.pdfConverter = async (information, pdfPath, templatePath) => {
 
   // Get HTML content
   const html = ejs2html(information, templatePath); //fs.readFileSync('./sample.html', 'utf-8');
-
+  // console.log(html)
   // Set HTML as page content
   await page.setContent(html, { waitUntil: "domcontentloaded" });
 
   // Save PDF File
 const datasavepdf =   await page.pdf({
-    path: pdfPath || "./src/template/result_from_html.pdf",
+    path: "./public"+pdfPath || "./src/template/result_from_html.pdf",
     format: "LEDGER", 
     printBackground: true,
   });
-  // console.log(datasavepdf)
+  console.log(datasavepdf)
 
   // Close browser instance
   await browser.close();

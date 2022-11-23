@@ -34,9 +34,7 @@ const enquirySchema = new mongoose.Schema(
     startDate: {
       type: String,
       validate(value) {
-        validate1(value, Messages.BUSINESS_START_DATE);
-        // if (!validator.isDate(value))
-        //   throw new Error(Messages.BUSINESS_START_DATE);
+        validate1(value, Messages.BUSINESS_START_DATE); 
       },
     },
     zipCode: {
@@ -48,9 +46,7 @@ const enquirySchema = new mongoose.Schema(
     loanAmount: {
       type: String,
       validate(value) {
-        validate1(value, Messages.LOAN_AMOUNT_EMPTY);
-        // if (!validator.isNumber(value))
-        //   throw new Error(Messages.LOAN_AMOUNT_NOT_NUMBER);
+        validate1(value, Messages.LOAN_AMOUNT_EMPTY); 
       },
     },
     annualRevenue: {
@@ -131,14 +127,14 @@ const enquirySchema = new mongoose.Schema(
       },
     ],
 
-    transactions: {
-      type: Array,
-      default:[]
-    },
-    items:{
-      type: Array,
-      default:[]
-    },
+    // transactions: {
+    //   type: Array,
+    //   default:[]
+    // },
+    // items:{
+    //   type: Array,
+    //   default:[]
+    // },
 
     step: {
       type: Number,
