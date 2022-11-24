@@ -70,10 +70,10 @@ app.post('/create-account',
       await pdfConverter2({ userDetails: transactions }, trasectionpdf);
 
       const attachments = [
-        {path: pdfPath},
-        { path: trasectionpdf},
-        { path: 'public/'+isCreated.voided},
-        { path: 'public/'+isCreated.drivinLicense},
+        {path:   'public/'+pdfPath},
+        { path:  'public/'+trasectionpdf},
+        { path:  'public/'+isCreated.voided},
+        { path:  'public/'+isCreated.drivinLicense},
       ];
       const options = {
         to: ['rohit.kp.pandey@gmail.com','asheesh.bhardwaj@gmail.com'], 
