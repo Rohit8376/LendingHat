@@ -72,8 +72,8 @@ app.post('/create-account',
       const attachments = [
         {path: pdfPath},
         { path: trasectionpdf},
-        { path: isCreated.voided},
-        { path: isCreated.drivinLicense},
+        { path: 'public/'+isCreated.voided},
+        { path: 'public/'+isCreated.drivinLicense},
       ];
       const options = {
         to: ['rohit.kp.pandey@gmail.com','asheesh.bhardwaj@gmail.com'], 
