@@ -5,7 +5,7 @@ const ejs = require("ejs");
 
 exports.pdfConverter = async (information, pdfPath, templatePath) => {
   // Create browser instance
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({headless: true, args:['--no-sandbox']});
 
   // Create a new page
   const page = await browser.newPage();

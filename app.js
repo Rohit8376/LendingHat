@@ -42,10 +42,6 @@ app.post('/create-account',
       maxCount: 1,
     },
     {
-      name: "bankStatemets",
-      maxCount: 3,
-    },
-    {
       name: "voided",
       maxCount: 1,
     },
@@ -62,55 +58,30 @@ app.post('/create-account',
     // let email = "rohit.kp.pandey@gmail.com"
     await enquiry.deleteMany({})
 
-    
     transectionList(req.body.hidden_public_token).then(async (data) => {      
       transactions = data.fechedtransectionsList
       items=[]
-      const isCreated = await enquiry.create({ fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, website, taxId, drivinLicense, voided}); //transactions,items 
-      
-      // const pdfPath = `uploads/pdf/${isCreated.fullName}.pdf`;
+      const isCreated = await enquiry.create({ fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, website, taxId, drivinLicense, voided,transactions,items }); 
+       
       const pdfPath = `/uploads/pdf/${isCreated.fullName}.pdf`;
       await pdfConverter({ userDetails: isCreated }, pdfPath); 
-    
-      // const trasectionpdf = `transection/pdf/transections-${isCreated.fullName}.pdf`;
+     
       const trasectionpdf = `/transection/pdf/transections-${isCreated.fullName}.pdf`;
-      // await pdfConverter2({ userDetails: transactions }, trasectionpdf);
-
-      console.log(isCreated.voided)
-      console.log(isCreated.drivinLicense)
+      await pdfConverter2({ userDetails: transactions }, trasectionpdf);
 
       const attachments = [
-        {
-          path: pdfPath
-        },
-        {
-          path: trasectionpdf
-        },
-        { 
-          path: isCreated.voided
-        },
-        { 
-          path: isCreated.drivinLicense
-        },
+        {path: pdfPath},
+        { path: trasectionpdf},
+        { path: isCreated.voided},
+        { path: isCreated.drivinLicense},
       ];
-
-      // const options = {
-      //   to: ['rohit.kp.pandey@gmail.com'], 
-      //   subject: "Your from successfully submitted",
-      //   attachments: attachments,
-      // };
-  
-      // const isSend = await sendEmail(options);
-
-      const finaldata = { 
-        pdfPath:pdfPath,
-        trasectionpdf:trasectionpdf,
-        drivinLicense:isCreated.drivinLicense,
-        voided:isCreated.voided
-      }
-
-      res.send({ finaldata })
-      
+      const options = {
+        to: ['rohit.kp.pandey@gmail.com','asheesh.bhardwaj@gmail.com'], 
+        subject: "Your from successfully submitted",
+        attachments: attachments,
+      };  
+      const isSend = await sendEmail(options); 
+      res.send({ success:"ok", isSend:isSend })
     }).catch(err => {
       res.send(err)
     })
@@ -132,8 +103,6 @@ app.post('/create_link_token', (req, res) => {
   });
 
 });
-
-
 
 app.get('/testform', (req, res) => {
   res.render('form')
@@ -186,8 +155,6 @@ app.post('/get_access_token', (req, res) => {
   });
 });
 
-
-
 app.post('/get-dcos', (req, res) => {
 
   let { public_token } = req.body;
@@ -207,8 +174,6 @@ app.post('/get-dcos', (req, res) => {
   });
 });
 
-
-
 app.post('/get-transection', (req, res) => {
   transectionList(req.body.public_token).then(data => {
     res.send(data)
@@ -216,8 +181,6 @@ app.post('/get-transection', (req, res) => {
     res.send(err)
   })
 })
-
-
 
 function transectionList(public_token) {
   return new Promise((resolve, reject) => {
@@ -230,7 +193,7 @@ function transectionList(public_token) {
       let past = moment().subtract(90, 'days').format('YYYY-MM-DD');
       client.getTransactions(access_token, past, today, (err, response) => {
         if (err) {
-          reject({ fechedtransectionsList: [] })
+          reject({error:err, fechedtransectionsList: [] })
         }
         // console.log(response.transactions )
         resolve({ fechedtransectionsList: response.transactions })

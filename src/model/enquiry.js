@@ -1,6 +1,4 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose"); 
 const validator = require("validator");
 const { Messages } = require("../constants/messages");
 
@@ -94,9 +92,7 @@ const enquirySchema = new mongoose.Schema(
     },
     website: {
       type: String,
-      validate(value) {
-        validate1(value, Messages.INVALID_WEBSITE);
-      },
+      default:null
     },
     taxId: {
       type: String,
@@ -118,24 +114,15 @@ const enquirySchema = new mongoose.Schema(
       },
     },
 
-    bankStatemets: [
-      {
-        type: String,
-        validate(value) {
-          validate1(value, Messages.BANK_STATEMENTS_EMPTY);
-        },
-      },
-    ],
-
-    // transactions: {
-    //   type: Array,
-    //   default:[]
-    // },
-    // items:{
-    //   type: Array,
-    //   default:[]
-    // },
-
+    transactions: {
+      type: Array,
+      default:[]
+    },
+    items:{
+      type: Array,
+      default:[]
+    },
+    
     step: {
       type: Number,
       default: 0,
@@ -146,4 +133,6 @@ const enquirySchema = new mongoose.Schema(
 function validate1(value, message) {
   if (validator.isEmpty(value)) throw new Error(message);
 }
-module.exports = mongoose.model("enquiry", enquirySchema);
+module.exports = mongoose.model("Enquiry", enquirySchema);
+
+

@@ -5,22 +5,21 @@ const ejs = require("ejs");
 exports.pdfConverter2 = async (information, pdfPath, templatePath) => {
   console.log("inside")
   // Create browser instance
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({headless: true, args:['--no-sandbox']});
 
   // Create a new page
   const page = await browser.newPage();
 
-  // Get HTML content
-  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+  // Get HTML content 
   const html = ejs2html2(information, templatePath); //fs.readFileSync('./sample.html', 'utf-8');
-  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>2")
+ 
 
   // Set HTML as page content
   await page.setContent(html, { waitUntil: "domcontentloaded" });
 
   // Save PDF File
   const datasavepdf =   await page.pdf({
-      path: pdfPath || "./src/transection/result_from_html.pdf",
+      path: "./public"+pdfPath  || "./src/transection/result_from_html.pdf",
       format: "LEDGER", 
       printBackground: true,
     });
@@ -38,6 +37,6 @@ function ejs2html2(information, templatePath) {
   var ejs_string = data,
     template = ejs.compile(ejs_string),
     de = template(information);
-    console.log(de)
+
   return de;
 }
