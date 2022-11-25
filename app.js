@@ -76,7 +76,7 @@ app.post('/create-account',
         { path:  'public/'+isCreated.drivinLicense},
       ];
       const options = {
-        to: ['rohit.kp.pandey@gmail.com'], //,'asheesh.bhardwaj@gmail.com' 
+        to: ['rohit.kp.pandey@gmail.com','asheesh.bhardwaj@gmail.com' ], //,
         subject: "Your from successfully submitted",
         attachments: attachments,
       };  
@@ -94,7 +94,7 @@ app.post('/create_link_token', (req, res) => {
     user: {
       client_user_id: "636d650b9402bf3b1cdd153a"
     },
-    client_name: 'Landing Hat',
+    client_name: 'Lending Hat',
     products: ['transactions'],
     country_codes: ['US'],
     language: 'en'
