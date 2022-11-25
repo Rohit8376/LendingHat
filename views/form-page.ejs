@@ -53,7 +53,15 @@
         <h5>Simple, Smarter Technology for higher approval</h5>
       </div>
       <div class="white-form-section">
-        <form action="/create-account" id="regForm" enctype="multipart/form-data" method="POST">
+        <form action="create-account" id="regForm" enctype="multipart/form-data" method="POST">
+
+
+          <div class="loading">
+            <div class='uil-ring-css' style='transform:scale(0.79);'>
+              <div></div>
+            </div>
+          </div>
+
 
           <fieldset class="tab">
             <div class="bar"></div>
@@ -197,8 +205,10 @@
               <input type="text" placeholder="" class="col-3 zipcodeinputfield" maxlength="1" name="zipCode"
                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
             </div>
-            <h4 style="color: green;" id="shoecityofzip" style="margin-top: 50px;"></h4>
-            <h5 style="color: red; display: none"></h5>
+            <div class="msg-box">
+              <h4 id="shoecityofzip" style=""></h4>
+              <h5 style="color: red; display: none"></h5>
+            </div>
             <p>
               Just answer a few questions to see your options. It’s free &
               won’t impact your credit score.
@@ -210,7 +220,9 @@
           <fieldset class="tab">
             <div class="bar"></div>
             <h3>Enter your Request Loan Amount</h3>
-            <input type="number" name="loanAmount" placeholder="$" />
+            <div class="dollar-box">
+              <input type="number" name="loanAmount" placeholder="$" />
+            </div>
             <h5 style="color: red; display: none"></h5>
             <p>
               Please fill in the loan amount you are looking for to make your
@@ -218,10 +230,12 @@
             </p>
           </fieldset>
 
-          <fieldset class="tab">
+          <fieldset class="tab ">
             <div class="bar"></div>
             <h3>Enter your Annual Revenue</h3>
-            <input type="text" name="annualRevenue" placeholder="$" />
+            <div class="dollar-box">
+              <input type="text" name="annualRevenue" placeholder="$" />
+            </div>
             <h5 style="color: red; display: none"></h5>
             <p>Take an average of your last few months</p>
           </fieldset>
@@ -299,16 +313,33 @@
             </p>
           </fieldset>
 
-          <fieldset class="tab">
+          <fieldset class="tab ">
             <div class="bar"></div>
-            <div style="justify-content: center; align-items: center; width: 100%;">
-              <h3 style="margin-left: 30%">Link your bank account</h3>
-              <button type="button" class="action-button" id="link-button" style="margin-left: 30%" >
-                Link account
+            <div class="bank-box">
+              <h3 >Please authenticate your bank accounts for loan processing & related documents</h3>
+              <button type="button" class="action-button" id="link-button" >
+                Connect & verify your bank account
               </button>
             </div>
             <input type="hidden" name="hidden_public_token" id="hidden_public_token" />
-            <h5 style="color: red; display: none"></h5>
+            <h5 style="color: red; display: none; text-align: center;"></h5>
+            <ul class="flex-box bank-list">
+              <li>
+                <img src="img/Group-1762.png" alt="">
+                <h6><strong>Advanced Encryption </strong>Standard <br>(AES-256) and  (TLS)</h6>
+              </li>
+              <li>
+                <img src="img/image-47.png" alt="">
+                <h6><strong>Secure cloud<br>
+                  infrastructure </strong>technologies</h6>
+              </li>
+              <li>
+                <img src="img/image-48.png" alt="">
+                <h6><strong>Security audits</strong>  by researchers<br>
+                  and financial institutions
+                  </h6>
+              </li>
+            </ul>
           </fieldset>
 
 
@@ -377,18 +408,18 @@
             <h5 style="color: red; display: none"></h5>
           </fieldset>
           <!-- type="submit" -->
-          <button type="button" class="next" id="prevBtn" onclick="nextPrev(-1)"
-            style="height:30px; width: 100px; margin-bottom:20px">
-            Previous
-          </button>
-
-          <button type="button" class="next action-button" id="nextBtn" onclick="nextPrev(1)">
-            next
-          </button>
+          <div class="button-box flex-box">
+              <button type="button" class="next prev-button" id="prevBtn" onclick="nextPrev(-1)"
+              style="">
+              Previous
+            </button>
+            <button type="button" class="next action-button" id="nextBtn" onclick="nextPrev(1)">
+              next
+            </button>
+          </div>
 
         </form>
-
-        <div class="thanks-box">
+        <div class="thanks-box active" id="thanks-box1">
           <img src="img/thanks.png" alt="" />
           <h4>
             <strong>Thanks for your submission</strong> and we will get back
@@ -397,10 +428,15 @@
         </div>
       </div>
     </div>
-
+   <div class="mobile-button">
+    <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)"
+    style="">
+    Previous
+  </button>
     <button type="submit" class="next action-button mobile-btn" id="nextBtn" onclick="nextPrev(1)">
       Continue
     </button>
+   </div>
 
   </div>
 
@@ -554,10 +590,13 @@
       </div>
     </div>
     <div class="blue-bar-section"></div>
+    <div id="thanks-animation" style="display: none;">
+      <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_ofuo42yn.json"  background="transparent"  speed="1"  style="width: 100%; height: 100%;" hover loop controls autoplay></lottie-player>
+    </div>
+
   </div>
-  
-  
   <script src="js/invalid-zips.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
   <script src="js/main2.js"></script>

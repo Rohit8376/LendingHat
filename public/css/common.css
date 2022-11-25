@@ -6346,12 +6346,12 @@ ul.request-list.flex-box li .price-box a img {
   border: none;
   border-bottom: 3px solid #EBEBEB;
   font-family: 'Poppins';
-  font-size: 24px;
-  color: #616161;
-  font-weight: 500;
+  font-size: 35px;
+  color: #ADADAD;
+  font-weight: 300;
   outline: none;
-  padding-bottom: 25px;
-  margin-top: 60px;
+  padding-bottom: 10px;
+  margin-top: 40px;
 }
 
 .white-form-section p {
@@ -6369,12 +6369,23 @@ ul.request-list.flex-box li .price-box a img {
   font-weight: 500;
   font-size: 22px;
   color: #fff;
-  padding: 20px 90px 20px 50px;
+  padding: 20px 140px 20px 60px;
   transition: all linear .2s;
   position: relative;
   cursor: pointer;
 }
-
+.prev-button{
+  background-color: transparent;
+  border: 1px solid #D5D5D5;
+  font-family: 'Poppins';
+  font-weight: 500;
+  font-size: 22px;
+  color: #767676;
+  padding: 20px 50px 20px 90px;
+  transition: all linear .2s;
+  position: relative;
+  cursor: pointer;
+}
 .action-button::after {
   content: '';
   position: absolute;
@@ -6387,7 +6398,25 @@ ul.request-list.flex-box li .price-box a img {
   transition: all ease-in-out .2s;
   opacity: .7;
 }
-
+.prev-button::after {
+  content: '';
+  position: absolute;
+  background: url(../img/arrow-black.png) no-repeat;
+  width: 22px;
+  height: 18px;
+  top: 50%;
+  left: 20%;
+  transform: translateY(-50%);
+  transition: all ease-in-out .2s;
+  opacity: .7;
+}
+.prev-button:hover::after{
+  left: 15%;
+}
+.button-box.flex-box {
+  justify-content: space-between;
+  align-items: center;
+}
 .action-button:hover::after {
   left: 75%;
   opacity: 1;
@@ -6698,7 +6727,7 @@ a.new-btn:hover {
 }
 
 .full-width {
-  max-width: 1980px;
+  max-width: 2500px;
 }
 
 .white-form-section::after {
@@ -6751,11 +6780,12 @@ a.new-btn:hover {
 .white-form-section input.sm {
   max-width: 65px;
   border: 2px solid #EBEBEB;
-  font-size: 24px;
+  font-size: 28px;
   text-align: center;
-  padding: 20px 0;
+  padding: 15px 0;
   border-radius: 10px;
   margin: 0px 5px;
+  color: #DBE0E6;;
 }
 .white-form-section hr {
   width: auto;
@@ -6772,6 +6802,10 @@ a.new-btn:hover {
 }
 .white-form-section .flex-box input.col-3 {
   width: 18%;
+  text-align: center;
+  color: #DBE0E6;
+  font-size: 45px;
+  font-weight: 400;
 }
 .white-form-section .flex-box.space{
   justify-content: space-between;
@@ -6787,7 +6821,7 @@ a.new-btn:hover {
 .selector-item_label{
   font-size: 23px;
   color: #aaa;
-  font-weight: 500;
+  font-weight: 400;
   padding: 20px;
   border: 1.65893px solid #DBE0E6;
   background-color: #fff;
@@ -6795,6 +6829,7 @@ a.new-btn:hover {
   width: 100%;
   display: block;
   text-align: center;
+  cursor: pointer;
 }
 /* .selecotr-item.current .selector-item_label{
   background-color: #0A50AB !important;
@@ -6816,12 +6851,12 @@ a.new-btn:hover {
   border: none;
   border-bottom: 3px solid #EBEBEB;
   font-family: 'Poppins';
-  font-size: 24px;
+  font-size: 28px;
   color: #ADADAD;
-  font-weight: 400;
+  font-weight: 300;
   outline: none;
   background-color: #fff;
-  padding-bottom: 25px;
+  padding-bottom: 10px;
   margin-top: 60px;
   appearance: none;
   -webkit-appearance: none;
@@ -6867,3 +6902,139 @@ a.new-btn:hover {
   margin-top: 20px;
 }
 .thanks-box h4 strong{font-weight: 700;}
+.white-form-section fieldset:first-child .bar::after{
+  width: 6.25%;
+}
+.white-form-section fieldset:nth-child(2) .bar::after{
+  width: 12.5%;
+}
+.white-form-section fieldset:nth-child(3) .bar::after{
+  width: 19%;
+}
+.white-form-section fieldset:nth-child(4) .bar::after{
+  width: 25.25%;
+}
+.white-form-section fieldset:nth-child(5) .bar::after{
+  width: 31.5%;
+}
+.white-form-section fieldset:nth-child(6) .bar::after{
+  width: 37.75%;
+}
+.white-form-section fieldset:nth-child(7) .bar::after{
+  width: 44%;
+}
+.white-form-section fieldset:nth-child(8) .bar::after{
+  width: 50.25%;
+}
+.white-form-section fieldset:nth-child(9) .bar::after{
+  width: 56.5%;
+}
+.white-form-section fieldset:nth-child(10) .bar::after{
+  width: 62.75%;
+}
+.white-form-section fieldset:nth-child(11) .bar::after{
+  width: 69%;
+}
+.white-form-section fieldset:nth-child(12) .bar::after{
+  width: 75.2%;
+}
+.white-form-section fieldset:nth-child(13) .bar::after{
+  width: 81.45%;
+}
+.white-form-section fieldset:nth-child(14) .bar::after{
+  width: 85%;
+}
+.white-form-section fieldset:nth-child(15) .bar::after{
+  width: 89%;
+}
+.white-form-section fieldset:nth-child(16) .bar::after{
+  width: 94%;
+}
+.white-form-section fieldset:nth-child(16) .bar::after{
+  width: 97%;
+}
+.white-form-section fieldset:nth-child(16) .bar::after{
+  width: 99%;
+}
+.white-form-section fieldset .msg-box{margin-top: 15px;}
+.white-form-section fieldset .msg-box h4,.white-form-section fieldset .msg-box h5{
+font-size: 15px;
+font-family: 'Poppins';
+font-weight: 500;
+}
+.white-form-section fieldset .msg-box h4{
+  color: #0084ce;
+}
+.white-form-section fieldset .dollar-box{
+  position: relative;
+  margin-top: 60px;
+}
+.white-form-section fieldset .dollar-box input {
+  padding-left: 30px;
+  font-size: 50px;
+  font-weight: 500;
+  margin-top: 0;
+  color: #DBE0E6;
+}
+.white-form-section fieldset .dollar-box::after{
+  content: '$';
+  position: absolute;
+  font-family: 'Poppins';
+  font-size: 35px;
+  color: #DBE0E6;
+  top: 43%;
+  left: 0;
+  transform: translateY(-50%);
+}
+ul.bank-list{
+  margin: 0 -10px;
+}
+ul.bank-list li{
+  padding: 0 10px;
+  width: 33.33%;
+  text-align: center;
+}
+ul.bank-list li h6{
+  font-family: 'Poppins';
+  color: #000;
+  font-weight: 300;
+  font-size: 22px;
+}
+ul.bank-list li img{
+  width: 85px;
+height: 85px;
+object-fit: scale-down;
+margin-bottom: 10px;
+}
+ul.bank-list li h6 strong{
+  font-family: 'Poppins';
+  font-weight: 500;
+}
+ul.bank-list li:nth-child(2){
+  border-left: 1px solid rgba(156, 156, 156, 0.5);
+  border-right: 1px solid rgba(156, 156, 156, 0.5);
+}
+.bank-box {
+text-align: center;
+}
+.bank-box .action-button::before {
+  content: '';
+  position: absolute;
+  background: url(../img/Group1771.png) no-repeat;
+  width: 24px;
+  height: 29px;
+  top: 50%;
+  left: 25px;
+  transform: translateY(-50%);
+}
+.bank-box .action-button {
+  padding: 20px 100px 20px 70px;
+    margin-top: 40px;
+  margin-bottom: 30px;
+}
+.bank-box .action-button::after{
+  left: 85%;
+}
+.bank-box .action-button:hover::after{
+  left: 90%;
+}

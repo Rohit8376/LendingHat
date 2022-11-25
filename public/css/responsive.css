@@ -2399,7 +2399,10 @@
     .white-form-section .action-button {
         display: none;
     }
-
+    .white-form-section .prev-button {
+        display: none  !important;
+    }
+    .white-form-section .flex-box{display: none;}
     header.bt .flex-box .new-btn-box a.dk {
         display: none;
     }
@@ -2407,6 +2410,8 @@
     .center-main-box .new-person-box .black-sec ul li a {
         font-size: 14px;
     }
+    .white-form-section fieldset .dollar-box input{font-size: 30px;}
+    .white-form-section .flex-box input.col-3{font-size: 30px;}
 }
 
 @media all and (max-width: 925px) {
@@ -2939,7 +2944,14 @@
         width: 100%;
         padding: 5px 0;
     }
-
+    ul.bank-list li{width: 100%;}
+    ul.bank-list li:nth-child(2) {
+        border: none;
+        border-left: 1px solid rgba(156, 156, 156, 0.5);
+        border-right: 1px solid rgba(156, 156, 156, 0.5);
+        margin: 10px 0;
+        padding: 10px 0;
+      }
     .other-details-section .tab-box a.btn {
         font-size: 12px;
         padding: 5px 7px;
@@ -4652,7 +4664,6 @@ justify-content: space-between;
     .merchant-request-send-sec.no-request .text h4 {
         font-size: 17px;
     }
-
     ul.benefits-list li h3 {
         font-size: 22px;
     }
@@ -4670,7 +4681,7 @@ justify-content: space-between;
     }
 
     .banner-section.form-banner .heading-box h5 {
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .merchant-profile-edit-sec .pending-request-section,
