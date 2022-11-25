@@ -268,7 +268,7 @@ function submitFormpage() {
       document.getElementById('thanks-box1').style.display='block'
       document.getElementById('regForm').style.display='none'
 
-      alert(JSON.stringify(data))
+      // alert(JSON.stringify(data))
     },
     error: function (e) {
       toggleLoading()
