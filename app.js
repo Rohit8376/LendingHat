@@ -15,6 +15,7 @@ const upload = require('./src/helper/upload');
 const enquiry = require("./src/model/enquiry");
 
 const { Promise } = require("mongoose");
+
 const client = new plaid.Client({
   clientID: process.env.PLAID_CLIENT_ID,
   secret: process.env.PLAID_SECRET,
@@ -61,10 +62,11 @@ app.post('/create-account',
     transectionList(req.body.hidden_public_token).then(async (data) => {      
       transactions = data.fechedtransectionsList
       items=[]
+      
       const isCreated = await enquiry.create({ fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, website, taxId, drivinLicense, voided,transactions,items }); 
-       
+      
       const pdfPath = `/uploads/pdf/${isCreated.fullName}.pdf`;
-      await pdfConverter({ userDetails: isCreated }, pdfPath); 
+      await pdfConverter({ userDetails: isCreated ,avgbalances:avgbalances}, pdfPath); 
      
       const trasectionpdf = `/transection/pdf/transections-${isCreated.fullName}.pdf`;
       await pdfConverter2({ userDetails: transactions }, trasectionpdf);
@@ -75,20 +77,22 @@ app.post('/create-account',
         { path:  'public/'+isCreated.voided},
         { path:  'public/'+isCreated.drivinLicense},
       ];
+      
       const options = {
-        to: ['rohit.kp.pandey@gmail.com','asheesh.bhardwaj@gmail.com' ], //,
+        to: ['rohit.kp.pandey@gmail.com' ], // ,'asheesh.bhardwaj@gmail.com'
         subject: "Your from successfully submitted",
         attachments: attachments,
       };  
-      const isSend = await sendEmail(options); 
-      res.send({ success:"ok", isSend:isSend })
+      
+    const isSend = await sendEmail(options); 
+    res.send({ success:"ok", isSend:isSend })
+
     }).catch(err => {
       res.send(err)
     })
  
-  })
+})
  
-
 app.post('/create_link_token', (req, res) => {
   client.createLinkToken({
     user: {
@@ -182,6 +186,12 @@ app.post('/get-transection', (req, res) => {
   })
 })
 
+app.get('/testing', async (req, res) => {
+  const userDetails = await enquiry.findOne({});
+  res.se
+   res.render('pdfTemplate',{userDetails})
+})
+
 function transectionList(public_token) {
   return new Promise((resolve, reject) => {
     client.exchangePublicToken(public_token, (err, response) => {
@@ -195,8 +205,15 @@ function transectionList(public_token) {
         if (err) {
           reject({error:err, fechedtransectionsList: [] })
         }
-        // console.log(response.transactions )
-        resolve({ fechedtransectionsList: response.transactions })
+        
+        
+        avgbalances = 0
+        for (let index = 0; index < response.accounts.length; index++) {
+            const element = response.accounts[index];
+            avgbalances += element.balances.available?parseInt(element?.balances.available):parseInt(element.balances.current)                    
+        }
+
+        resolve({ fechedtransectionsList: response.transactions,avgbalances:avgbalances })
       })
     });
   })

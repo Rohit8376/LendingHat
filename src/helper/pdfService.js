@@ -22,7 +22,7 @@ const datasavepdf =   await page.pdf({
     format: "LEDGER", 
     printBackground: true,
   });
-  console.log(datasavepdf)
+  // console.log(datasavepdf)
 
   // Close browser instance
   await browser.close();

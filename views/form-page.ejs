@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="css/responsive.css" />
   <title>Lending Hat</title>
   <style>
+
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
       -webkit-appearance: none;
@@ -27,6 +28,20 @@
     input[type="number"] {
       -moz-appearance: textfield;
     }
+
+    ::placeholder {
+        color: #DBE0E6;
+        opacity: 1; /* Firefox */
+      }
+
+      :-ms-input-placeholder { /* Internet Explorer 10-11 */
+      color: #DBE0E6;
+      }
+
+      ::-ms-input-placeholder { /* Microsoft Edge */
+      color: #DBE0E6;
+      }
+
   </style>
 </head>
 
@@ -54,14 +69,11 @@
       </div>
       <div class="white-form-section">
         <form action="create-account" id="regForm" enctype="multipart/form-data" method="POST">
-
-
           <div class="loading">
             <div class='uil-ring-css' style='transform:scale(0.79);'>
               <div></div>
             </div>
           </div>
-
 
           <fieldset class="tab">
             <div class="bar"></div>
@@ -135,12 +147,13 @@
               <option value="limited liability company ( LLC)">limited liability company ( LLC)</option>
               <option value="Corporation">Corporation</option>
               <option value="General Partnership">General Partnership</option>
-              <option value="Limited Partnership ( LP )">Limited Partnership ( LP )</option>
-              <option value="Limited Liability Partnership ( LP )">Limited Liability Partnership ( LP )</option>
-              <option value="Non-Profit">Non-Profit</option>
+              <!-- <option value="Limited Partnership ( LP )">Limited Partnership ( LP )</option>
+              <option value="Limited Liability Partnership ( LP )">Limited Liability Partnership ( LP )</option> -->
+              <!-- <option value="Non-Profit">Non-Profit</option> -->
             </select>
 
-            <h5 style="color: red; display: none"></h5>
+            <h5 style="color:red;display:none" id="cmpTypeval">  </h5>
+
             <p>Select the type of company you wish to form.</p>
           </fieldset>
 
@@ -207,7 +220,7 @@
             </div>
             <div class="msg-box">
               <h4 id="shoecityofzip" style=""></h4>
-              <h5 style="color: red; display: none"></h5>
+              <h5 id="shoecityofziperror" style="color: red; display: none"></h5>
             </div>
             <p>
               Just answer a few questions to see your options. It’s free &
@@ -221,7 +234,7 @@
             <div class="bar"></div>
             <h3>Enter your Request Loan Amount</h3>
             <div class="dollar-box">
-              <input type="number" name="loanAmount" placeholder="$" />
+              <input type="text" name="loanAmount" id="loanAmount" placeholder="$"  />
             </div>
             <h5 style="color: red; display: none"></h5>
             <p>
@@ -234,7 +247,7 @@
             <div class="bar"></div>
             <h3>Enter your Annual Revenue</h3>
             <div class="dollar-box">
-              <input type="text" name="annualRevenue" placeholder="$" />
+              <input type="text" name="annualRevenue" id="annualRevenuevalue" placeholder="$" />
             </div>
             <h5 style="color: red; display: none"></h5>
             <p>Take an average of your last few months</p>
@@ -290,7 +303,7 @@
               <option value="Real Estate">Real Estate</option>
             </select>
 
-            <h5 style="color: red; display: none"></h5>
+            <h5 style="color: red; display: none" id="purposeOfLoneval"></h5>
             <p>
               This helps us match you to the right funding options for your
               business.
@@ -350,6 +363,10 @@
               <input type="file" name="drivinLicense" id="drivinLicense" placeholder="Choose Your File" class="file"
                 style="text-indent: -9999px;" />
             </div>
+
+            <div class="msg-box">
+              <h4 id="shoedrivinglicense" style=""></h4> 
+            </div>
             <h5 style="color: red; display: none"></h5>
 
             <p>
@@ -375,6 +392,9 @@
             <div class="file-box">
               <input type="file" name="voided" id="voided" placeholder="Choose Your File" class="file"
                 style="text-indent: -9999px;" />
+            </div>
+            <div class="msg-box">
+              <h4 id="shoevoided" style=""></h4> 
             </div>
             <h5 style="color: red; display: none"></h5>
 
@@ -420,11 +440,18 @@
 
         </form>
         <div class="thanks-box active" id="thanks-box1">
+          <!-- <div id="showsecond" style="display: none;"> -->
           <img src="img/thanks.png" alt="" />
           <h4>
             <strong>Thanks for your submission</strong> and we will get back
             to you with best offer
           </h4>
+         <!-- </div> -->
+          <!-- <div id="showfirst" style="display: none;"> 
+            <div id="thanks-animation" >
+              <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_ofuo42yn.json"  background="transparent"  speed="1"  style="width: 100%; height: 100%;" hover loop  autoplay></lottie-player>
+            </div>
+          </div>       -->
         </div>
       </div>
     </div>
@@ -590,11 +617,13 @@
       </div>
     </div>
     <div class="blue-bar-section"></div>
-    <div id="thanks-animation" style="display: none;">
-      <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_ofuo42yn.json"  background="transparent"  speed="1"  style="width: 100%; height: 100%;" hover loop controls autoplay></lottie-player>
-    </div>
+
+   
 
   </div>
+
+
+
   <script src="js/invalid-zips.js"></script>
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

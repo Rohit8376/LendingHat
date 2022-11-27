@@ -3,7 +3,7 @@ const fs = require("fs");
 const ejs = require("ejs");
 // const logo = fs.readFileSync("./src/template/Hatlogo.PNG").toString("base64");
 exports.pdfConverter2 = async (information, pdfPath, templatePath) => {
-  console.log("inside")
+  // console.log("inside")
   // Create browser instance
   const browser = await puppeteer.launch({headless: true, args:['--no-sandbox']});
 
@@ -23,7 +23,7 @@ exports.pdfConverter2 = async (information, pdfPath, templatePath) => {
       format: "LEDGER", 
       printBackground: true,
     });
-    console.log(datasavepdf)
+    // console.log(datasavepdf)
 
   // Close browser instance
   await browser.close();

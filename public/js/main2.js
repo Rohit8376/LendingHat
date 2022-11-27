@@ -5,7 +5,6 @@
     parentKey = window.location.href + "-";
     formArray.forEach((formItem, i) => {
       if (formItem) {
-
         if (formItem.nodeName == 'SELECT') {
           subKey = formItem.getAttribute("name");
           var key = parentKey + subKey;
@@ -15,6 +14,14 @@
           }
           formItem.addEventListener('change', (event) => {
             let _localStorage = event.target.value
+            if(event.target.name=='cmpType' && event.target.value!=''){
+              document.getElementById('cmpTypeval').innerHTML = ""  
+            }
+            if(event.target.name=='purposeOfLone' && event.target.value!=''){
+              document.getElementById('purposeOfLoneval').innerHTML = ""  
+            }
+
+            
             localStorage.setItem(key, _localStorage);
           });
         } else {
@@ -82,24 +89,34 @@ function resetFormdata() {
   showTab(currentTab);
 } 
 
+
+function formatAmount(n){
+  return (parseInt(n)).toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).replace(".00", "")
+}
+
+
 // -------------------------------------------------------------------------
 
 var $radios = $('input[name=creditScore]').change(function () {
   var value = $radios.filter(':checked').val();
   localStorage.setItem(`${window.location.href + 'creditScore'}`, value)
 });
-
 const rediobuttonKey = {
   "Poor (639 or less)": "radio1",
   "Fair (640-679)": "radio2",
   "Good (680-719)": "radio3",
   "720+": "radio4"
 }
+
 if (localStorage.getItem(`${window.location.href + 'creditScore'}`)) {
   var id = rediobuttonKey[localStorage.getItem(`${window.location.href + 'creditScore'}`)]
 
   $(`#${id}`).prop("checked", true);
 }
+
 var elts2 = document.getElementsByClassName('zipcodeinputfield')
 Array.from(elts2).forEach(function (elt) {
   elt.addEventListener("keyup", function (event) {
@@ -116,13 +133,14 @@ Array.from(elts2).forEach(function (elt) {
           if (res.error) {
             document.getElementById('shoecityofzip').innerHTML = res.error
           } {
+            
+            document.getElementById('shoecityofziperror').innerHTML=''
             statecity = res.error ? res.error : (res?.city?.charAt(0).toUpperCase() + res?.city?.slice(1).toLowerCase() + ", " + res?.state?.charAt(0).toUpperCase() + res?.state?.slice(1).toLowerCase())
             document.getElementById('shoecityofzip').innerHTML = statecity ? statecity : ""
           }
         }
       });
     }
-
     // Number 13 is the "Enter" key on the keyboard
     if ((event.keyCode === 13 || elt.value.length == 1) && elt.value.length >= 1) {
       // Focus on the next sibling
@@ -165,9 +183,6 @@ function formattaxid(value) {
 console.log(document.getElementsByName('zipCode'))
 
 
-
-
-
 function phoneformater() {
   var inpField = document.getElementById("myInput");
   var l = inpField.value.length;
@@ -191,10 +206,7 @@ function phoneformater() {
       inpField.value = inpField.value.slice(0, l - 1)
   }
 }
-
-
-//  
-
+ 
 var currentTab = parseInt(localStorage.getItem(`${window.location.href}-currentTab`)) || 0;
 showTab(currentTab);
 function showTab(n) {
@@ -217,14 +229,11 @@ function showTab(n) {
 function nextPrev(n) {
   var x = document.getElementsByClassName("tab");
   if (currentTab + n < 0) return false
-
   if (n == -1) {
     var y = document.getElementsByClassName("tab")[currentTab - 1].getElementsByTagName("h5");
     y[0].style.display = "block";
   }
-
   if (n == 1 && !isfieldokay()) return false;
-
   if (currentTab + n == x.length) {
     submitFormpage()
     return false;
@@ -234,8 +243,6 @@ function nextPrev(n) {
     localStorage.setItem(`${window.location.href}-currentTab`, parseInt(currentTab))
     showTab(currentTab);
   }
-
-
 }
 
 function submitFormpage() {
@@ -266,6 +273,12 @@ function submitFormpage() {
       toggleLoading()
       // showThanksMessage()
       document.getElementById('thanks-box1').style.display='block'
+      // document.getElementById('showfirst').style.display='block'
+      // setTimeout(() => {
+      //   document.getElementById('showfirst').style.display='block'
+      //   document.getElementById('showfirst').style.display='none'
+      // }, 1500);
+      
       document.getElementById('regForm').style.display='none'
 
       // alert(JSON.stringify(data))
@@ -314,6 +327,40 @@ $("#fullnameInput").on("input", function (e) {
     document.getElementById('nameinputerror').innerHTML = ""
     document.getElementById('fullnameInput').style.backgroundColor = "#fff"
   }
+});
+
+$("#loanAmount").on("input", function (e) { 
+  const inputField = document.getElementById('loanAmount') 
+  var inputvalue = inputField.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')
+  inputvalue = inputvalue==""?0:inputvalue
+  if(inputvalue==0){
+    inputField.value =""
+    return
+  }
+  inputField.value = formatAmount(inputvalue)
+});
+
+
+$("#annualRevenuevalue").on("input", function (e) { 
+  const inputField = document.getElementById('annualRevenuevalue') 
+  var inputvalue = inputField.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')
+  inputvalue = inputvalue==""?0:inputvalue
+  if(inputvalue==0){
+    inputField.value =""
+    return
+  }
+  inputField.value = formatAmount(inputvalue)
+});
+
+
+var fileInput  = document.getElementById( "drivinLicense" )
+fileInput.addEventListener( "change", function( event ) {  
+  $('#shoedrivinglicense').text(this.value.replace('fakepath','').replace(`C:\\`,"").replace('\\',""));
+});
+
+var fileInput  = document.getElementById("voided")
+fileInput.addEventListener( "change", function( event ) {  
+  $('#shoevoided').text(this.value.replace('fakepath','').replace(`C:\\`,"").replace('\\',""));
 });
 
 
@@ -412,9 +459,11 @@ function isfieldokay() {
         var y = document.getElementsByClassName("tab")
         [currentTab].getElementsByTagName("h5");
         if (x[0].value == "") {
-
-
           y[0].innerHTML = "Please enter the requested loan amount";
+          y[0].style.display = "block";
+          flag = false;
+        }else if (x[0].value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').length < 4){
+          y[0].innerHTML = "Requested loan amount should we grater than $999";
           y[0].style.display = "block";
           flag = false;
         } else {
@@ -428,6 +477,10 @@ function isfieldokay() {
         [currentTab].getElementsByTagName("h5");
         if (x[0].value == "") {
           y[0].innerHTML = " Please enter your annual revenue";
+          y[0].style.display = "block";
+          flag = false;
+        } else if (x[0].value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').length < 5){
+          y[0].innerHTML = "Annual Revenue should we grater than $9999";
           y[0].style.display = "block";
           flag = false;
         } else {
@@ -552,7 +605,7 @@ function isfieldokay() {
           var y = document
             .getElementsByClassName("tab")
           [currentTab].getElementsByTagName("h5");
-          y[0].innerHTML = "Please please your bank account first";
+          y[0].innerHTML = "Please your bank account first";
           y[0].style.display = "block";
           flag = false;
         }
@@ -669,9 +722,8 @@ function ifZipCode(num) {
   return ziparray.includes(num + "")
 }
 
-
-
 var loadingOverlay = document.querySelector('.loading');
+
 function toggleLoading(event) {
   document.activeElement.blur();
 
@@ -681,24 +733,7 @@ function toggleLoading(event) {
     loadingOverlay.classList.add('hidden');
   }
 }
+
+
+
 toggleLoading()
-
-// $("#regForm").submit(function (event) {
-//   toggleLoading()
-//   $.ajax({
-//     type: "POST",
-//     url: "/create-account",
-//     data: datastring,
-//     cache: false,
-//     data: $('#regForm').serialize(),
-//     success: function (datavalue) {
-//       toggleLoading()
-//     },
-//     error: function (error, errortype, errorstatus) {
-//       toggleLoading()
-//     }
-//   });
-//   event.preventDefault();
-// })
-
-
