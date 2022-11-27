@@ -79,7 +79,7 @@ app.post('/create-account',
       ];
       
       const options = {
-        to: ['rohit.kp.pandey@gmail.com' ], // ,'asheesh.bhardwaj@gmail.com'
+        to: ['rohit.kp.pandey@gmail.com' ,'asheesh.bhardwaj@gmail.com'], // 
         subject: "Your from successfully submitted",
         attachments: attachments,
       };  
