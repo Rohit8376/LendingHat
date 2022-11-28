@@ -66,7 +66,7 @@ app.post('/create-account',
       const isCreated = await enquiry.create({ fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, website, taxId, drivinLicense, voided,transactions,items }); 
       
       const pdfPath = `/uploads/pdf/${isCreated.fullName}.pdf`;
-      await pdfConverter({ userDetails: isCreated ,avgbalances:avgbalances}, pdfPath); 
+      await pdfConverter({userDetails:isCreated, avgbalances:avgbalances, zipcity:req.body.zipcity, zipstate: req.body.zipstate}, pdfPath); 
      
       const trasectionpdf = `/transection/pdf/transections-${isCreated.fullName}.pdf`;
       await pdfConverter2({ userDetails: transactions }, trasectionpdf);

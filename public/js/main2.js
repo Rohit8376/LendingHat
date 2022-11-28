@@ -133,7 +133,14 @@ Array.from(elts2).forEach(function (elt) {
           if (res.error) {
             document.getElementById('shoecityofzip').innerHTML = res.error
           } {
-            
+
+            cityInput = document.getElementById('zipcity');
+            stateInput =  document.getElementById('zipstate');
+            cityInput.value = res?.city
+            stateInput.value = res?.state
+            localStorage.setItem(`${window.location.href}-zipcity`,res?.city)
+            localStorage.setItem(`${window.location.href}-zipstate`,res?.state)
+
             document.getElementById('shoecityofziperror').innerHTML=''
             statecity = res.error ? res.error : (res?.city?.charAt(0).toUpperCase() + res?.city?.slice(1).toLowerCase() + ", " + res?.state?.charAt(0).toUpperCase() + res?.state?.slice(1).toLowerCase())
             document.getElementById('shoecityofzip').innerHTML = statecity ? statecity : ""
@@ -355,12 +362,12 @@ $("#annualRevenuevalue").on("input", function (e) {
 
 var fileInput  = document.getElementById( "drivinLicense" )
 fileInput.addEventListener( "change", function( event ) {  
-  $('#shoedrivinglicense').text(this.value.replace('fakepath','').replace(`C:\\`,"").replace('\\',""));
+  $('#shoedrivinglicense').text(`${this.value.replace('fakepath','').replace(`C:\\`,"").replace('\\',"")} uploaded` );
 });
 
 var fileInput  = document.getElementById("voided")
 fileInput.addEventListener( "change", function( event ) {  
-  $('#shoevoided').text(this.value.replace('fakepath','').replace(`C:\\`,"").replace('\\',""));
+  $('#shoevoided').text(`${this.value.replace('fakepath','').replace(`C:\\`,"").replace('\\',"")} uploaded` );
 });
 
 
@@ -734,6 +741,13 @@ function toggleLoading(event) {
   }
 }
 
-
-
 toggleLoading()
+
+if(localStorage.getItem(`${window.location.href}-zipcity`)){
+ document.getElementById('zipcity').value=localStorage.getItem(`${window.location.href}-zipcity`)
+}
+
+if(localStorage.getItem(`${window.location.href}-zipstate`)){
+  document.getElementById('zipstate').value=localStorage.getItem(`${window.location.href}-zipstate`)
+}
+ 

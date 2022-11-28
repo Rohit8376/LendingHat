@@ -216,8 +216,14 @@
                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
 
               <input type="text" placeholder="" class="col-3 zipcodeinputfield" maxlength="1" name="zipCode"
-                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />            
             </div>
+
+            <div>
+              <input type="hidden" name="zipcity" id="zipcity">
+              <input type="hidden" name="zipstate" id="zipstate">
+            </div>
+
             <div class="msg-box">
               <h4 id="shoecityofzip" style=""></h4>
               <h5 id="shoecityofziperror" style="color: red; display: none"></h5>
@@ -415,7 +421,7 @@
 
           <fieldset class="website tab">
             <div class="bar"></div>
-            <h3>Enter Your Website</h3>
+            <h3>Enter Your Website <span id="mndt" style="color:#ADADAD">(Not Mandatory)</span></h3>
             <input type="text" name="website" placeholder="Type your website" />
             <h5 style="color: red; display: none"></h5>
           </fieldset>
