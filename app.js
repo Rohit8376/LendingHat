@@ -68,7 +68,7 @@ app.post('/create-account',
       const pdfPath = `/uploads/pdf/${isCreated.fullName}.pdf`;
       await pdfConverter({userDetails:isCreated, avgbalances:avgbalances, zipcity:req.body.zipcity, zipstate: req.body.zipstate}, pdfPath); 
      
-      const trasectionpdf = `/transection/pdf/transections-${isCreated.fullName}.pdf`;
+      const trasectionpdf = `/transaction/pdf/transaction-${isCreated.fullName}.pdf`;
       await pdfConverter2({ userDetails: transactions }, trasectionpdf);
 
       const attachments = [
@@ -99,7 +99,7 @@ app.post('/create_link_token', (req, res) => {
       client_user_id: "636d650b9402bf3b1cdd153a"
     },
     client_name: 'Lending Hat',
-    products: ['transactions'],
+    products: ['transactions','auth','identity'],
     country_codes: ['US'],
     language: 'en'
   }, (err, linkTokenResponse) => {
@@ -160,7 +160,6 @@ app.post('/get_access_token', (req, res) => {
 });
 
 app.post('/get-dcos', (req, res) => {
-
   let { public_token } = req.body;
   client.exchangePublicToken(public_token, async (err, response) => {
     if (err) {
@@ -194,6 +193,10 @@ app.get('/testing', async (req, res) => {
 
 function transectionList(public_token) {
   return new Promise((resolve, reject) => {
+
+
+ 
+
     client.exchangePublicToken(public_token, (err, response) => {
       if (err) {
         reject({ fechedtransectionsList: [] })
@@ -201,23 +204,40 @@ function transectionList(public_token) {
       let { access_token } = response;
       let today = moment().format('YYYY-MM-DD');
       let past = moment().subtract(90, 'days').format('YYYY-MM-DD');
-      client.getTransactions(access_token, past, today, (err, response) => {
+
+
+      client.getTransactions(access_token, past, today, async (err, response) => {
         if (err) {
           reject({error:err, fechedtransectionsList: [] })
         }
-        
-        
         avgbalances = 0
         for (let index = 0; index < response.accounts.length; index++) {
             const element = response.accounts[index];
             avgbalances += element.balances.available?parseInt(element?.balances.available):parseInt(element.balances.current)                    
         }
 
+        try {
+          
+          const identityResponse = await client.identityGet({  access_token: access_token }) 
+          console.log(identityResponse)
+          const identityVerificationListss = await client.identityVerificationList({  access_token: access_token });
+          console.log(identityVerificationListss)
+
+        } catch (error) {
+          console.log(error)
+        }
+        
+
         resolve({ fechedtransectionsList: response.transactions,avgbalances:avgbalances })
       })
     });
   })
 }
+
+
+
+
+
 
 const port = process.env.PORT || 3000;
 

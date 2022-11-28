@@ -6970,13 +6970,13 @@ font-weight: 500;
   margin-top: 60px;
 }
 .white-form-section fieldset .dollar-box input {
-  padding-left: 30px;
+  /* padding-left: 30px; */
   font-size: 50px;
   font-weight: 500;
   margin-top: 0;
   color: #DBE0E6;
 }
-.white-form-section fieldset .dollar-box::after{
+/* .white-form-section fieldset .dollar-box::after{
   content: '$';
   position: absolute;
   font-family: 'Poppins';
@@ -6985,7 +6985,7 @@ font-weight: 500;
   top: 43%;
   left: 0;
   transform: translateY(-50%);
-}
+} */
 ul.bank-list{
   margin: 0 -10px;
 }
