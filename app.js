@@ -18,7 +18,7 @@ const { Promise } = require("mongoose");
 
 const client = new plaid.Client({
   clientID: process.env.PLAID_CLIENT_ID,
-  secret: process.env.PLAID_SECRET,
+  secret: process.env.PLAID_SECRET_DEVELOPMENT,
   env: plaid.environments.development
 });
 
