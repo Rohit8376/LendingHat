@@ -96,10 +96,10 @@ app.post('/create-account',
 app.post('/create_link_token', (req, res) => {
   client.createLinkToken({
     user: {
-      client_user_id: "636d650b9402bf3b1cdd153a"
+      client_user_id: "636d650b9407772bf3b1cdd153a"
     },
     client_name: 'Lending Hat',
-    products: ['transactions','auth','identity'],
+    products: ['transactions'],
     country_codes: ['US'],
     language: 'en'
   }, (err, linkTokenResponse) => {
@@ -216,16 +216,17 @@ function transectionList(public_token) {
             avgbalances += element.balances.available?parseInt(element?.balances.available):parseInt(element.balances.current)                    
         }
 
-        try {
+        // try {
           
-          const identityResponse = await client.identityGet({  access_token: access_token }) 
-          console.log(identityResponse)
-          const identityVerificationListss = await client.identityVerificationList({  access_token: access_token });
-          console.log(identityVerificationListss)
+        //   // const identityResponse = await client.identityGet({  access_token: access_token }) 
+        //   // console.log(identityResponse)
 
-        } catch (error) {
-          console.log(error)
-        }
+        //   const identityVerificationListss = await client.identityVerificationList({  access_token: access_token });
+        //   console.log(identityVerificationListss)
+
+        // } catch (error) {
+        //   console.log(error)
+        // }
         
 
         resolve({ fechedtransectionsList: response.transactions,avgbalances:avgbalances })
