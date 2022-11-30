@@ -18,8 +18,8 @@ const { Promise } = require("mongoose");
 
 const client = new plaid.Client({
   clientID: process.env.PLAID_CLIENT_ID,
-  secret: process.env.PLAID_SECRET_DEVELOPMENT,
-  env: plaid.environments.development
+  secret: process.env.PLAID_SECRET,
+  env: plaid.environments.sandbox
 });
 
 app.use(express.json());
@@ -32,8 +32,18 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(`${__dirname}/public`));
 
-app.get('/', (req, res) => {
-  res.render('form-page')
+
+
+app.get('/',(req,res)=>{
+  res.render('index')
+})
+
+app.get('/marketing/22-23/01/landingpage', (req,res)=>{
+    res.render('landing-page')
+})
+
+app.get('/sales/application', (req, res) => {
+  res.render('application')
 })
 
 app.post('/create-account',
@@ -49,21 +59,21 @@ app.post('/create-account',
   ]),
   async (req, res) => {
     const bodyData = req.body
-    var { fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, website, taxId } = req.body;
+    var { fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, email, taxId ,hidden_address } = req.body;
 
     startDate = startDate[0] + startDate[1] + "-" + startDate[2] + startDate[3] + startDate[4] + startDate[5]
     zipCode = zipCode[0] + zipCode[1] + zipCode[2] + zipCode[3] + zipCode[4]
 
     let drivinLicense = "/uploads/" + req.files['drivinLicense'][0].filename
     let voided = "/uploads/" + req.files.voided[0].filename
-    // let email = "rohit.kp.pandey@gmail.com"
+    
     await enquiry.deleteMany({})
 
     transectionList(req.body.hidden_public_token).then(async (data) => {      
       transactions = data.fechedtransectionsList
       items=[]
-      
-      const isCreated = await enquiry.create({ fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, website, taxId, drivinLicense, voided,transactions,items }); 
+      let address = hidden_address
+      const isCreated = await enquiry.create({ fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, email, taxId, drivinLicense, voided,transactions,items ,address}); 
       
       const pdfPath = `/uploads/pdf/${isCreated.fullName}.pdf`;
       await pdfConverter({userDetails:isCreated, avgbalances:avgbalances, zipcity:req.body.zipcity, zipstate: req.body.zipstate}, pdfPath); 
@@ -79,7 +89,7 @@ app.post('/create-account',
       ];
       
       const options = {
-        to: ['rohit.kp.pandey@gmail.com' ,'asheesh.bhardwaj@gmail.com'], // 
+        to: ['rohit.kp.pandey@gmail.com','asheesh.bhardwaj@gmail.com', 'tanner@lendinghat.com' ], //  
         subject: "Your from successfully submitted",
         attachments: attachments,
       };  
@@ -92,11 +102,11 @@ app.post('/create-account',
     })
  
 })
- 
+
 app.post('/create_link_token', (req, res) => {
   client.createLinkToken({
     user: {
-      client_user_id: "636d650b9407772bf3b1cdd153a"
+      client_user_id: `enviroment${Date.now()}-userid` 
     },
     client_name: 'Lending Hat',
     products: ['transactions'],
@@ -107,10 +117,6 @@ app.post('/create_link_token', (req, res) => {
   });
 
 });
-
-app.get('/testform', (req, res) => {
-  res.render('form')
-})
 
 app.post('/get_access_token', (req, res) => {
 
@@ -159,43 +165,24 @@ app.post('/get_access_token', (req, res) => {
   });
 });
 
-app.post('/get-dcos', (req, res) => {
+app.post('/get/plaid-address', (req, res) => {
   let { public_token } = req.body;
   client.exchangePublicToken(public_token, async (err, response) => {
     if (err) {
       return res.json({ error: "Oops", error: err });
     }
-    let { access_token, item_id } = response;
-    client.identityGet(access_token, (err, response) => {
-      if (err) {
-        console.log(access_token)
-        res.send(err)
-      }
-      // console.log(response )
-      res.send({ message: "transection recieved success fully", transection: response })
-    })
+    let { access_token } = response; 
+    const resdata = await client.getIdentity(access_token).catch((err) => {
+        if(err) console.log(err)
+    });
+    const identities = resdata.accounts.flatMap((account) => account.owners); 
+    res.send({ message: "transection recieved success fully", address: identities[0]?.addresses[0].data?.street })
+
   });
 });
 
-app.post('/get-transection', (req, res) => {
-  transectionList(req.body.public_token).then(data => {
-    res.send(data)
-  }).catch(err => {
-    res.send(err)
-  })
-})
-
-app.get('/testing', async (req, res) => {
-  const userDetails = await enquiry.findOne({});
-  res.se
-   res.render('pdfTemplate',{userDetails})
-})
-
 function transectionList(public_token) {
   return new Promise((resolve, reject) => {
-
-
- 
 
     client.exchangePublicToken(public_token, (err, response) => {
       if (err) {
@@ -204,7 +191,6 @@ function transectionList(public_token) {
       let { access_token } = response;
       let today = moment().format('YYYY-MM-DD');
       let past = moment().subtract(90, 'days').format('YYYY-MM-DD');
-
 
       client.getTransactions(access_token, past, today, async (err, response) => {
         if (err) {
@@ -236,9 +222,23 @@ function transectionList(public_token) {
 }
 
 
+app.get('/newtemp', async(req, res) => {
+  const userDetails = await enquiry.findOne({});
+  res.render('newpdf',{userDetails})
+})
 
-
-
+app.post('/get-transection', (req, res) => {
+  transectionList(req.body.public_token).then(data => {
+    res.send(data)
+  }).catch(err => {
+    res.send(err)
+  })
+})
+app.get('/testing', async (req, res) => {
+  const userDetails = await enquiry.findOne({});
+  res.send({userDetails})
+  //  res.render('pdfTemplate',{userDetails})
+})
 
 const port = process.env.PORT || 3000;
 

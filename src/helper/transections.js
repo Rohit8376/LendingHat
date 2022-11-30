@@ -20,8 +20,15 @@ exports.pdfConverter2 = async (information, pdfPath, templatePath) => {
   // Save PDF File
   const datasavepdf =   await page.pdf({
       path: "./public"+pdfPath  || "./src/transection/result_from_html.pdf",
-      format: "LEDGER", 
+      format: 'A4',
+      margin: {
+          top: '0px',
+          right: '0px',
+          bottom: '0px',
+          left: '0px'
+      }, 
       printBackground: true,
+      preferCSSPageSize: true
     });
     // console.log(datasavepdf)
 

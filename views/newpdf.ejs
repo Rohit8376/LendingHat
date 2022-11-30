@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .bottom-text{ 
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16.2227px;
+            line-height: 24px;
+            letter-spacing: -0.05em;
+            width: 90%;
+            color: #000000;
+        }
+        table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+        tr.header {
+            background: #5E99FF;
+            width: 100%;
+            color: #fff;
+        }
+        tr{
+            height: 28px;
+            border-collapse: collapse;
+           
+        }
+
+        td {
+            margin: 0;
+            padding: 0;
+            text-align: left;
+            padding-left: 5px; 
+            Font:'Poppins';
+            font-weight: 400;
+            /* font-weight: ; */
+            font-size: 15px;
+            border: 2px solid #060606;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div style="width: 80%;   margin: 0px auto; position: relative;">
+        <div class="log" >
+            <img src="http://3.235.248.92/logo/Hatlogo.PNG" alt="" >
+        </div>
+        <table>
+            <tr class="header">
+                <td colspan="2">Business Information</td>
+            </tr>
+
+            <tr>
+                <td style="width: 50%;">Business Legal Name: <span style="margin-left: 5px; "><%= userDetails.cmpName %></span></td>
+                <td style="width: 50%;">Phone: <span style="margin-left: 5px; "><%= userDetails.phone %></span></td>
+            </tr>
+
+            <tr>
+                <td style="width: 50%;">Street Address</td>
+                <td style="width: 50%;">Email: <span style="margin-left: 5px; "><%= userDetails.email %></span></td>
+            </tr>
+
+            <tr>
+                <td style="width: 50%;">City, State, zip</td>
+                <td style="width: 50%;">Industry: <span style="margin-left: 5px; "><%= userDetails.industry %></span></td>
+            </tr>
+
+            <tr>
+                <td style="width: 50%;">
+                    Legal Entity: 
+                    <input type="checkbox" <%= userDetails.cmpType=='Corporation'?'checked':'' %>  />Corp 
+                    <input type="checkbox"  <%= userDetails.cmpType=='sole proprietor'?'checked':'' %> />Solo Prop
+                    <input type="checkbox" <%= userDetails.cmpType=='limited liability company ( LLC)'?'checked':'' %>  />LLC 
+                    <input type="checkbox"  <%= userDetails.cmpType=='General Partnership'?'checked':'' %> />Partnership
+                </td>
+
+                <td style="width: 50%;">Federal State Tax #<span style="margin-left: 5px; "><%= userDetails.taxId %></span> </td>
+            </tr>
+            
+            <tr>
+                <td style="width: 50%;">Date Business Started: <span style="margin-left: 5px; ">01-<%= userDetails.startDate %></span> </td>
+                <td style="width: 50%;">Credit Score: <span style="margin-left: 5px; "><%= userDetails.creditScore %></span></td>
+            </tr>
+
+            <tr class="header">
+                <td colspan="2" style="width: 50%;">Other Information</td>
+            </tr>
+
+            <tr>
+                <td style="width: 50%;">Name: <span style="margin-left: 5px; "><%= userDetails.fullName %></span></td>
+                <td style="width: 50%;">Your Annual Business Revenue <span style="margin-left: 5px; "><%= userDetails.annualRevenue %></span> </td>
+            </tr>
+
+            <tr>
+                <td style="width: 50%;">Address</td>
+                <td style="width: 50%;">SSN#  <span style="margin-left: 5px; "><%= userDetails.ssn %></span> </td>
+            </tr>
+
+            <tr>
+                <td style="width: 50%;">City, State, Zip</td>
+                <td style="width: 50%;">Your Average Bank Balance: </td>
+            </tr>
+
+            <tr>
+                <td style="width: 50%;">Phone: <span style="margin-left: 5px; "><%= userDetails.phone %></span></td>
+                <td style="width: 50%;">Funding Amount Requested: <span style="margin-left: 5px; "><%= userDetails.loanAmount %></span></td>
+            </tr>
+
+            <tr>
+                <td style="width: 50%;">Email: <span style="margin-left: 5px; "><%= userDetails.email %></span></td>
+                <td style="width: 50%;">Use of Funds: </td>
+            </tr>
+            <tr>
+                <td style="width: 50%;">Date of Birth</td>
+                <td style="width: 50%;">Driving License: Attached <a href="/uploads/1669752515965-STEPS TO CREATE LAMBDA FUNCTION FOR BIG QUERY TABLE.docx" style="text-decoration:none">click here</a></td>
+            
+            </tr>
+            
+            <!-- <tr>
+                <td colspan="2" style="border:none; width: 10Px;"></td>
+            </tr> -->
+            <tr>
+                
+                <td class="bottom-text" colspan="2" style="border: none ; width: 90%;"><br>By signing below, the merchant and it’s owners / principals: (1) certify that all information and documents submitted in connection with this application is true, correct and complete; and (2) authorize our partners and lenders to obtain credit reports and any other information regarding the merchant and it’s owners and principals from third party, to verify any information provided on the application.</td>
+            </tr>
+        </table>
+
+        <table style="margin-top:30px;">
+            <tr>
+                <td   style="border:none; width: 30%;">Owner/Principle Signature:__________________</td>
+                <td   style="border:none; width: 30%">Print Name: __________________</td>
+                <td   style="border:none; width: 30%">Date: __________________</td>
+            </tr>
+        </table>
+        <br><br>
+
+        <img src="img/trianglelogo.png" alt="" style="position: absolute; right:0; bottom: -30;">
+        <!-- <div style="margin-top:100px ;"></div> -->
+    </div>
+
+ 
+
+</body>
+
+</html>

@@ -12,9 +12,9 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="css/common.css" />
-  <link rel="stylesheet" href="css/custom.css" />
-  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="/css/common.css" />
+  <link rel="stylesheet" href="/css/custom.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
   <title>Lending Hat</title>
   <style>
 
@@ -50,12 +50,12 @@
     <div class="new-container">
       <div class="flex-box">
         <div class="logo-box">
-          <a href=""><img src="img/logo.svg" alt="" /></a>
+          <a href=""><img src="/img/logo.svg" alt="" /></a>
         </div>
         <div class="new-btn-box">
-          <a href="" class="dk"><img src="img/phone-phn.png" alt="" />Call us at
+          <a href="" class="dk"><img src="/img/phone-phn.png" alt="" />Call us at
             1-800-413-3220</a>
-          <a href="" class="mobile-btn"><img src="img/callbtn.png" alt="" /></a>
+          <a href="" class="mobile-btn"><img src="/img/callbtn.png" alt="" /></a>
         </div>
       </div>
     </div>
@@ -64,8 +64,8 @@
   <div class="banner-section form-banner">
     <div class="new-container">
       <div class="heading-box">
-        <h1>Lending Solutions Simplified</h1>
-        <h5>Simple, Smarter Technology for higher approval</h5>
+        <h1>Small Business Lending Reimagined</h1>
+        <h5>Simple Smart Technology for Better Loans</h5>
       </div>
       <div class="white-form-section">
         <form action="create-account" id="regForm" enctype="multipart/form-data" method="POST">
@@ -92,9 +92,7 @@
             <h3>Enter Your Company Name</h3>
             <input type="text" name="cmpName" placeholder="Company name" />
             <h5 style="color: red; display: none"></h5>
-            <p>
-              You might have a great brand name in your mind, type it here.
-            </p>
+            
           </fieldset>
 
           <fieldset class="tab">
@@ -134,7 +132,7 @@
             </select>
 
             <h5 style="color: red; display: none"></h5>
-            <p>Your industry helps us better recommend relevant partners.</p>
+            
           </fieldset>
 
           <fieldset class="tab">
@@ -153,8 +151,7 @@
             </select>
 
             <h5 style="color:red;display:none" id="cmpTypeval">  </h5>
-
-            <p>Select the type of company you wish to form.</p>
+ 
           </fieldset>
 
           <fieldset class="tab">
@@ -188,11 +185,7 @@
                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
 
             </div>
-            <h5 style="color: red; display: none"></h5>
-            <p>
-              Please fill in the loan amount you are looking for to make your
-              business go live.
-            </p>
+            <h5 style="color: red; display: none"></h5> 
           </fieldset>
 
 
@@ -227,11 +220,7 @@
             <div class="msg-box">
               <h4 id="shoecityofzip" style=""></h4>
               <h5 id="shoecityofziperror" style="color: red; display: none"></h5>
-            </div>
-            <p>
-              Just answer a few questions to see your options. It’s free &
-              won’t impact your credit score.
-            </p>
+            </div> 
           </fieldset>
 
 
@@ -242,11 +231,7 @@
             <div class="dollar-box">
               <input type="text" name="loanAmount" id="loanAmount" placeholder="$"  />
             </div>
-            <h5 style="color: red; display: none"></h5>
-            <p>
-              Please fill in the loan amount you are looking for to make your
-              business go live.
-            </p>
+            <h5 style="color: red; display: none"></h5> 
           </fieldset>
 
           <fieldset class="tab ">
@@ -256,7 +241,7 @@
               <input type="text" name="annualRevenue" id="annualRevenuevalue" placeholder="$" />
             </div>
             <h5 style="color: red; display: none"></h5>
-            <p>Take an average of your last few months</p>
+             
           </fieldset>
 
           <fieldset class="tab">
@@ -288,9 +273,7 @@
             </div>
 
             <h5 style="color: red; display: none"></h5>
-            <p>
-              Rest assured, checking rates won't impact your credit score.
-            </p>
+            
           </fieldset>
 
           <fieldset class="tab">
@@ -310,10 +293,7 @@
             </select>
 
             <h5 style="color: red; display: none" id="purposeOfLoneval"></h5>
-            <p>
-              This helps us match you to the right funding options for your
-              business.
-            </p>
+          
           </fieldset>
 
           <fieldset class="tab">
@@ -326,10 +306,7 @@
               <!-- <input type="tel" name="phone" id="phoneW" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}" maxlength="14" placeholder="(xxx) xxx-xxxx" required /> -->
               <input type="tel" name="phone" id="myInput" oninput="phoneformater()" placeholder="+1 (###) ### - ####" required pattern="\([0-9]{3}\) [0-9]{3} - [0-9]{4}">
             <h5 style="color: red; display: none"></h5>
-            <p>
-              We may call you at this number to discuss your personalized loan
-              options
-            </p>
+            
           </fieldset>
 
           <fieldset class="tab ">
@@ -341,19 +318,21 @@
               </button>
             </div>
             <input type="hidden" name="hidden_public_token" id="hidden_public_token" />
+            <input type="hidden" name="hidden_address" id="hidden_address" />
+
             <h5 style="color: red; display: none; text-align: center;"></h5>
             <ul class="flex-box bank-list">
               <li>
-                <img src="img/Group-1762.png" alt="">
+                <img src="/img/Group-1762.png" alt="">
                 <h6><strong>Advanced Encryption </strong>Standard <br>(AES-256) and  (TLS)</h6>
               </li>
               <li>
-                <img src="img/image-47.png" alt="">
+                <img src="/img/image-47.png" alt="">
                 <h6><strong>Secure cloud<br>
                   infrastructure </strong>technologies</h6>
               </li>
               <li>
-                <img src="img/image-48.png" alt="">
+                <img src="/img/image-48.png" alt="">
                 <h6><strong>Security audits</strong>  by researchers<br>
                   and financial institutions
                   </h6>
@@ -374,11 +353,7 @@
               <h4 id="shoedrivinglicense" style=""></h4> 
             </div>
             <h5 style="color: red; display: none"></h5>
-
-            <p>
-              We may email you at this address with next steps on your loan
-              options
-            </p>
+ 
           </fieldset>
 
           <!-- <fieldset class="tab">
@@ -403,8 +378,7 @@
               <h4 id="shoevoided" style=""></h4> 
             </div>
             <h5 style="color: red; display: none"></h5>
-
-            <p>The check should be self-attested by the account holder.</p>
+ 
           </fieldset>
 
           <fieldset class="encryption tab">
@@ -412,17 +386,14 @@
             <h3>Enter Your SSN (243 bit encryption)</h3>
             <input type="text" name="ssn" placeholder="Enter Your Number" onkeydown="ssnFormatter()" id="ssninputbox" />
             <h5 style="color: red; display: none"></h5>
-            <p>
-              Prevent eavesdropping and ensure the security of data
-              transmitted over the Internet.
-            </p>
-            <img src="img/bit-icon.png" alt="" class="mobile-img" />
+           
+            <img src="/img/bit-icon.png" alt="" class="mobile-img" />
           </fieldset>
 
-          <fieldset class="website tab">
+          <fieldset class="tab">
             <div class="bar"></div>
-            <h3>Enter Your Website <span id="mndt" style="color:#ADADAD">(Not Mandatory)</span></h3>
-            <input type="text" name="website" placeholder="Type your website" />
+            <h3>Enter Your email</h3>
+            <input type="text" name="email" placeholder="Type your email" />
             <h5 style="color: red; display: none"></h5>
           </fieldset>
 
@@ -447,7 +418,7 @@
         </form>
         <div class="thanks-box active" id="thanks-box1">
           <!-- <div id="showsecond" style="display: none;"> -->
-          <img src="img/thanks.png" alt="" />
+          <img src="/img/thanks.png" alt="" />
           <h4>
             <strong>Thanks for your submission</strong> and we will get back
             to you with best offer
@@ -478,27 +449,27 @@
       <div class="new-container">
         <ul class="application-list flex-box">
           <li>
-            <img src="img/application-icon-1.png" alt="" />
+            <img src="/img/application-icon-1.png" alt="" />
             <h5>Quick application</h5>
             <p>
-              Applying is quick and easy, and you can get a credit decision in
-              as little as 3 minutes.
+              Applying is quick and easy, and you can get approval
+              decision in hours not days.
             </p>
           </li>
           <li>
-            <img src="img/application-icon-2.png" alt="" />
+            <img src="/img/application-icon-2.png" alt="" />
             <h5>Fast access to funds</h5>
             <p>
-              Funds can be available as soon as the next business day if
-              approved.
+              Funds can be available as soon as the next business
+              day if approved.
             </p>
           </li>
           <li>
-            <img src="img/application-icon-3.png" alt="" />
+            <img src="/img/application-icon-3.png" alt="" />
             <h5>Flexible repayment terms</h5>
             <p>
-              Choose your repayment plan each time you draw funds—with no
-              prepayment penalty.
+              Multiple offers means you get to choose the best
+              terms.
             </p>
           </li>
         </ul>
@@ -507,14 +478,16 @@
     <div class="with-lending-section com-padding">
       <div class="new-container">
         <div class="col-5 new-text-box">
-          <h6>With lending hat, its simple</h6>
-          <h2>Minutes not days, that's all it takes with lending hat</h2>
-          <img src="img/with-lending-img.png" alt="" class="mobile-img" />
+          <h6>With Lending Hat, its simple</h6>
+          <h2>Minutes not days, that’s all it takes with Lending Hat</h2>
+          <img src="/img/with-lending-img.png" alt="" class="mobile-img" />
           <p>
-            Say goodbye to confusing fees, double meaning, and confusing
-            financial terms. We keep things simple.
+            Our application is so easy. We just need basic
+            information about your business that you readily
+            know. Your information is never sold so you won’t be
+            bothered by countless salespeople.
           </p>
-          <a href="" class="new-btn">Get Started</a>
+          <a href="#" class="new-btn">Get Started</a>
         </div>
       </div>
     </div>
@@ -522,15 +495,18 @@
       <div class="new-container">
         <div class="flex-box">
           <div class="col-6 img-box">
-            <img src="img/finances-img.png" alt="" />
+            <img src="/img/finances-img.png" alt="" />
           </div>
           <div class="new-text-box col-35">
-            <h6>FINANCES UNDER CONTROL</h6>
-            <h2>Compare loans and find the best one</h2>
-            <img src="img/finances-img.png" alt="" class="mobile-img" />
+            <h6>More approvals, better options</h6>
+            <h2>Select the best loan for your
+              business</h2>
+            <img src="/img/finances-img.png" alt="" class="mobile-img" />
             <p>
-              Fill out one request form, get access to exclusive deals and see
-              your chance of being accepted
+              You will be presented with multiple offers as lenders
+              compete for your business. Review your offers with
+              your funding specialist and choose what works best
+              for you.
             </p>
             <a href="" class="new-btn">Get Started</a>
           </div>
@@ -541,24 +517,25 @@
       <div class="new-container">
         <div class="flex-box">
           <div class="new-text-box col-35">
-            <h6>Community</h6>
-            <h2>Join The Lending Hat Community.</h2>
-            <img src="img/community-img.png" alt="" class="mobile-img" />
+            <h6>Welcome to the family</h6>
+            <h2>Join the Lending Hat Community</h2>
+            <img src="/img/community-img.png" alt="" class="mobile-img" />
             <p>
-              Fill out one request form, get access to exclusive deals and see
-              your chance of being accepted
+              We do more than get you great financing. Our
+              business specialist will help you unlock your
+              potential.
             </p>
             <a href="" class="new-btn">Get Started</a>
           </div>
           <div class="col-5 img-box">
-            <img src="img/community-img.png" alt="" />
+            <img src="/img/community-img.png" alt="" />
           </div>
         </div>
       </div>
     </div>
     <div class="members-section">
       <div class="new-container">
-        <div class="heading-box">
+        <!-- <div class="heading-box" >
           <h2>
             Loved by the community,
             <span>900,000 members and counting</span>
@@ -568,12 +545,12 @@
             that help set you up for success with your money, community , and
             career at no cost
           </p>
-        </div>
+        </div> -->
         <div class="members-boxs">
           <div class="item">
             <div class="members-box flex-box">
               <div class="img-box">
-                <img src="img/members-img.png" alt="" />
+                <img src="/img/members-img.png" alt="" />
               </div>
               <div class="new-text-box">
                 <h4>
@@ -594,29 +571,29 @@
     <div class="members-section success-section com-padding">
       <div class="new-container">
         <div class="heading-box">
-          <h6>Success Rate of lending hat</h6>
+          <h6>Lending Hat Success</h6>
           <h2>
-            Join the 500,000 Businesses that have<br />
-            connected to lending hat
+            Join the 100,000 business that have <br> joined the
+            Lending Hat family.
           </h2>
         </div>
         <ul class="application-list flex-box">
           <li>
-            <img src="img/$3b+.png" alt="" />
+            <img src="/img/$3b+.png" alt="" />
             <h5>
               Working capital<br />
               unlocked
             </h5>
           </li>
           <li>
-            <img src="img/Group1693.png" alt="" />
+            <img src="/img/Group1693.png" alt="" />
             <h5>
               Rated 4.8/5 star<br />
               from 3k+ reviews
             </h5>
           </li>
           <li>
-            <img src="img/Group1695.png" alt="" />
+            <img src="/img/Group1695.png" alt="" />
             <h5>A+ Raiting, Better <br />Business Bureau</h5>
           </li>
         </ul>
@@ -630,11 +607,11 @@
 
 
 
-  <script src="js/invalid-zips.js"></script>
+  <script src="/js/invalid-zips.js"></script>
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
-  <script src="js/main2.js"></script>
+  <script src="/js/main2.js"></script>
 
 </body>
 

@@ -6874,7 +6874,7 @@ a.new-btn:hover {
 .encryption::after{
   content: '';
   position: absolute;
-  background: url(../img/bit-icon.png) no-repeat;
+  /* background: url(../img/bit-icon.png) no-repeat; */
   width: 181px;
   height: 78px;
   top: 60px;

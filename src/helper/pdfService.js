@@ -5,7 +5,7 @@ const ejs = require("ejs");
 
 exports.pdfConverter = async (information, pdfPath, templatePath) => {
   // Create browser instance
-  const browser = await puppeteer.launch({headless: true, args:['--no-sandbox']});
+  const browser = await puppeteer.launch({headless: true, args:['--no-sandbox'], ignoreHTTPSErrors: true});
 
   // Create a new page
   const page = await browser.newPage();
@@ -19,8 +19,16 @@ exports.pdfConverter = async (information, pdfPath, templatePath) => {
   // Save PDF File
 const datasavepdf =   await page.pdf({
     path: "./public"+pdfPath || "./src/template/result_from_html.pdf",
-    format: "LEDGER", 
+    // format: "LEDGER",
+    format: 'A4',
+    margin: {
+        top: '0px',
+        right: '0px',
+        bottom: '0px',
+        left: '0px'
+    }, 
     printBackground: true,
+    preferCSSPageSize: true
   });
   // console.log(datasavepdf)
 

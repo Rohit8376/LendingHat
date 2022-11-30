@@ -1,240 +1,217 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <style>
-      .outer-border {
-        margin: 0px auto;
-        width: 70%;
-        height: auto;  
-        font-weight: 100;
-      }
-      .logo {
-        height: 100%;
-        width: 100%;
-        margin-left: 55px;
-      }
-      img { 
-        width: 250px;
-        width: 100%px
-      }
-      .confirm {
-        width: 900px;
-        margin: 10px auto;
-        margin-top: 10px;
-        text-align: left;
-      }
-      table {
-        width: 900px;
-        margin: 0px auto;
-      }
-      table,
-      th,
-      td {
-        border: 1px solid #060606;
-        border-collapse: collapse;
-        height: 10px;
-        text-align: left; 
-      }
+        .bottom-text {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16.2227px;
+            line-height: 24px;
+            letter-spacing: -0.05em;
+            width: 90%;
+            color: #000000;
+        }
 
-      th {
-        font-weight: bolder;
-        color: whitesmoke;
-        font-size: larger;
-        background: #000;
-      }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-      .details {
-        /* margin-top: 20px; */
-      }
+        tr.header {
+            background: #5E99FF;
+            width: 100%;
+            color: #fff;
+        }
+
+        tr {
+            height: 28px;
+            border-collapse: collapse;
+
+        }
+
+        td {
+            margin: 0;
+            padding: 0;
+            text-align: left;
+            padding-left: 5px;
+            Font: 'Poppins';
+            font-weight: 400;
+            /* font-weight: ; */
+            font-size: 15px;
+            border: 2px solid #060606;
+            border-collapse: collapse;
+        }
+
+
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 0;
+            }
+        }
+        body{
+            background-size: 21cm 29.7cm;
+        }
     </style>
-  </head>
-  <body>
-    <div class="outer-border">
-      <div class="logo">
-        <img src="http://3.235.248.92/logo/Hatlogo.PNG" />
-      </div>
-      <div>
+</head>
+
+<body>
+
+
+    <div style="width: 80%;   margin: 0px auto; position: relative;">
+        <div class="log">
+            <img src="http://3.235.248.92/logo/Hatlogo.PNG" alt="">
+        </div>
         <table>
-          <tr>
-            <th colspan="14">A. Business Information</th>
-          </tr>
-          <tr>
-            <td colspan="3">
-              Business Legal Name(Merchant): <%= userDetails.fullName %>
-            </td>
-            <td colspan="5">Business DBA Name: </td>
-          </tr>
-          <tr>
-            <td colspan="3">Street Address: </td>
-            <td colspan="5">City: <span id="cityname"><%= zipcity %></span></td>
-          </tr>
-          <tr>
-            <td>State: <span id="statename"><%= zipstate %></span></td>
-            <td colspan="2">Zip:<%= userDetails.zipCode %></td>
-            <td colspan="2">Phone: </td>
-          </tr>
-          <tr>
-            <td colspan="3">Website:<%= userDetails.website %></td>
-            <td colspan="5">Mobile:<%= userDetails.phone %></td>
-          </tr>                                                                                                                                                                                                                                                                                                                                                                                                                                           
-          <tr>
-            <td colspan="3">
-              Legal Entity: 
-              <input type="checkbox" <%= userDetails.cmpType=='Corporation'?'checked':'' %> />Corp 
-              <input type="checkbox"  <%= userDetails.cmpType=='sole proprietor'?'checked':'' %> />Solo Prop
-              <input type="checkbox" <%= userDetails.cmpType=='limited liability company ( LLC)'?'checked':'' %>  />LLC 
-              <input type="checkbox"  <%= userDetails.cmpType=='General Partnership'?'checked':'' %> />Partnership
-            </td>
+            <tr class="header">
+                <td colspan="2">Business Information</td>
+            </tr>
 
+            <tr>
+                <td style="width: 50%;">Business Legal Name: <span style="margin-left: 5px; ">
+                        <%= userDetails.cmpName %>
+                    </span></td>
+                <td style="width: 50%;">Phone: <span style="margin-left: 5px; ">
+                        <%= userDetails.phone %>
+                    </span></td>
+            </tr>
 
-            <td colspan="5">Email :</td>
-          </tr>
-          <tr>
-            <td colspan="3">
-              Business Location: <input type="checkbox" />Store Front<input
-                type="checkbox"
-              />Office <input type="checkbox" />Home
-              <input type="checkbox" />Other
-            </td>
-            <td colspan="5">Industry :<%= userDetails.industry %></td>
-          </tr>
-          <tr>
-            <td colspan="3">
-              Date Business Started :<%= userDetails.startDate %>
-            </td>
-            <td colspan="5">
-              Federal State Tax # : <%= userDetails.taxId %>
-            </td>
-          </tr>
-          <tr>
-            <th colspan="14">B. Business References</th>
-          </tr>
-          <tr>
-            <td>Trade Reference:</td>
-            <td>Name : </td>
-            <td>Phone: </td>
-            <td>
-              <input type="checkbox" />Rent
-              <input type="checkbox" />Mortgage<br />
-              <input type="checkbox" />Lease <input type="checkbox" />Own
-              Property
-            </td>
-            <td colspan="4">
-              Landlord/Mortgage Company Name: 
-            </td>
-          </tr>
-          <tr>
-            <td>Trade Reference: </td>
-            <td>Name: </td>
-            <td>Phone: </td>
-            <td colspan="2">Phone: </td>
-          </tr>
-          <tr>
-            <th colspan="3">C. Owner/Principle Information</th>
-            <th colspan="5">Owner #2(if Applicable)</th>
-          </tr>
-          <tr>
-            <td colspan="3">Name: </td>
-            <td colspan="5">Name: </td>
-          </tr>
-          <tr>
-            <td colspan="3">Address: </td>
-            <td colspan="5"></td>
-          </tr>
-          <tr>
-            <td colspan="3">City: <span><%= zipcity %></span>, State: <span><%= zipstate %></span>, Zip: <span><%= userDetails.zipCode  %></span></td>
-            <td colspan="5">City: , State: , Zip: </td>
-          </tr>
-          <tr>
-            <td colspan="3">Phone :<%= userDetails.phone %></td>
-            <td colspan="5">Phone: </td>
-          </tr>
-          <tr>
-            <td colspan="3">Email:</td>
-            <td colspan="5">Email:</td>
-          </tr>
-          <tr>
-            <td>% of Ownership:</td>
-            <td colspan="2">Date of Birth: </td>
-            <td>% of Ownership </td>
-            <td colspan="2">Date of Birth:</td>
-          </tr>
-          <tr>
-            <td colspan="3">SSN# : <%= userDetails.ssn %></td>
-            <td colspan="5">SSN#: </td>
-          </tr>
-          <tr>
-            <td colspan="3">Driver`s License: attached</td>
-            <td colspan="5">Driver`s License#: </td>
-          </tr>
-          <tr>
-            <th colspan="14">D. Funding Information</th>
-          </tr>
-          <tr>
-            <td colspan="2">
-              Your Annual Business Revenue: <%= userDetails.annualRevenue %>
-            </td>
-            <td colspan="2">
-              Your Monthly Credit Card Volume: <%= userDetails.creditScore %>
-            </td>
-            <td colspan="2">
-              Your Average Bank Balance: <%= avgbalances %>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">Current Advance Balance?</td>
-            <td colspan="2">
-              Funding Amount Requested : <%= userDetails.loanAmount %>
-            </td>
-            <td colspan="2">Use of funds:</td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              Dialy Payments of Current Advance: 
-            </td>
-            <td colspan="2">
-              Current Advance held With: 
-            </td>
-            <td colspan="2">
-              Funding Date of Current Advance :
-              
-            </td>
-          </tr>
+            <tr>
+                <td style="width: 50%;">Street Address: <span style="margin-left: 5px; ">
+                        <%= userDetails.address %>
+                    </span></td>
+                <td style="width: 50%;">Email: <span style="margin-left: 5px; ">
+                        <%= userDetails.email %>
+                    </span></td>
+            </tr>
+
+            <tr>
+                <td style="width: 50%;">City: <span>
+                        <%= zipcity %>
+                    </span>, State: <span>
+                        <%= zipstate %>
+                    </span>, Zip: <span>
+                        <%= userDetails.zipCode %>
+                    </span> </td>
+                <td style="width: 50%;">Industry: <span style="margin-left: 5px; ">
+                        <%= userDetails.industry %>
+                    </span></td>
+            </tr>
+
+            <tr>
+                <td style="width: 50%;">
+                    Legal Entity:
+                    <input type="checkbox" <%=userDetails.cmpType=='Corporation' ?'checked':'' %> />Corp
+                    <input type="checkbox" <%=userDetails.cmpType=='sole proprietor' ?'checked':'' %> />Solo Prop
+                    <input type="checkbox" <%=userDetails.cmpType=='limited liability company ( LLC)' ?'checked':'' %>
+                    />LLC
+                    <input type="checkbox" <%=userDetails.cmpType=='General Partnership' ?'checked':'' %> />Partnership
+                </td>
+
+                <td style="width: 50%;">Federal State Tax #<span style="margin-left: 5px; ">
+                        <%= userDetails.taxId %>
+                    </span> </td>
+            </tr>
+
+            <tr>
+                <td style="width: 50%;">Date Business Started: <span style="margin-left: 5px; ">01-<%=
+                            userDetails.startDate %></span> </td>
+                <td style="width: 50%;">Credit Score: <span style="margin-left: 5px; ">
+                        <%= userDetails.creditScore %>
+                    </span></td>
+            </tr>
+
+            <tr class="header">
+                <td colspan="2" style="width: 50%;">Other Information</td>
+            </tr>
+
+            <tr>
+                <td style="width: 50%;">Name: <span style="margin-left: 5px; ">
+                        <%= userDetails.fullName %>
+                    </span></td>
+                <td style="width: 50%;">Your Annual Business Revenue <span style="margin-left: 5px; ">
+                        <%= userDetails.annualRevenue %>
+                    </span> </td>
+            </tr>
+
+            <tr>
+                <td style="width: 50%;">Address: <span style="margin-left: 5px; ">
+                        <%= userDetails.address %>
+                    </span> </td>
+                <td style="width: 50%;">SSN# <span style="margin-left: 5px; ">
+                        <%= userDetails.ssn %>
+                    </span> </td>
+            </tr>
+
+            <tr>
+                <td style="width: 50%;"> City: <span>
+                        <%= zipcity %>
+                    </span>, State: <span>
+                        <%= zipstate %>
+                    </span>, Zip: <span>
+                        <%= userDetails.zipCode %>
+                    </span> </td>
+                <td style="width: 50%;">Your Average Bank Balance: <span>
+                        <%= avgbalances %>
+                    </span></td>
+            </tr>
+
+            <tr>
+                <td style="width: 50%;">Phone: <span style="margin-left: 5px; ">
+                        <%= userDetails.phone %>
+                    </span></td>
+                <td style="width: 50%;">Funding Amount Requested: <span style="margin-left: 5px; ">
+                        <%= userDetails.loanAmount %>
+                    </span></td>
+            </tr>
+
+            <tr>
+                <td style="width: 50%;">Email: <span style="margin-left: 5px; ">
+                        <%= userDetails.email %>
+                    </span></td>
+                <td style="width: 50%;">Use of Funds: </td>
+            </tr>
+            <tr>
+                <td style="width: 50%;">Date of Birth</td>
+                <td style="width: 50%;">Driving License: Attached <a
+                        href="/uploads/1669752515965-STEPS TO CREATE LAMBDA FUNCTION FOR BIG QUERY TABLE.docx"
+                        style="text-decoration:none">click here</a></td>
+
+            </tr>
+
+            <!-- <tr>
+                <td colspan="2" style="border:none; width: 10Px;"></td>
+            </tr> -->
+            <tr>
+                <td class="bottom-text" colspan="2" style="border: none ; width: 90%;"><br> By signing below, the
+                    merchant and it’s owners / principals: (1) certify that all information and documents submitted in
+                    connection with this application is true, correct and complete; and (2) authorize our partners and
+                    lenders to obtain credit reports and any other information regarding the merchant and it’s owners
+                    and principals from third party, to verify any information provided on the application.</td>
+            </tr>
         </table>
-        <div class="confirm">
-          By signing below, the merchant and it`s owners/ principle(1) certify
-          that all information and documents submitted connection with this
-          application is true, correct and complete and(2) authorize our
-          partners and lenders to obtain credit reports and any other
-          information regarding the merchant and it`s owners and principles from
-          third party to verify any information provided on the application.
-        </div>
-        <div class="details">
-          <table style="border: none">
+
+        <table style="margin-top:30px;">
             <tr>
-              <td colspan="2" style="border: none; height: 100px">
-                Owner/Principle Signature: <label>_____________________</label>
-              </td>
-              <td colspan="2" style="border: none; height: 50px">
-                Owner/Principle Signature:
-                <label>_____________________</label>
-              </td>
+                <td style="border:none; width: 30%;">Owner/Principle Signature:__________________</td>
+                <td style="border:none; width: 30%">Print Name: __________________</td>
+                <td style="border:none; width: 30%">Date: __________________</td>
             </tr>
-            <tr>
-              <td style="border: none">
-                Print Name:<label>_______________</label>
-              </td>
-              <td style="border: none">Date:<label>________________</label></td>
-              <td style="border: none">
-                Print Name:<label>________________</label>
-              </td>
-              <td style="border: none; height: 50px">
-                Date:<label>______________</label>
-              </td>
-            </tr>
-          </table>
-        </div>
-      </div>
+        </table>
+        <br><br>
+
+        <img src="img/trianglelogo.png" alt="" style="position: absolute; right:0; bottom: -30;">
+        <!-- <div style="margin-top:100px ;"></div> -->
     </div>
-  </body>
+
+
+
+</body>
+
 </html>

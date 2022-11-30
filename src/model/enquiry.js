@@ -90,10 +90,15 @@ const enquirySchema = new mongoose.Schema(
         validate1(value, Messages.INVALID_SSN);
       },
     },
-    website: {
+    email: {
       type: String,
       default:null
     },
+    address:{
+      type: String,
+      default:null
+    },
+
     taxId: {
       type: String,
       validate(value) {

@@ -51,7 +51,7 @@
   <body>
     <div class="outer-border">
       <div class="logo">
-        <img src="logo/Hatlogo.PNG" />
+        <img src="http://3.235.248.92/logo/Hatlogo.PNG" />
       </div>
       <div>
         <table>
@@ -62,14 +62,14 @@
             <td colspan="3">
               Business Legal Name(Merchant): <%= userDetails.fullName %>
             </td>
-            <td colspan="5">Business DBA Name: <%= userDetails.fullName %></td>
+            <td colspan="5">Business DBA Name: </td>
           </tr>
           <tr>
             <td colspan="3">Street Address: </td>
-            <td colspan="5">City:<span id="cityname"></span></td>
+            <td colspan="5">City: <span id="cityname"><%= zipcity %></span></td>
           </tr>
           <tr>
-            <td>State: <span id="statename"></span></td>
+            <td>State: <span id="statename"><%= zipstate %></span></td>
             <td colspan="2">Zip:<%= userDetails.zipCode %></td>
             <td colspan="2">Phone: </td>
           </tr>
@@ -80,7 +80,7 @@
           <tr>
             <td colspan="3">
               Legal Entity: 
-              <input type="checkbox" <%= userDetails.cmpType=='Corporation'?'checked':'' %>  />Corp 
+              <input type="checkbox" <%= userDetails.cmpType=='Corporation'?'checked':'' %> />Corp 
               <input type="checkbox"  <%= userDetails.cmpType=='sole proprietor'?'checked':'' %> />Solo Prop
               <input type="checkbox" <%= userDetails.cmpType=='limited liability company ( LLC)'?'checked':'' %>  />LLC 
               <input type="checkbox"  <%= userDetails.cmpType=='General Partnership'?'checked':'' %> />Partnership
@@ -134,7 +134,7 @@
             <th colspan="5">Owner #2(if Applicable)</th>
           </tr>
           <tr>
-            <td colspan="3">Name: <%= userDetails.fullName %></td>
+            <td colspan="3">Name: </td>
             <td colspan="5">Name: </td>
           </tr>
           <tr>
@@ -142,8 +142,8 @@
             <td colspan="5"></td>
           </tr>
           <tr>
-            <td colspan="3"><span id="statecityzip"></span></td>
-            <td colspan="5">City, State, Zip: </td>
+            <td colspan="3">City: <span><%= zipcity %></span>, State: <span><%= zipstate %></span>, Zip: <span><%= userDetails.zipCode  %></span></td>
+            <td colspan="5">City: , State: , Zip: </td>
           </tr>
           <tr>
             <td colspan="3">Phone :<%= userDetails.phone %></td>
@@ -165,7 +165,7 @@
           </tr>
           <tr>
             <td colspan="3">Driver`s License: attached</td>
-            <td colspan="5">Driver`s License#: <%= userDetails.fullName %></td>
+            <td colspan="5">Driver`s License#: </td>
           </tr>
           <tr>
             <th colspan="14">D. Funding Information</th>
@@ -178,7 +178,7 @@
               Your Monthly Credit Card Volume: <%= userDetails.creditScore %>
             </td>
             <td colspan="2">
-              Your Average Bank Balance: <%= userDetails.avgbalances %>
+              Your Average Bank Balance: <%= avgbalances %>
             </td>
           </tr>
           <tr>
@@ -196,7 +196,8 @@
               Current Advance held With: 
             </td>
             <td colspan="2">
-              Funding Date of Current Advance : <%= userDetails.fullName %>
+              Funding Date of Current Advance :
+              
             </td>
           </tr>
         </table>
@@ -236,27 +237,4 @@
       </div>
     </div>
   </body>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script>
-    $.ajax({
-        url: "https://ziptasticapi.com/<%= userDetails.zipCode %>" ,
-        type: 'GET',
-        dataType: 'json',
-        success: function (res) {
-          if (res.error) {
-            console.log(res)
-            // document.getElementById('shoecityofzip').innerHTML = res.error
-          } {
-              document.getElementById('cityname').innerHTML = res.city
-              document.getElementById('statename').innerHTML = res.state
-              document.getElementById('statecityzip').innerHTML = `	City, State, Zip: : ${res.state}, ${res.city}, <%= userDetails.zipCode %>`
-              
-              console.log(res)
-            
-          }
-        }
-      });
-  </script>
-
 </html>

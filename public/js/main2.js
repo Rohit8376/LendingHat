@@ -14,14 +14,14 @@
           }
           formItem.addEventListener('change', (event) => {
             let _localStorage = event.target.value
-            if(event.target.name=='cmpType' && event.target.value!=''){
-              document.getElementById('cmpTypeval').innerHTML = ""  
+            if (event.target.name == 'cmpType' && event.target.value != '') {
+              document.getElementById('cmpTypeval').innerHTML = ""
             }
-            if(event.target.name=='purposeOfLone' && event.target.value!=''){
-              document.getElementById('purposeOfLoneval').innerHTML = ""  
+            if (event.target.name == 'purposeOfLone' && event.target.value != '') {
+              document.getElementById('purposeOfLoneval').innerHTML = ""
             }
 
-            
+
             localStorage.setItem(key, _localStorage);
           });
         } else {
@@ -66,7 +66,7 @@
 
 
 function resetFormdata() {
-  document.getElementsByClassName("tab")[currentTab].style.display='none'; 
+  document.getElementsByClassName("tab")[currentTab].style.display = 'none';
   localStorage.removeItem(`${window.location.href}-currentTab`, parseInt(currentTab))
   const storeAll = "textarea,input,select";
   const formArray = this.document.querySelectorAll(storeAll);
@@ -87,10 +87,10 @@ function resetFormdata() {
   });
   currentTab = 0
   showTab(currentTab);
-} 
+}
 
 
-function formatAmount(n){
+function formatAmount(n) {
   return (parseInt(n)).toLocaleString('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -135,13 +135,13 @@ Array.from(elts2).forEach(function (elt) {
           } {
 
             cityInput = document.getElementById('zipcity');
-            stateInput =  document.getElementById('zipstate');
+            stateInput = document.getElementById('zipstate');
             cityInput.value = res?.city
             stateInput.value = res?.state
-            localStorage.setItem(`${window.location.href}-zipcity`,res?.city)
-            localStorage.setItem(`${window.location.href}-zipstate`,res?.state)
+            localStorage.setItem(`${window.location.href}-zipcity`, res?.city)
+            localStorage.setItem(`${window.location.href}-zipstate`, res?.state)
 
-            document.getElementById('shoecityofziperror').innerHTML=''
+            document.getElementById('shoecityofziperror').innerHTML = ''
             statecity = res.error ? res.error : (res?.city?.charAt(0).toUpperCase() + res?.city?.slice(1).toLowerCase() + ", " + res?.state?.charAt(0).toUpperCase() + res?.state?.slice(1).toLowerCase())
             document.getElementById('shoecityofzip').innerHTML = statecity ? statecity : ""
           }
@@ -213,7 +213,7 @@ function phoneformater() {
       inpField.value = inpField.value.slice(0, l - 1)
   }
 }
- 
+
 var currentTab = parseInt(localStorage.getItem(`${window.location.href}-currentTab`)) || 0;
 showTab(currentTab);
 function showTab(n) {
@@ -279,14 +279,14 @@ function submitFormpage() {
       resetFormdata()
       toggleLoading()
       // showThanksMessage()
-      document.getElementById('thanks-box1').style.display='block'
+      document.getElementById('thanks-box1').style.display = 'block'
       // document.getElementById('showfirst').style.display='block'
       // setTimeout(() => {
       //   document.getElementById('showfirst').style.display='block'
       //   document.getElementById('showfirst').style.display='none'
       // }, 1500);
-      
-      document.getElementById('regForm').style.display='none'
+
+      document.getElementById('regForm').style.display = 'none'
 
       // alert(JSON.stringify(data))
     },
@@ -299,10 +299,10 @@ function submitFormpage() {
 }
 
 
-function showThanksMessage(){
-  document.getElementById('thanks-animation').style.display='block'
+function showThanksMessage() {
+  document.getElementById('thanks-animation').style.display = 'block'
   setTimeout(() => {
-    document.getElementById('thanks-animation').style.display='none'
+    document.getElementById('thanks-animation').style.display = 'none'
   }, 3000);
 }
 
@@ -336,38 +336,38 @@ $("#fullnameInput").on("input", function (e) {
   }
 });
 
-$("#loanAmount").on("input", function (e) { 
-  const inputField = document.getElementById('loanAmount') 
+$("#loanAmount").on("input", function (e) {
+  const inputField = document.getElementById('loanAmount')
   var inputvalue = inputField.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')
-  inputvalue = inputvalue==""?0:inputvalue
-  if(inputvalue==0){
-    inputField.value =""
+  inputvalue = inputvalue == "" ? 0 : inputvalue
+  if (inputvalue == 0) {
+    inputField.value = ""
     return
   }
   inputField.value = formatAmount(inputvalue)
 });
 
 
-$("#annualRevenuevalue").on("input", function (e) { 
-  const inputField = document.getElementById('annualRevenuevalue') 
+$("#annualRevenuevalue").on("input", function (e) {
+  const inputField = document.getElementById('annualRevenuevalue')
   var inputvalue = inputField.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')
-  inputvalue = inputvalue==""?0:inputvalue
-  if(inputvalue==0){
-    inputField.value =""
+  inputvalue = inputvalue == "" ? 0 : inputvalue
+  if (inputvalue == 0) {
+    inputField.value = ""
     return
   }
   inputField.value = formatAmount(inputvalue)
 });
 
 
-var fileInput  = document.getElementById( "drivinLicense" )
-fileInput.addEventListener( "change", function( event ) {  
-  $('#shoedrivinglicense').text(`${this.value.replace('fakepath','').replace(`C:\\`,"").replace('\\',"")} uploaded` );
+var fileInput = document.getElementById("drivinLicense")
+fileInput.addEventListener("change", function (event) {
+  $('#shoedrivinglicense').text(`${this.value.replace('fakepath', '').replace(`C:\\`, "").replace('\\', "")} uploaded`);
 });
 
-var fileInput  = document.getElementById("voided")
-fileInput.addEventListener( "change", function( event ) {  
-  $('#shoevoided').text(`${this.value.replace('fakepath','').replace(`C:\\`,"").replace('\\',"")} uploaded` );
+var fileInput = document.getElementById("voided")
+fileInput.addEventListener("change", function (event) {
+  $('#shoevoided').text(`${this.value.replace('fakepath', '').replace(`C:\\`, "").replace('\\', "")} uploaded`);
 });
 
 
@@ -469,7 +469,7 @@ function isfieldokay() {
           y[0].innerHTML = "Please enter the requested loan amount";
           y[0].style.display = "block";
           flag = false;
-        }else if (x[0].value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').length < 4){
+        } else if (x[0].value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').length < 4) {
           y[0].innerHTML = "Requested loan amount should we grater than $999";
           y[0].style.display = "block";
           flag = false;
@@ -486,7 +486,7 @@ function isfieldokay() {
           y[0].innerHTML = " Please enter your annual revenue";
           y[0].style.display = "block";
           flag = false;
-        } else if (x[0].value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').length < 5){
+        } else if (x[0].value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').length < 5) {
           y[0].innerHTML = "Annual Revenue should we grater than $9999";
           y[0].style.display = "block";
           flag = false;
@@ -545,15 +545,14 @@ function isfieldokay() {
         break;
 
       case "email":
+        var y = document.getElementsByClassName("tab")[currentTab].getElementsByTagName("h5");
         if (x[0].value == "") {
-          var y = document.getElementsByClassName("tab")[currentTab].getElementsByTagName("h5");
           y[0].innerHTML = "Please enter your email address ";
           y[0].style.display = "block";
           flag = false;
         } else {
-          emailregex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+          var emailregex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
           if (!emailregex.test(x[0].value)) {
-            var y = document.getElementsByClassName("tab")[currentTab].getElementsByTagName("h5");
             y[0].innerHTML = "You have entered an invalid email address!";
             y[0].style.display = "block";
             flag = false;
@@ -686,22 +685,20 @@ Object.defineProperty(String.prototype, 'capitalize', {
     token: await fetchLinkToken(),
     onSuccess: async function (public_token, metadata) {
       const payload = { public_token: public_token, item_id: "636d650b9402bf3b1cdd153a" }
-
       document.getElementById("hidden_public_token").value = public_token;
-
       nextPrev(1)
-      // fetch("http://localhost:3000/get_access_token", { 
-      //   method: "POST", 
-      //   body: JSON.stringify({ public_token: public_token, item_id:"636d650b9402bf3b1cdd153a" }),
-      //   headers: {
-      //       "Content-type": "application/json; charset=UTF-8"
-      //   }
-      // }).then(response => response.json()).then(json => {
-      //     console.log("inside success function")
-      //     console.log(json)
-      // });
 
+      fetch("/get/plaid-address", {
+        method: "POST",
+        body: JSON.stringify({ public_token: public_token }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      }).then(response => response.json()).then(json => {
+        document.getElementById("hidden_address").value = json.address;
+      });
     },
+
     onExit: async function (err, metadata) {
       if (err != null && err.error_code === 'INVALID_LINK_TOKEN') {
         linkHandler.destroy();
@@ -743,11 +740,10 @@ function toggleLoading(event) {
 
 toggleLoading()
 
-if(localStorage.getItem(`${window.location.href}-zipcity`)){
- document.getElementById('zipcity').value=localStorage.getItem(`${window.location.href}-zipcity`)
+if (localStorage.getItem(`${window.location.href}-zipcity`)) {
+  document.getElementById('zipcity').value = localStorage.getItem(`${window.location.href}-zipcity`)
 }
 
-if(localStorage.getItem(`${window.location.href}-zipstate`)){
-  document.getElementById('zipstate').value=localStorage.getItem(`${window.location.href}-zipstate`)
+if (localStorage.getItem(`${window.location.href}-zipstate`)) {
+  document.getElementById('zipstate').value = localStorage.getItem(`${window.location.href}-zipstate`)
 }
- 
