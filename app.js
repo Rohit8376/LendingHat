@@ -18,8 +18,8 @@ const { Promise } = require("mongoose");
 
 const client = new plaid.Client({
   clientID: process.env.PLAID_CLIENT_ID,
-  secret: process.env.PLAID_SECRET,
-  env: plaid.environments.sandbox
+  secret: process.env.PLAID_SECRET_PROD,
+  env: plaid.environments.production
 });
 
 app.use(express.json());
@@ -32,14 +32,12 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(`${__dirname}/public`));
 
-
-
 app.get('/',(req,res)=>{
-  res.render('index')
+  res.render('coming-soon')
 })
 
 app.get('/marketing/22-23/01/landingpage', (req,res)=>{
-    res.render('landing-page')
+    res.render('form-page')
 })
 
 app.get('/sales/application', (req, res) => {
@@ -77,10 +75,10 @@ app.post('/create-account',
       
       const pdfPath = `/uploads/pdf/${isCreated.fullName}.pdf`;
       await pdfConverter({userDetails:isCreated, avgbalances:avgbalances, zipcity:req.body.zipcity, zipstate: req.body.zipstate}, pdfPath); 
-     
+      
       const trasectionpdf = `/transaction/pdf/transaction-${isCreated.fullName}.pdf`;
       await pdfConverter2({ userDetails: transactions }, trasectionpdf);
-
+      
       const attachments = [
         {path:   'public/'+pdfPath},
         { path:  'public/'+trasectionpdf},
