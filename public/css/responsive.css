@@ -2356,7 +2356,7 @@
 
     .banner-section.form-banner::after {
         background-color: #fff;
-        height: 63%;
+        height: 65%;
         border-top-left-radius: 80px;
         border-top-right-radius: 80px;
     }
@@ -2376,7 +2376,7 @@
     }
 
     .banner-section.form-banner .mobile-btn {
-        position: absolute;
+        position: fixed;
         z-index: 11;
         width: 100%;
         bottom: 0;
@@ -2402,7 +2402,6 @@
     .white-form-section .prev-button {
         display: none  !important;
     }
-    .white-form-section .flex-box{display: none;}
     header.bt .flex-box .new-btn-box a.dk {
         display: none;
     }
@@ -2412,6 +2411,30 @@
     }
     .white-form-section fieldset .dollar-box input{font-size: 30px;}
     .white-form-section .flex-box input.col-3{font-size: 30px;}
+    .white-form-section .bar{width: 90%;margin-left: auto;margin-top: 5px;}
+    .banner-section.form-banner .mobile-bar .prev-button {
+        position: absolute;
+        display: inline-block !important;
+        font-size: 0;
+        border: none;
+        padding: 0;
+        width: 22px;
+        height: 10px;
+        top: 0;
+      }
+      .banner-section.form-banner .mobile-bar .prev-button::after{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: all ease-in-out .2s;
+        opacity: .7;
+        background-size: contain;
+      }
+      .mobile-bar {
+        position: relative;
+      }
+      .white-form-section input,.white-form-section select,.white-form-section input.sm,.white-form-section .flex-box input.col-3,.white-form-section fieldset .dollar-box input{color: #a8a8a8;}
+      .white-form-section input.sm{border: 2px solid #CACACA;}
 }
 
 @media all and (max-width: 925px) {
@@ -2935,7 +2958,7 @@
     }
 
     .banner-section.form-banner::after {
-        height: 62%;
+        height: 65%;
     }
 }
 
@@ -4575,7 +4598,7 @@
     .banner-section.form-banner::after {
         border-top-left-radius: 40px;
         border-top-right-radius: 40px;
-        height: 55%;
+        height: 60%;
     }
 
     .white-form-section .bar {
@@ -4595,10 +4618,6 @@
         display: none;
     }
 
-    .banner-section.form-banner {
-        height: auto;
-    }
-
     .white-form-section p {
         margin-bottom: 50px;
     }
@@ -4610,7 +4629,7 @@
     .banner-section.form-banner::after {
         border-top-left-radius: 30px;
         border-top-right-radius: 30px;
-        height: 60%;
+        height: 67%;
     }
     .white-form-section input.sm{
         width: 15%;
@@ -4657,9 +4676,12 @@ justify-content: space-between;
       }
       .encryption::after {display: none;}
       .thanks-box h4{font-size: 22px;width: 100%;}
+      .banner-section.form-banner .mobile-button #prevBtn{display: none;}
 
 }
-
+@media all and (max-height: 710px){
+    .banner-section.form-banner{min-height: 500px;}
+}
 @media all and (max-width: 375px) {
     .merchant-request-send-sec.no-request .text h4 {
         font-size: 17px;
