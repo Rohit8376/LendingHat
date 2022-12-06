@@ -678,6 +678,7 @@ Object.defineProperty(String.prototype, 'capitalize', {
     const response = await fetch('/create_link_token', { method: 'POST' });
     const responseJSON = await response.json();
     console.log("fetch token >>>>>>>>>>>>>", responseJSON)
+    localStorage.setItem('linkTokenData',responseJSON.link_token )
     return responseJSON.link_token;
   };
 
@@ -730,7 +731,6 @@ var loadingOverlay = document.querySelector('.loading');
 
 function toggleLoading(event) {
   document.activeElement.blur();
-
   if (loadingOverlay.classList.contains('hidden')) {
     loadingOverlay.classList.remove('hidden');
   } else {
@@ -739,6 +739,9 @@ function toggleLoading(event) {
 }
 
 toggleLoading()
+
+
+
 
 if (localStorage.getItem(`${window.location.href}-zipcity`)) {
   document.getElementById('zipcity').value = localStorage.getItem(`${window.location.href}-zipcity`)

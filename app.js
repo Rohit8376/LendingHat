@@ -22,6 +22,7 @@ const client = new plaid.Client({
   env: plaid.environments.production
 });
 
+
 app.use(express.json());
 app.use(cors())
 app.use(cookieparser());
@@ -109,7 +110,8 @@ app.post('/create_link_token', (req, res) => {
     client_name: 'Lending Hat',
     products: ['transactions'],
     country_codes: ['US'],
-    language: 'en'
+    language: 'en',
+    redirect_uri: "https://lendinghat.com/outh-return.html"
   }, (err, linkTokenResponse) => {
     res.json({ link_token: linkTokenResponse.link_token });
   });
