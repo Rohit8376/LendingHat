@@ -2364,7 +2364,9 @@
     .white-form-section {
         box-shadow: none;
         border-radius: 0;
-        padding: 100px 0;
+        padding: 100px 50px;
+        border-top-left-radius: 50px;
+        border-top-right-radius: 50px;
     }
 
     .center-main-box .new-person-box .black-sec {
@@ -2393,12 +2395,13 @@
     }
 
     .banner-section.form-banner {
-        height: 100vh;
+        height: 100%;
     }
 
     .white-form-section .action-button {
         display: none;
     }
+    .white-form-section .bank-tab .action-button{display: block !important;}
     .white-form-section .prev-button {
         display: none  !important;
     }
@@ -2435,6 +2438,10 @@
       }
       .white-form-section input,.white-form-section select,.white-form-section input.sm,.white-form-section .flex-box input.col-3,.white-form-section fieldset .dollar-box input{color: #a8a8a8;}
       .white-form-section input.sm{border: 2px solid #CACACA;}
+      .banner-section.form-banner::after {display: none;}
+      .white-form-section{
+        width: 100%;
+      }
 }
 
 @media all and (max-width: 925px) {
@@ -2777,11 +2784,6 @@
     .banner-section.form-banner .heading-box h5 {
         font-size: 23px;
     }
-
-    .white-form-section {
-        background-color: transparent;
-    }
-
     .banner-section.form-banner::after {
         height: 63%;
     }
@@ -4617,7 +4619,7 @@
     .white-form-section .action-button {
         display: none;
     }
-
+    .white-form-section .bank-tab .action-button{display: block !important;}
     .white-form-section p {
         margin-bottom: 50px;
     }
@@ -4677,10 +4679,32 @@ justify-content: space-between;
       .encryption::after {display: none;}
       .thanks-box h4{font-size: 22px;width: 100%;}
       .banner-section.form-banner .mobile-button #prevBtn{display: none;}
+      .white-form-section h3{font-size: 18px;}
+      ul.bank-list li h6{font-size: 17px;}
+      .bank-box .action-button::before {display: none;}
+      .white-form-section .bank-tab .action-button {
+        font-size: 14px;
+        padding: 20px 20px;
+        text-align: left;
+        width: 100%;
+      }
+      ul.bank-list li img{
+        width: 65px;
+        height: 65px;
+      }
+      .white-form-section .bank-tab .action-button{overflow: hidden;}
+      .banner-section.form-banner{padding-bottom: 0 !important;overflow: auto;}
+      .white-form-section {
+        background-color: #fff;
+        padding: 50px 20px;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+      }
+      .bank-box .action-button::after {left: 91%;}
 
 }
-@media all and (max-height: 710px){
-    .banner-section.form-banner{min-height: 500px;}
+@media all and (max-height: 640px){
+    .white-form-section form{padding-bottom: 50px;}
 }
 @media all and (max-width: 375px) {
     .merchant-request-send-sec.no-request .text h4 {
