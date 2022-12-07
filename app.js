@@ -5,8 +5,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const { sendEmail } = require("./src/helper/emailService");
 const path = require("path");
-const moment = require('moment');
-const plaid = require('plaid');
+const moment = require('moment'); 
+const session = require("express-session");
+const { Configuration, PlaidApi, PlaidEnvironments } = require("plaid");
 const db = require("./src/helper/db");
 const { ejs2pd2, pdfConverte2, pdfConverter2 } = require("./src/helper/transections");
 const { ejs2pdf, pdfConverter } = require("./src/helper/pdfService");
@@ -14,36 +15,43 @@ const app = express();
 const upload = require('./src/helper/upload');
 const enquiry = require("./src/model/enquiry");
 
-const { Promise } = require("mongoose");
-
-const client = new plaid.Client({
-  clientID: process.env.PLAID_CLIENT_ID,
-  secret: process.env.PLAID_SECRET_PROD,
-  env: plaid.environments.production
+const { Promise } = require("mongoose"); 
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: true,
+    resave: true,
+  })
+);
+const config = new Configuration({
+  basePath: PlaidEnvironments[process.env.PLAID_ENV],
+  baseOptions: {
+    headers: {
+      "PLAID-CLIENT-ID": process.env.PLAID_CLIENT_ID,
+      "PLAID-SECRET": process.env.PLAID_SECRET_PROD,
+      "Plaid-Version": "2020-09-14",
+    },
+  },
 });
-
+const client = new PlaidApi(config);
 app.use(express.json());
 app.use(cors())
 app.use(cookieparser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(`${__dirname}/public`));
-
 app.get('/',(req,res)=>{
   res.render('coming-soon')
 })
-
 app.get('/marketing/22-23/01/landingpage', (req,res)=>{
     res.render('form-page')
 })
-
 app.get('/sales/application', (req, res) => {
   res.render('application')
 })
-
+ 
 app.post('/create-account',
   upload.fields([
     {
@@ -55,8 +63,11 @@ app.post('/create-account',
       maxCount: 1,
     },
   ]),
-  async (req, res) => {
-    const bodyData = req.body
+  async (req, res) => { 
+ 
+    const access_token = req.session.access_token;
+    console.log(">>>>>>>>>>>>>"+access_token)
+
     var { fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, email, taxId ,hidden_address } = req.body;
 
     startDate = startDate[0] + startDate[1] + "-" + startDate[2] + startDate[3] + startDate[4] + startDate[5]
@@ -65,14 +76,18 @@ app.post('/create-account',
     let drivinLicense = "/uploads/" + req.files['drivinLicense'][0].filename
     let voided = "/uploads/" + req.files.voided[0].filename
     
-    await enquiry.deleteMany({})
 
-    transectionList(req.body.hidden_public_token).then(async (data) => {      
-      transactions = data.fechedtransectionsList
-      items=[]
-      let address = hidden_address
-      const isCreated = await enquiry.create({ fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, email, taxId, drivinLicense, voided,transactions,items ,address}); 
-      
+    console.log({ fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, email, taxId ,hidden_address })
+    await enquiry.deleteMany({})
+    const transactionsdata = await transectionList(access_token);
+
+    console.log(transactionsdata)
+
+    transactions = transactionsdata.fechedtransectionsList
+    items=[]
+    let address = hidden_address
+    const isCreated = await enquiry.create({ fullName, cmpName, industry, cmpType, startDate, zipCode, loanAmount, annualRevenue, creditScore, purposeOfLone, phone, ssn, email, taxId, drivinLicense, voided,transactions,items ,address}); 
+     
       const pdfPath = `/uploads/pdf/${isCreated.fullName}.pdf`;
       await pdfConverter({userDetails:isCreated, avgbalances:avgbalances, zipcity:req.body.zipcity, zipstate: req.body.zipstate}, pdfPath); 
       
@@ -87,139 +102,62 @@ app.post('/create-account',
       ];
       
       const options = {
-        to: ['rohit.kp.pandey@gmail.com','asheesh.bhardwaj@gmail.com', 'tanner@lendinghat.com' ], //  
+        to: ['rohit.kp.pandey@gmail.com' ], //  'asheesh.bhardwaj@gmail.com', 'tanner@lendinghat.com'
         subject: "Your from successfully submitted",
         attachments: attachments,
       };  
       
-    const isSend = await sendEmail(options); 
-    res.send({ success:"ok", isSend:isSend })
+      const isSend = await sendEmail(options); 
+      res.send({ success:"ok", isSend:isSend })
 
-    }).catch(err => {
-      res.send(err)
-    })
- 
 })
 
-app.post('/create_link_token', (req, res) => {
-  client.createLinkToken({
-    user: {
-      client_user_id: `enviroment${Date.now()}-userid` 
-    },
+app.post('/create_link_token', async(req, res) => {
+  const tokenResponse = await client.linkTokenCreate({
+    user: { client_user_id: req.sessionID },
     client_name: 'Lending Hat',
-    products: ['transactions'],
-    country_codes: ['US'],
-    language: 'en'
-  }, (err, linkTokenResponse) => {
-    res.json({ link_token: linkTokenResponse.link_token });
+    language: "en",
+    products: ["transactions"],
+    country_codes: ["US"],
+    redirect_uri: "https://lendinghat.com/oauth-return.html",
   });
-
+  console.log(`Token response: ${JSON.stringify(tokenResponse.data)}`);
+  res.json({link_token:tokenResponse.data.link_token});
 });
 
-app.post('/get_access_token', (req, res) => {
-
-  let { public_token, uid } = req.body;
-
-  console.log("body of file ", public_token)
-
-  client.exchangePublicToken(public_token, (err, response) => {
-
-    if (err) {
-      return res.json({ error: "Oops" });
-    }
-
-    let { access_token, item_id } = response;
-
-    console.log(access_token, item_id)
-
-
-    // need to save this   access_token: access_token, item_id: item_id
-
-    let today = moment().format('YYYY-MM-DD');
-    let past = moment().subtract(90, 'days').format('YYYY-MM-DD');
-
-    client.getTransactions(access_token, past, today, (err, response) => {
-      if (err) {
-        console.log(access_token)
-        res.send(err)
-      }
-      // console.log(response.transactions )
-      res.send({ message: "transection recieved success fully", transection: response.transactions })
-    })
-
-
-    // User.findByIdAndUpdate(uid, { $addToSet: { items: { access_token: access_token, item_id: item_id } } }, (err, data) => {
-    //     console.log("Getting transactions");
-    //     let today = moment().format('YYYY-MM-DD');
-    //     let past = moment().subtract(90, 'days').format('YYYY-MM-DD');
-    //     client.getTransactions(access_token, past, today, (err, response) => {
-    //         res.send({ transactions: response.transactions });
-    //         User.findByIdAndUpdate(uid, { $addToSet: { transactions: response.transactions } }, (err, data) => {
-    //         });
-    //     });
-    // });
-
-
+app.post("/api/exchange_public_token", async (req, res, next) => {
+  const exchangeResponse = await client.itemPublicTokenExchange({
+    public_token: req.body.public_token,
   });
+  console.log(`Exchange response: ${JSON.stringify(exchangeResponse.data)}`);
+  req.session.access_token = exchangeResponse.data.access_token;
+  res.json(true);
+});
+ 
+app.post('/get/plaid-address', async (req, res) => {
+  const access_token = req.session.access_token; 
+  const resdata = await client.identityGet({access_token: access_token}) 
+  const identities = resdata.data.accounts.flatMap((account) => account.owners); 
+  res.send({ message: "transection recieved success fully", address: identities[0]?.addresses[0].data?.street })
 });
 
-app.post('/get/plaid-address', (req, res) => {
-  let { public_token } = req.body;
-  client.exchangePublicToken(public_token, async (err, response) => {
-    if (err) {
-      return res.json({ error: "Oops", error: err });
-    }
-    let { access_token } = response; 
-    const resdata = await client.getIdentity(access_token).catch((err) => {
-        if(err) console.log(err)
+async function transectionList(access_token) {
+   
+    const startDate = moment().subtract(90, "days").format("YYYY-MM-DD");
+    const endDate = moment().format("YYYY-MM-DD");
+    const transactionResponse = await client.transactionsGet({
+      access_token: access_token,
+      start_date: startDate,
+      end_date: endDate, 
     });
-    const identities = resdata.accounts.flatMap((account) => account.owners); 
-    res.send({ message: "transection recieved success fully", address: identities[0]?.addresses[0].data?.street })
-
-  });
-});
-
-function transectionList(public_token) {
-  return new Promise((resolve, reject) => {
-
-    client.exchangePublicToken(public_token, (err, response) => {
-      if (err) {
-        reject({ fechedtransectionsList: [] })
-      }
-      let { access_token } = response;
-      let today = moment().format('YYYY-MM-DD');
-      let past = moment().subtract(90, 'days').format('YYYY-MM-DD');
-
-      client.getTransactions(access_token, past, today, async (err, response) => {
-        if (err) {
-          reject({error:err, fechedtransectionsList: [] })
-        }
-        avgbalances = 0
-        for (let index = 0; index < response.accounts.length; index++) {
-            const element = response.accounts[index];
-            avgbalances += element.balances.available?parseInt(element?.balances.available):parseInt(element.balances.current)                    
-        }
-
-        // try {
-          
-        //   // const identityResponse = await client.identityGet({  access_token: access_token }) 
-        //   // console.log(identityResponse)
-
-        //   const identityVerificationListss = await client.identityVerificationList({  access_token: access_token });
-        //   console.log(identityVerificationListss)
-
-        // } catch (error) {
-        //   console.log(error)
-        // }
-        
-
-        resolve({ fechedtransectionsList: response.transactions,avgbalances:avgbalances })
-      })
-    });
-  })
+    response = transactionResponse.data
+    avgbalances = 0
+    for (let index = 0; index < response.accounts.length; index++) {
+        const element = response.accounts[index];
+        avgbalances += element.balances.available?parseInt(element?.balances.available):parseInt(element.balances.current)                    
+    }
+    return { fechedtransectionsList: response.transactions,avgbalances:avgbalances }
 }
-
-
 app.get('/newtemp', async(req, res) => {
   const userDetails = await enquiry.findOne({});
   res.render('newpdf',{userDetails})
@@ -232,6 +170,7 @@ app.post('/get-transection', (req, res) => {
     res.send(err)
   })
 })
+
 app.get('/testing', async (req, res) => {
   const userDetails = await enquiry.findOne({});
   res.send({userDetails})

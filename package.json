@@ -27,6 +27,7 @@
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.4",
@@ -35,7 +36,7 @@
     "nodemailer": "^6.8.0",
     "nodemon": "^2.0.20",
     "path": "^0.12.7",
-    "plaid": "^7.1.0",
+    "plaid": "^9.10.1",
     "puppeteer": "^19.2.2",
     "validator": "^13.7.0"
   }

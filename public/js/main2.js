@@ -233,6 +233,34 @@ function showTab(n) {
   }
 }
 
+
+
+var currentTab =  parseInt(localStorage.getItem(`${window.location.href}-currentTab`)) || 0;
+showTab(currentTab);
+function showTab(n) {
+  var x = document.getElementsByClassName("tab");
+  x[n].style.display = "block";
+
+  if (currentTab == 0) {
+    document.getElementById('prevBtn').style.display = "none"
+  } else {
+    document.getElementById('prevBtn').style.display = "block"
+  }
+
+  if (currentTab == 11) {
+    document.getElementById('nextBtn').style.display = "none"
+  } else {
+    document.getElementById('nextBtn').style.display = "block"
+  }
+
+  if (n == x.length - 1) {
+    document.getElementById("nextBtn").innerHTML = "Submit";
+  } else {
+    document.getElementById("nextBtn").innerHTML = "Next";
+  }
+}
+
+
 function nextPrev(n) {
   var x = document.getElementsByClassName("tab");
   if (currentTab + n < 0) return false
@@ -288,7 +316,8 @@ function submitFormpage() {
 
       document.getElementById('regForm').style.display = 'none'
 
-      // alert(JSON.stringify(data))
+        console.log(data);
+      // /alert(JSON.stringify(data))
     },
     error: function (e) {
       toggleLoading()
@@ -673,30 +702,38 @@ Object.defineProperty(String.prototype, 'capitalize', {
 });
 
 
+
 (async function () {
   const fetchLinkToken = async () => {
     const response = await fetch('/create_link_token', { method: 'POST' });
     const responseJSON = await response.json();
     console.log("fetch token >>>>>>>>>>>>>", responseJSON)
+    localStorage.setItem('linkTokenData',responseJSON)
     return responseJSON.link_token;
   };
 
   const configs = {
     token: await fetchLinkToken(),
     onSuccess: async function (public_token, metadata) {
-      const payload = { public_token: public_token, item_id: "636d650b9402bf3b1cdd153a" }
+
       document.getElementById("hidden_public_token").value = public_token;
-      nextPrev(1)
+
+      await exchangeToken(public_token); 
+      alert("after fetch ");
 
       fetch("/get/plaid-address", {
         method: "POST",
-        body: JSON.stringify({ public_token: public_token }),
+        body:JSON.stringify({public_token:public_token}),
         headers: {
           "Content-type": "application/json; charset=UTF-8"
         }
       }).then(response => response.json()).then(json => {
+        console.log(json)
         document.getElementById("hidden_address").value = json.address;
       });
+
+      nextPrev(1)
+
     },
 
     onExit: async function (err, metadata) {
@@ -719,6 +756,28 @@ Object.defineProperty(String.prototype, 'capitalize', {
     linkHandler.open();
   };
 })();
+
+
+async function exchangeToken(publicToken) {
+  const tokenExchangeResponse = await fetch(`/api/exchange_public_token`, {
+    method: "POST",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify({ public_token: publicToken }),
+  });
+  const tokenExchangeData = await tokenExchangeResponse.json();
+  console.log("Done exchanging our token");
+  // window.location.href = "index.html";
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
