@@ -13,14 +13,8 @@ function finishOAuth() {
         `I have a public token: ${publicToken} I should exchange this`
       );
       
-      await exchangeToken(publicToken);
-
-
-
+      await exchangeToken(publicToken); 
     },
-
-
-
     onExit: (err, metadata) => {
       console.log(
         `I'm all done. Error: ${JSON.stringify(err)} Metadata: ${JSON.stringify(
@@ -28,7 +22,7 @@ function finishOAuth() {
         )}`
       );
       if (err !== null) {
-        document.querySelector("#userMessage").innerHTML = "Oh no! We got some kind of error! Please <a href='connect.html'>try again.</a>";
+        document.querySelector("#userMessage").innerHTML = "Oh no! We got some kind of error! Please <a href='/sales/application'>try again.</a>";
       }
     },
     onEvent: (eventName, metadata) => {
