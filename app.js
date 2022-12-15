@@ -45,13 +45,21 @@ app.use(express.static(`${__dirname}/public`));
 app.get('/',(req,res)=>{
   res.render('coming-soon')
 })
-app.get('/marketing/22-23/01/landingpage', (req,res)=>{
+app.get('/smallbusinessloan/lp1', (req,res)=>{
     res.render('form-page')
+})
+app.get('/smallbusinessloan/lp2', (req,res)=>{
+  res.render('form-page-2')
+})
+app.get('/smallbusinessloan/lp3', (req,res)=>{
+  res.render('form-page-3')
 })
 app.get('/sales/application', (req, res) => {
   res.render('application')
 })
- 
+app.get('/smallbusinessloan/campaign1', (req,res)=>{
+  res.render('lh-form-page')
+})
 app.post('/create-account',
   upload.fields([
     {

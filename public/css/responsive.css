@@ -315,7 +315,7 @@
     }
 
     .banner-section.form-banner .heading-box {
-        margin-bottom: 100px;
+        margin-bottom: 40px;
     }
 
     .white-form-section h3 {
@@ -2356,7 +2356,7 @@
 
     .banner-section.form-banner::after {
         background-color: #fff;
-        height: 63%;
+        height: 65%;
         border-top-left-radius: 80px;
         border-top-right-radius: 80px;
     }
@@ -2364,7 +2364,9 @@
     .white-form-section {
         box-shadow: none;
         border-radius: 0;
-        padding: 100px 0;
+        padding: 100px 50px;
+        border-top-left-radius: 50px;
+        border-top-right-radius: 50px;
     }
 
     .center-main-box .new-person-box .black-sec {
@@ -2376,7 +2378,7 @@
     }
 
     .banner-section.form-banner .mobile-btn {
-        position: absolute;
+        position: fixed;
         z-index: 11;
         width: 100%;
         bottom: 0;
@@ -2393,16 +2395,16 @@
     }
 
     .banner-section.form-banner {
-        height: 100vh;
+        height: 100%;
     }
 
     .white-form-section .action-button {
         display: none;
     }
+    .white-form-section .bank-tab .action-button{display: block !important;}
     .white-form-section .prev-button {
         display: none  !important;
     }
-    .white-form-section .flex-box{display: none;}
     header.bt .flex-box .new-btn-box a.dk {
         display: none;
     }
@@ -2412,6 +2414,35 @@
     }
     .white-form-section fieldset .dollar-box input{font-size: 30px;}
     .white-form-section .flex-box input.col-3{font-size: 30px;}
+    .white-form-section .bar{width: 90%;margin-left: auto;margin-top: 5px;}
+    .banner-section.form-banner .mobile-bar .prev-button {
+        position: absolute;
+        display: inline-block !important;
+        font-size: 0;
+        border: none;
+        padding: 0;
+        width: 22px;
+        height: 10px;
+        top: 0;
+      }
+      .banner-section.form-banner .mobile-bar .prev-button::after{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: all ease-in-out .2s;
+        opacity: .7;
+        background-size: contain;
+      }
+      .mobile-bar {
+        position: relative;
+      }
+      .white-form-section input,.white-form-section select,.white-form-section input.sm,.white-form-section .flex-box input.col-3,.white-form-section fieldset .dollar-box input{color: #a8a8a8;}
+      .white-form-section input.sm{border: 2px solid #CACACA;}
+      .banner-section.form-banner::after {display: none;}
+      .white-form-section{
+        width: 100%;
+      }
+      .button-box.flex-box #nextBtn{display: none !important;}
 }
 
 @media all and (max-width: 925px) {
@@ -2754,11 +2785,6 @@
     .banner-section.form-banner .heading-box h5 {
         font-size: 23px;
     }
-
-    .white-form-section {
-        background-color: transparent;
-    }
-
     .banner-section.form-banner::after {
         height: 63%;
     }
@@ -2935,7 +2961,7 @@
     }
 
     .banner-section.form-banner::after {
-        height: 62%;
+        height: 65%;
     }
 }
 
@@ -4575,7 +4601,7 @@
     .banner-section.form-banner::after {
         border-top-left-radius: 40px;
         border-top-right-radius: 40px;
-        height: 55%;
+        height: 60%;
     }
 
     .white-form-section .bar {
@@ -4594,11 +4620,7 @@
     .white-form-section .action-button {
         display: none;
     }
-
-    .banner-section.form-banner {
-        height: auto;
-    }
-
+    .white-form-section .bank-tab .action-button{display: block !important;}
     .white-form-section p {
         margin-bottom: 50px;
     }
@@ -4610,7 +4632,7 @@
     .banner-section.form-banner::after {
         border-top-left-radius: 30px;
         border-top-right-radius: 30px;
-        height: 60%;
+        height: 67%;
     }
     .white-form-section input.sm{
         width: 15%;
@@ -4657,9 +4679,35 @@ justify-content: space-between;
       }
       .encryption::after {display: none;}
       .thanks-box h4{font-size: 22px;width: 100%;}
+      .banner-section.form-banner .mobile-button #prevBtn{display: none;}
+      .white-form-section h3{font-size: 18px;}
+      ul.bank-list li h6{font-size: 17px;}
+      .bank-box .action-button::before {display: none;}
+      .white-form-section .bank-tab .action-button {
+        font-size: 14px;
+        padding: 20px 20px;
+        text-align: left;
+        width: 100%;
+      }
+      ul.bank-list li img{
+        width: 65px;
+        height: 65px;
+      }
+      .white-form-section .bank-tab .action-button{overflow: hidden;}
+      .banner-section.form-banner{padding-bottom: 0 !important;overflow: auto;}
+      .white-form-section {
+        background-color: #fff;
+        padding: 50px 20px;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+      }
+      .bank-box .action-button::after {left: 91%;}
+
 
 }
-
+@media all and (max-height: 640px){
+    .white-form-section form{padding-bottom: 50px;}
+}
 @media all and (max-width: 375px) {
     .merchant-request-send-sec.no-request .text h4 {
         font-size: 17px;

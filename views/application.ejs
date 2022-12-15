@@ -2,9 +2,21 @@
 <html lang="en">
 
 <head>
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+            new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+})(window, document, 'script', 'dataLayer', 'GTM-5WMHPDG');</script>
+<!-- End Google Tag Manager -->
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="canonical" href="https://www.lendinghat.com/sales/application" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/fab.png">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap"
@@ -44,13 +56,16 @@
 
   </style>
 </head>
-
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5WMHPDG"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 <body class="full-width">
   <header class="bt">
     <div class="new-container">
       <div class="flex-box">
         <div class="logo-box">
-          <a href=""><img src="/img/logo.svg" alt="" /></a>
+          <a href=""><img src="/img/lh-logo.svg" alt="" /></a>
         </div>
         <div class="new-btn-box">
           <a href="" class="dk"><img src="/img/phone-phn.png" alt="" />Call us at
@@ -67,6 +82,7 @@
         <h1>Small Business Lending Reimagined</h1>
         <h5>Simple Smart Technology for Better Loans</h5>
       </div>
+    </div>
       <div class="white-form-section">
         <form action="create-account" id="regForm" enctype="multipart/form-data" method="POST">
           <div class="loading">
@@ -76,7 +92,12 @@
           </div>
 
           <fieldset class="tab">
-            <div class="bar"></div>
+            <div class="mobile-bar">
+              <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)" style="">
+                Previous
+              </button>
+              <div class="bar"></div>
+            </div>
             <h3>Enter Your Full Name</h3>
             <input type="text" name="fullName" id="fullnameInput" placeholder="Full name" />
             <h5 style="color: red; display: none" id="nameinputerror"></h5>
@@ -88,7 +109,12 @@
           </fieldset>
 
           <fieldset class="tab">
-            <div class="bar"></div>
+            <div class="mobile-bar">
+              <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)" style="">
+                Previous
+              </button>
+              <div class="bar"></div>
+            </div>
             <h3>Enter Your Company Name</h3>
             <input type="text" name="cmpName" placeholder="Company name" />
             <h5 style="color: red; display: none"></h5>
@@ -96,7 +122,12 @@
           </fieldset>
 
           <fieldset class="tab">
-            <div class="bar"></div>
+            <div class="mobile-bar">
+              <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)" style="">
+                Previous
+              </button>
+              <div class="bar"></div>
+            </div>
             <h3>Select Your Business Industry</h3>
 
             <select name="industry" id="industryselect">
@@ -136,7 +167,12 @@
           </fieldset>
 
           <fieldset class="tab">
-            <div class="bar"></div>
+            <div class="mobile-bar">
+              <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)" style="">
+                Previous
+              </button>
+              <div class="bar"></div>
+            </div>
             <h3>Select Your Entity Type</h3>
 
             <select name="cmpType" required>
@@ -155,7 +191,12 @@
           </fieldset>
 
           <fieldset class="tab">
-            <div class="bar"></div>
+            <div class="mobile-bar">
+              <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)" style="">
+                Previous
+              </button>
+              <div class="bar"></div>
+            </div>
             <h3>Enter Your Business Start Date</h3>
             <!-- <div>
                 <input type="date" name="startDate" /> -->
@@ -190,7 +231,12 @@
 
 
           <fieldset class="tab">
-            <div class="bar"></div>
+            <div class="mobile-bar">
+              <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)" style="">
+                Previous
+              </button>
+              <div class="bar"></div>
+            </div>
             <h3>Enter Your Business Zip Code</h3>
 
 
@@ -226,7 +272,12 @@
 
 
           <fieldset class="tab">
-            <div class="bar"></div>
+            <div class="mobile-bar">
+              <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)" style="">
+                Previous
+              </button>
+              <div class="bar"></div>
+            </div>
             <h3>Enter your Request Loan Amount</h3>
             <div class="dollar-box">
               <input type="text" name="loanAmount" id="loanAmount" placeholder="$"  />
@@ -235,7 +286,12 @@
           </fieldset>
 
           <fieldset class="tab ">
-            <div class="bar"></div>
+            <div class="mobile-bar">
+              <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)" style="">
+                Previous
+              </button>
+              <div class="bar"></div>
+            </div>
             <h3>Enter your Annual Revenue</h3>
             <div class="dollar-box">
               <input type="text" name="annualRevenue" id="annualRevenuevalue" placeholder="$" />
@@ -245,7 +301,12 @@
           </fieldset>
 
           <fieldset class="tab">
-            <div class="bar"></div>
+            <div class="mobile-bar">
+              <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)" style="">
+                Previous
+              </button>
+              <div class="bar"></div>
+            </div>
             <h3>Select Your Credit Score</h3>
             <div class="selector">
 
@@ -277,7 +338,12 @@
           </fieldset>
 
           <fieldset class="tab">
-            <div class="bar"></div>
+            <div class="mobile-bar">
+              <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)" style="">
+                Previous
+              </button>
+              <div class="bar"></div>
+            </div>
             <h3>Select your Purpose of Loan</h3>
             <!-- <input name="purposeOfLone" /> -->
 
@@ -297,7 +363,12 @@
           </fieldset>
 
           <fieldset class="tab">
-            <div class="bar"></div>
+            <div class="mobile-bar">
+              <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)" style="">
+                Previous
+              </button>
+              <div class="bar"></div>
+            </div>
             <h3>Enter your Phone Number</h3>
             <!-- <input type="number" name="phone" placeholder="(+1)" maxlength="10"
               oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /> -->
@@ -309,8 +380,13 @@
             
           </fieldset>
 
-          <fieldset class="tab ">
-            <div class="bar"></div>
+          <fieldset class="tab bank-tab">
+            <div class="mobile-bar">
+              <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)" style="">
+                Previous
+              </button>
+              <div class="bar"></div>
+            </div>
             <div class="bank-box">
               <h3 >Please authenticate your bank accounts for loan processing & related documents</h3>
               <button type="button" class="action-button" id="link-button" >
@@ -342,7 +418,12 @@
 
 
           <fieldset class="tab">
-            <div class="bar"></div>
+            <div class="mobile-bar">
+              <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)" style="">
+                Previous
+              </button>
+              <div class="bar"></div>
+            </div>
             <h3>Upload Your Driving License</h3>
             <div class="file-box">
               <input type="file" name="drivinLicense" id="drivinLicense" placeholder="Choose Your File" class="file"
@@ -357,7 +438,12 @@
           </fieldset>
 
           <!-- <fieldset class="tab">
-            <div class="bar"></div>
+            <div class="mobile-bar">
+              <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)" style="">
+                Previous
+              </button>
+              <div class="bar"></div>
+            </div>
             <h3>Upload Previous 3 Months Bank Statements</h3>
             <div class="file-box">
               <input type="file" id="bankStatemets" name="bankStatemets" placeholder="Choose Your File" class="file"
@@ -368,7 +454,12 @@
           </fieldset> -->
 
           <fieldset class="tab">
-            <div class="bar"></div>
+            <div class="mobile-bar">
+              <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)" style="">
+                Previous
+              </button>
+              <div class="bar"></div>
+            </div>
             <h3>Upload Your Voided Check</h3>
             <div class="file-box">
               <input type="file" name="voided" id="voided" placeholder="Choose Your File" class="file"
@@ -382,7 +473,12 @@
           </fieldset>
 
           <fieldset class="encryption tab">
-            <div class="bar"></div>
+            <div class="mobile-bar">
+              <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)" style="">
+                Previous
+              </button>
+              <div class="bar"></div>
+            </div>
             <h3>Enter Your SSN (243 bit encryption)</h3>
             <input type="text" name="ssn" placeholder="Enter Your Number" onkeydown="ssnFormatter()" id="ssninputbox" />
             <h5 style="color: red; display: none"></h5>
@@ -391,14 +487,24 @@
           </fieldset>
 
           <fieldset class="tab">
-            <div class="bar"></div>
+            <div class="mobile-bar">
+              <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)" style="">
+                Previous
+              </button>
+              <div class="bar"></div>
+            </div>
             <h3>Enter Your email</h3>
             <input type="text" name="email" placeholder="Type your email" />
             <h5 style="color: red; display: none"></h5>
           </fieldset>
 
           <fieldset class="tab">
-            <div class="bar"></div>
+            <div class="mobile-bar">
+              <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)" style="">
+                Previous
+              </button>
+              <div class="bar"></div>
+            </div>
             <h3>Enter Your Tax ID #</h3>
             <input type="text" name="taxId" placeholder="Type your ID" onkeydown="taxidFormatter()"
               id="taxidinputbox" />
@@ -431,7 +537,7 @@
           </div>       -->
         </div>
       </div>
-    </div>
+    
    <div class="mobile-button">
     <button type="button" class="next prev-button mobile-btn" id="prevBtn" onclick="nextPrev(-1)"
     style="">
@@ -440,6 +546,7 @@
     <button type="submit" class="next action-button mobile-btn" id="nextBtn" onclick="nextPrev(1)">
       Continue
     </button>
+    
    </div>
 
   </div>
